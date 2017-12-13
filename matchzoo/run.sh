@@ -1,5 +1,5 @@
-nohup python main.py --phase train --model_file models/wikiqa_config/drmm_wikiqa.config > ./logs/log.drmm.1212 &
-# python main.py --phase predict --model_file models/wikiqa_config/drmm_wikiqa.config
+# nohup python main.py --phase train --model_file models/wikiqa_config/drmm_wikiqa.config > ./logs/log.drmm.1212 &
+python main.py --phase predict --model_file models/wikiqa_config/drmm_wikiqa.config
 
 # nohup python main.py --phase train --model_file models/wikiqa_config/bimpm_wikiqa.config > ./logs/log.bimpm.1213 &
 # python main.py --phase predict --model_file models/wikiqa_config/bimpm_wikiqa.config
