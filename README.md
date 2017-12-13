@@ -95,6 +95,8 @@ python matchzoo/main.py --phase predict --model_file examples/wikiqa/config/drmm
 ```
 
 We have compared 10 models, the results are as follows.
+
+I will update more models.
 <table>
   <tr>
     <th width=10%, bgcolor=#999999 >Models</th> 
