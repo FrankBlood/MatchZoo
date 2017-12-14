@@ -166,21 +166,21 @@ I will update more models.
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> EAttention </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.5981 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6621 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6170 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6003 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6622 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6153 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ELSTMAttention </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6018 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6539 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6102 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6105 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6782 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6298 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiMPM </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6318 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6893 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6375 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6268 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6988 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6370 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MergedAttention </td>
