@@ -1,13 +1,13 @@
-# nohup python main.py --phase train --model_file models/wikiqa_config/drmm_wikiqa.config > ./logs/log.drmm.1212 &
-python main.py --phase predict --model_file models/wikiqa_config/drmm_wikiqa.config
+# nohup python main.py --phase train --model_file models/wikiqa_config/drmm_wikiqa.config > ./logs/log.drmm.1214 &
+# python main.py --phase predict --model_file models/wikiqa_config/drmm_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/bimpm_wikiqa.config > ./logs/log.bimpm.1213 &
+nohup python main.py --phase train --model_file models/wikiqa_config/bimpm_wikiqa.config > ./logs/log.bimpm.1214 &
 # python main.py --phase predict --model_file models/wikiqa_config/bimpm_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/eattention_wikiqa.config > ./logs/log.eattention.1212 &
+# nohup python main.py --phase train --model_file models/wikiqa_config/eattention_wikiqa.config > ./logs/log.eattention.1214 &
 # python main.py --phase predict --model_file models/wikiqa_config/eattention_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/elstmattention_wikiqa.config > ./logs/log.elstmattention.1211 &
+# nohup python main.py --phase train --model_file models/wikiqa_config/elstmattention_wikiqa.config > ./logs/log.elstmattention.1214 &
 # python main.py --phase predict --model_file models/wikiqa_config/elstmattention_wikiqa.config
 
 # nohup python main.py --phase train --model_file models/wikiqa_config/mergedattention_wikiqa.config > ./logs/log.mergedattention.1211 &

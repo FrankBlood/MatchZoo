@@ -129,4 +129,5 @@ class DUET(BasicModel):
             out_ = Dense(2, activation='softmax')(out_)
             show_layer_info('Dense', out_)
         model = Model(inputs=[query, doc], outputs=out_)
+        model.summary()
         return model
