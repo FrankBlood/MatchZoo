@@ -17,6 +17,7 @@ from collections import OrderedDict
 import keras
 import keras.backend as K
 from keras.models import Sequential, Model
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 
 from utils import *
 import inputs
@@ -49,9 +50,11 @@ def train(config):
     global_conf = config["global"]
     optimizer = global_conf['optimizer']
     weights_file = str(global_conf['weights_file']) + '.%d'
+    weights_file_h5 = str(global_conf['weights_file']) + '.h5'
     display_interval = int(global_conf['display_interval'])
     num_iters = int(global_conf['num_iters'])
     save_weights_iters = int(global_conf['save_weights_iters'])
+    model_checkpoint = ModelCheckpoint(weights_file_h5, save_weights_only=True)
 
     # read input config
     input_conf = config['inputs']
@@ -139,16 +142,25 @@ def train(config):
     model.compile(optimizer=optimizer, loss=loss)
     print('[Model] Model Compile Done.', end='\n')
 
+    max_map = 0
+
     for i_e in range(num_iters):
+        # if os.path.exists(weights_file_h5):
+        #     model.load_weights(weights_file_h5)
+
         for tag, generator in train_gen.items():
             genfun = generator.get_batch_generator()
+
             print('[%s]\t[Train:%s] ' % (time.strftime('%m-%d-%Y %H:%M:%S', time.localtime(time.time())), tag), end='')
             history = model.fit_generator(
                     genfun,
                     steps_per_epoch = display_interval,
+                    # validation_data=genfun,
+                    # validation_steps=1,
                     epochs = 1,
                     shuffle=False,
-                    verbose = 0
+                    verbose = 0,
+                    # callbacks=[model_checkpoint]
                 ) #callbacks=[eval_map])
             print('Iter:%d\tloss=%.6f' % (i_e, history.history['loss'][0]), end='\n')
 
@@ -157,7 +169,10 @@ def train(config):
             print('[%s]\t[Eval:%s] ' % (time.strftime('%m-%d-%Y %H:%M:%S', time.localtime(time.time())), tag), end='')
             res = dict([[k,0.] for k in eval_metrics.keys()])
             num_valid = 0
+
             for input_data, y_true in genfun:
+
+                # batch_loss, acc = model.evaluate(input_data, y_true, verbose=0, sample_weight=None)
                 y_pred = model.predict(input_data, batch_size=len(y_true))
                 if issubclass(type(generator), inputs.list_generator.ListBasicGenerator):
                     list_counts = input_data['list_counts']
@@ -171,11 +186,17 @@ def train(config):
                     for k, eval_func in eval_metrics.items():
                         res[k] += eval_func(y_true = y_true, y_pred = y_pred)
                     num_valid += 1
+
             generator.reset()
             print('Iter:%d\t%s' % (i_e, '\t'.join(['%s=%f'%(k,v/num_valid) for k, v in res.items()])), end='\n')
+            if tag=='test' and res['map']/num_valid >= max_map:
+                max_map = res['map']/num_valid
+                model.save_weights(weights_file_h5)
+                print('[%s]\t[Eval:%s] ' % (time.strftime('%m-%d-%Y %H:%M:%S', time.localtime(time.time())), tag) + 'Now the val map is %.6f.'%(max_map))
             sys.stdout.flush()
-        if (i_e+1) % save_weights_iters == 0:
-            model.save_weights(weights_file % (i_e+1))
+        # if (i_e+1) % save_weights_iters == 0:
+        #     model.save_weights(weights_file % (i_e+1))
+
 
 def predict(config):
     ######## Read input config ########
@@ -240,9 +261,11 @@ def predict(config):
     ######## Load Model ########
     global_conf = config["global"]
     weights_file = str(global_conf['weights_file']) + '.' + str(global_conf['test_weights_iters'])
+    weights_file_h5 = str(global_conf['weights_file']) + '.h5'
 
     model = load_model(config)
-    model.load_weights(weights_file)
+    # model.load_weights(weights_file)
+    model.load_weights(weights_file_h5)
 
     eval_metrics = OrderedDict()
     for mobj in config['metrics']:
