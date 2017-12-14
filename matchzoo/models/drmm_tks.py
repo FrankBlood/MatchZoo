@@ -87,4 +87,5 @@ class DRMM_TKS(BasicModel):
         show_layer_info('Dense', out_)
 
         model = Model(inputs=[query, doc], outputs=out_)
+        model.summary()
         return model

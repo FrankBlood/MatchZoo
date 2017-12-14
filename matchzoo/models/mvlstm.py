@@ -71,4 +71,5 @@ class MVLSTM(BasicModel):
 
         #model = Model(inputs=[query, doc, dpool_index], outputs=out_)
         model = Model(inputs=[query, doc], outputs=out_)
+        model.summary()
         return model
