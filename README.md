@@ -141,6 +141,12 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6195 </td>
   </tr>
   <tr>
+  	 <td align="center", bgcolor=#eeeeee> DRMM_Hegx </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6125 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6646 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6220 </td>
+  </tr>
+  <tr>
      <td align="center", bgcolor=#eeeeee> aNMM </td>
      <td align="center", bgcolor=#eeeeee> 0.6160 </td>
      <td align="center", bgcolor=#eeeeee> 0.6696 </td>
@@ -178,9 +184,9 @@ I will update more models.
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiMPM </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6268 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6988 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6370 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6322 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6889 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6423 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MergedAttention </td>
