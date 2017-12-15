@@ -190,9 +190,9 @@ I will update more models.
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MergedAttention </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.5738 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6436 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.5995 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6074 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6632 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6221 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiGRU </td>
