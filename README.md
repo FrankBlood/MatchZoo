@@ -111,10 +111,22 @@ I will update more models.
     <td align="center", bgcolor=#eeeeee> 0.3840 </td>
   </tr>
   <tr>
+    <td align="center", bgcolor=#eeeeee> DSSM_Mine </td>
+    <td align="center", bgcolor=#eeeeee> 0.5680 </td>
+    <td align="center", bgcolor=#eeeeee> 0.6352 </td>
+    <td align="center", bgcolor=#eeeeee> 0.5833 </td>
+  </tr>
+  <tr>
   	 <td align="center", bgcolor=#eeeeee> CDSSM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5489 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6084</td>
   	 <td align="center", bgcolor=#eeeeee> 0.5593 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> CDSSM_Mine </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4407 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5219 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4652 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ARC-I </td>
@@ -123,10 +135,22 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.5870 </td>
   </tr>
   <tr>
+  	 <td align="center", bgcolor=#eeeeee> ARC-I_Mine </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5793 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6360 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5934 </td>
+  </tr>
+  <tr>
   	 <td align="center", bgcolor=#eeeeee> ARC-II </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5647 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6176 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5845 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> ARC-II_Mine </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5651 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6238 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5911 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MV-LSTM </td>
@@ -153,10 +177,22 @@ I will update more models.
      <td align="center", bgcolor=#eeeeee> 0.6297 </td>
   </tr>
   <tr>
+     <td align="center", bgcolor=#eeeeee> aNMM_Mine </td>
+     <td align="center", bgcolor=#eeeeee> 0.6249 </td>
+     <td align="center", bgcolor=#eeeeee> 0.6691 </td>
+     <td align="center", bgcolor=#eeeeee> 0.6283 </td>
+  </tr>
+  <tr>
   	 <td align="center", bgcolor=#eeeeee> DUET </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6065 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6722 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6301 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> DUET_Mine </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6322 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6773 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6500 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MatchPyramid </td>
@@ -196,21 +232,21 @@ I will update more models.
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiGRU </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.5877 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6398 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.5910 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6152 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6733 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6293 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiLSTM </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.5880 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6424 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6057 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6010 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6679 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6264 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MultiBiGRU </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.5678 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6288 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.5762 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5907 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6612 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6135 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MultiBiLSTM </td>
