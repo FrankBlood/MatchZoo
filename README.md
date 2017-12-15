@@ -178,9 +178,9 @@ I will update more models.
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ELSTMAttention </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6105 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6782 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6298 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6212 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6816 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6332 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiMPM </td>
