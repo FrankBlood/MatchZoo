@@ -28,6 +28,13 @@ config = tensorflow.ConfigProto()
 config.gpu_options.allow_growth = True
 sess = tensorflow.Session(config = config)
 
+# from keras.backend.tensorflow_backend import set_session
+# num_threads = os.environ.get('OMP_NUM_THREADS')
+# gpu_options = tensorflow.GPUOptions(per_process_gpu_memory_fraction=0.5)
+# config=tensorflow.ConfigProto(gpu_options=gpu_options, intra_op_parallelism_threads=num_threads)
+# # config.gpu_options.allow_growth = True
+# set_session(tensorflow.Session(config=config))
+
 def load_model(config):
     global_conf = config["global"]
     model_type = global_conf['model_type']
