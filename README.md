@@ -172,9 +172,9 @@ I will update more models.
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> EAttention </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6003 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6622 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6153 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6129 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6698 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6326 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ELSTMAttention </td>
@@ -184,9 +184,9 @@ I will update more models.
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiMPM </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6322 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6889 </td>
-  	 <td align="center", bgcolor=#eeeeee> 0.6423 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6370 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.7050 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6498 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MergedAttention </td>
