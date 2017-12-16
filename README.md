@@ -111,7 +111,7 @@ I will update more models.
     <td align="center", bgcolor=#eeeeee> 0.3840 </td>
   </tr>
   <tr>
-    <td align="center", bgcolor=#eeeeee> DSSM_Mine </td>
+    <td align="center", bgcolor=#eeeeee> DSSM_Hegx </td>
     <td align="center", bgcolor=#eeeeee> 0.5680 </td>
     <td align="center", bgcolor=#eeeeee> 0.6352 </td>
     <td align="center", bgcolor=#eeeeee> 0.5833 </td>
@@ -123,7 +123,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.5593 </td>
   </tr>
   <tr>
-  	 <td align="center", bgcolor=#eeeeee> CDSSM_Mine </td>
+  	 <td align="center", bgcolor=#eeeeee> CDSSM_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.4407 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5219 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.4652 </td>
@@ -135,7 +135,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.5870 </td>
   </tr>
   <tr>
-  	 <td align="center", bgcolor=#eeeeee> ARC-I_Mine </td>
+  	 <td align="center", bgcolor=#eeeeee> ARC-I_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5793 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6360 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5934 </td>
@@ -147,7 +147,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.5845 </td>
   </tr>
   <tr>
-  	 <td align="center", bgcolor=#eeeeee> ARC-II_Mine </td>
+  	 <td align="center", bgcolor=#eeeeee> ARC-II_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5651 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6238 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5911 </td>
@@ -157,6 +157,12 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.5818 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6452 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5988 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> MV-LSTM_Hegx </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6168 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6667 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6316 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> DRMM </td>
@@ -177,7 +183,7 @@ I will update more models.
      <td align="center", bgcolor=#eeeeee> 0.6297 </td>
   </tr>
   <tr>
-     <td align="center", bgcolor=#eeeeee> aNMM_Mine </td>
+     <td align="center", bgcolor=#eeeeee> aNMM_Hegx </td>
      <td align="center", bgcolor=#eeeeee> 0.6249 </td>
      <td align="center", bgcolor=#eeeeee> 0.6691 </td>
      <td align="center", bgcolor=#eeeeee> 0.6283 </td>
@@ -189,7 +195,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6301 </td>
   </tr>
   <tr>
-  	 <td align="center", bgcolor=#eeeeee> DUET_Mine </td>
+  	 <td align="center", bgcolor=#eeeeee> DUET_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6322 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6773 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6500 </td>
@@ -201,16 +207,40 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6434 </td>
   </tr>
   <tr>
+  	 <td align="center", bgcolor=#eeeeee> MatchPyramid_Hegx </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6160 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6689 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6215 </td>
+  </tr>
+  <tr>
   	 <td align="center", bgcolor=#eeeeee> DRMM_TKS </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6458 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6956 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6586 </td>
   </tr>
   <tr>
+  	 <td align="center", bgcolor=#eeeeee> DRMM_TKS_Hegx </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6500 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6958 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6555 </td>
+  </tr>  
+  <tr>
   	 <td align="center", bgcolor=#eeeeee> EAttention </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6129 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6698 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6326 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> ESelfAttention </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5815 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6392 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6022 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> ECrossAttention </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5787 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6423 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6052 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ELSTMAttention </td>
