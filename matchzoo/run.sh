@@ -58,20 +58,20 @@
 # nohup python main.py --phase train --model_file models/wikiqa_config/ecrossattention_wikiqa.config > ./logs/log.ecrossattention.1215 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecrossattention_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention_wikiqa.config > ./logs/log.ecautiousattention.1216 &
+nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention_wikiqa.config > ./logs/log.ecautiousattention.1218 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecautiousattention_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention1_wikiqa.config > ./logs/log.ecautiousattention1.1216 &
+# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention1_wikiqa.config > ./logs/log.ecautiousattention1.1217 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecautiousattention1_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention2_wikiqa.config > ./logs/log.ecautiousattention2.1216 &
+# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention2_wikiqa.config > ./logs/log.ecautiousattention2.1217 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecautiousattention2_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention3_wikiqa.config > ./logs/log.ecautiousattention3.1216 &
+# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention3_wikiqa.config > ./logs/log.ecautiousattention3.1217 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecautiousattention3_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention4_wikiqa.config > ./logs/log.ecautiousattention4.1216 &
+# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention4_wikiqa.config > ./logs/log.ecautiousattention4.1217 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecautiousattention4_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattentionall_wikiqa.config > ./logs/log.ecautiousattentionall.1216 &
-python main.py --phase predict --model_file models/wikiqa_config/ecautiousattentionall_wikiqa.config
+# nohup python main.py --phase train --model_file models/wikiqa_config/innerattention_wikiqa.config > ./logs/log.innerattention.1217 &
+# python main.py --phase predict --model_file models/wikiqa_config/innerattention_wikiqa.config

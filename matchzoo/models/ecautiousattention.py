@@ -42,38 +42,48 @@ class ECautiousAttention(BasicModel):
         def get_last_state(bidirection):
             return concatenate([bidirection[:, -1, :self.config['hidden_size']], bidirection[:, 0, self.config['hidden_size']:]])
 
+        embedding = Embedding(self.config['vocab_size'], self.config['embed_size'], weights=[self.config['embed']],
+                              trainable=self.embed_trainable)
+        conv1d = Conv1D(filters=self.config['hidden_size']/2, kernel_size=3, padding='valid', activation='relu')
+        convert = Dense(self.config['hidden_size']/2, activation='tanh')
+        transfer = Conv1D(filters=self.config['hidden_size']/2, kernel_size=1, padding='same', activation='relu')
+        rnn_with_seq = Bidirectional(GRU(units=self.config['hidden_size'], dropout=self.config['dropout_rate'],
+                                         recurrent_dropout=self.config['dropout_rate'], return_sequences=True))
+
         query = Input(name='query', shape=(self.config['text1_maxlen'],))
         show_layer_info('Input', query)
         doc = Input(name='doc', shape=(self.config['text2_maxlen'],))
         show_layer_info('Input', doc)
 
-        embedding = Embedding(self.config['vocab_size'], self.config['embed_size'], weights=[self.config['embed']], trainable = self.embed_trainable)
         q_embed = embedding(query)
         show_layer_info('Embedding', q_embed)
         d_embed = embedding(doc)
         show_layer_info('Embedding', d_embed)
 
-        conv1d = Conv1D(filters=32, kernel_size=3, padding='same', activation='relu')
-        rnn_with_seq = Bidirectional(GRU(units=self.config['hidden_size'], dropout=self.config['dropout_rate'],
-                                         recurrent_dropout=self.config['dropout_rate'], return_sequences=True))
         q_conv = conv1d(q_embed)
         q_conv = Dropout(self.config['dropout_rate'])(q_conv)
         show_layer_info("Conv1D Q", q_conv)
         q_global_pool = GlobalMaxPooling1D()(q_conv)
+        q_global_pool = convert(q_global_pool)
         show_layer_info("Global Max Pooling Q", q_global_pool)
-        q_global_pool_repeat = RepeatVector(self.config['text1_maxlen'])(q_global_pool)
-        show_layer_info("Repeat Global Max Pooling Q", q_global_pool_repeat)
-        merge_embed_conv_q = concatenate([q_embed, q_global_pool_repeat])
+        # q_global_pool_repeat = RepeatVector(self.config['text1_maxlen'])(q_global_pool)
+        # show_layer_info("Repeat Global Max Pooling Q", q_global_pool_repeat)
+        # merge_embed_conv_q = concatenate([q_embed, q_global_pool_repeat])
+        merge_embed_conv_q = multiply([q_embed, q_global_pool])
+        merge_embed_conv_q = transfer(merge_embed_conv_q)
         show_layer_info("Merge Embed and Conv of Q", merge_embed_conv_q)
 
         d_conv = conv1d(d_embed)
         d_conv = Dropout(self.config['dropout_rate'])(d_conv)
         show_layer_info("Conv1D D", d_conv)
         d_global_pool = GlobalMaxPooling1D()(d_conv)
-        show_layer_info("Global Max Pooling Q", d_global_pool)
-        d_global_pool_repeat = RepeatVector(self.config['text2_maxlen'])(d_global_pool)
-        show_layer_info("Repeat Global Max Pooling D", d_global_pool_repeat)
-        merge_embed_conv_d = concatenate([d_embed, d_global_pool_repeat])
+        d_global_pool = convert(d_global_pool)
+        show_layer_info("Global Max Pooling D", d_global_pool)
+        # d_global_pool_repeat = RepeatVector(self.config['text2_maxlen'])(d_global_pool)
+        # show_layer_info("Repeat Global Max Pooling D", d_global_pool_repeat)
+        # merge_embed_conv_d = concatenate([d_embed, d_global_pool_repeat])
+        merge_embed_conv_d = multiply([d_embed, d_global_pool])
+        merge_embed_conv_d = transfer(merge_embed_conv_d)
         show_layer_info("Merge Embed and Conv of D", merge_embed_conv_d)
 
         q_rep = rnn_with_seq(merge_embed_conv_q)
@@ -91,11 +101,11 @@ class ECautiousAttention(BasicModel):
         # attention = Dropout(self.config['dropout_rate'])(attention)
         show_layer_info('Attention', attention)
 
-        attention_q = dot([q_rep, attention], axes=-1)
+        attention_q = dot([q_rep, attention], axes=-1, normalize=True)
         attention_q = Activation('softmax')(attention_q)
         show_layer_info('Attention of Q', attention_q)
 
-        attention_d = dot([d_rep, attention], axes=-1)
+        attention_d = dot([d_rep, attention], axes=-1, normalize=True)
         attention_d = Activation('softmax')(attention_d)
         show_layer_info('Attention of D', attention_d)
 
