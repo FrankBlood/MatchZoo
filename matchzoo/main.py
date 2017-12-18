@@ -183,7 +183,6 @@ def train(config):
                 if issubclass(type(generator), inputs.list_generator.ListBasicGenerator):
                     list_counts = input_data['list_counts']
                     for k, eval_func in eval_metrics.items():
-                        print(k)
                         for lc_idx in range(len(list_counts)-1):
                             pre = list_counts[lc_idx]
                             suf = list_counts[lc_idx+1]
