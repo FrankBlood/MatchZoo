@@ -116,7 +116,7 @@ I will update more models.
     <td align="center", bgcolor=#eeeeee> DSSM_Hegx </td>
     <td align="center", bgcolor=#eeeeee> 0.5680 </td>
     <td align="center", bgcolor=#eeeeee> 0.6352 </td>
-    <td align="center", bgcolor=#eeeeee> None </td>
+    <td align="center", bgcolor=#eeeeee> 0.4008 </td>
     <td align="center", bgcolor=#eeeeee> 0.5833 </td>
   </tr>
   <tr>
@@ -144,7 +144,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> ARC-I_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5793 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6360 </td>
-  	 <td align="center", bgcolor=#eeeeee> None </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4473 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5934 </td>
   </tr>
   <tr>
@@ -158,7 +158,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> ARC-II_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5651 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6238 </td>
-  	 <td align="center", bgcolor=#eeeeee> None </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4473 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5911 </td>
   </tr>
   <tr>
@@ -172,7 +172,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> MV-LSTM_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6168 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6667 </td>
-  	 <td align="center", bgcolor=#eeeeee> None </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5021 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6316 </td>
   </tr>
   <tr>
@@ -200,7 +200,7 @@ I will update more models.
      <td align="center", bgcolor=#eeeeee> aNMM_Hegx </td>
      <td align="center", bgcolor=#eeeeee> 0.6249 </td>
      <td align="center", bgcolor=#eeeeee> 0.6691 </td>
-     <td align="center", bgcolor=#eeeeee> None </td>
+     <td align="center", bgcolor=#eeeeee> 0.4852 </td>
      <td align="center", bgcolor=#eeeeee> 0.6283 </td>
   </tr>
   <tr>
@@ -214,7 +214,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> DUET_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6322 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6773 </td>
-  	 <td align="center", bgcolor=#eeeeee> None </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5232 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6500 </td>
   </tr>
   <tr>
@@ -228,7 +228,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> MatchPyramid_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6160 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6689 </td>
-  	 <td align="center", bgcolor=#eeeeee> None </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4641 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6215 </td>
   </tr>
   <tr>
@@ -242,7 +242,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> DRMM_TKS_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6500 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6958 </td>
-  	 <td align="center", bgcolor=#eeeeee> None </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5148 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6555 </td>
   </tr>  
   <tr>
