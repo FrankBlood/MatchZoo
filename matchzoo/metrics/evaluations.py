@@ -63,7 +63,7 @@ def ndcg(k=10):
             return ndcg / idcg
     return top_k
 
-def precision(k=10):
+def precision(k=1):
     def top_k(y_true, y_pred, rel_threshold=0.):
         if k <= 0:
             return 0.
@@ -86,7 +86,7 @@ def precision(k=10):
 
 # compute recall@k
 # the input is all documents under a single query
-def recall(k=10):
+def recall(k=1):
     def top_k(y_true, y_pred, rel_threshold=0.):
         if k <= 0:
             return 0.
