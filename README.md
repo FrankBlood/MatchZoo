@@ -102,12 +102,14 @@ I will update more models.
     <th width=10%, bgcolor=#999999 >Models</th> 
     <th width=20%, bgcolor=#999999>NDCG@3</th>
     <th width="20%", bgcolor=#999999>NDCG@5</th>
+    <th width="20%", bgcolor=#999999>PRECISION@1</th>
     <th width="20%", bgcolor=#999999>MAP</th>
   </tr>
   <tr>
     <td align="center", bgcolor=#eeeeee> DSSM </td>
     <td align="center", bgcolor=#eeeeee> 0.3412 </td>
     <td align="center", bgcolor=#eeeeee> 0.4179 </td>
+    <td align="center", bgcolor=#eeeeee> None </td>
     <td align="center", bgcolor=#eeeeee> 0.3840 </td>
   </tr>
   <tr>
@@ -120,168 +122,196 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> CDSSM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5489 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6084</td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5593 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> CDSSM_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.4407 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5219 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.4652 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ARC-I </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5680 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6317 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5870 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ARC-I_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5793 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6360 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5934 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ARC-II </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5647 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6176 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5845 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ARC-II_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5651 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6238 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5911 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MV-LSTM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5818 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6452 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5988 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MV-LSTM_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6168 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6667 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6316 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> DRMM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6107 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6621 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6195 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> DRMM_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6125 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6646 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4768 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6220 </td>
   </tr>
   <tr>
      <td align="center", bgcolor=#eeeeee> aNMM </td>
      <td align="center", bgcolor=#eeeeee> 0.6160 </td>
      <td align="center", bgcolor=#eeeeee> 0.6696 </td>
+     <td align="center", bgcolor=#eeeeee> None </td>
      <td align="center", bgcolor=#eeeeee> 0.6297 </td>
   </tr>
   <tr>
      <td align="center", bgcolor=#eeeeee> aNMM_Hegx </td>
      <td align="center", bgcolor=#eeeeee> 0.6249 </td>
      <td align="center", bgcolor=#eeeeee> 0.6691 </td>
+     <td align="center", bgcolor=#eeeeee> None </td>
      <td align="center", bgcolor=#eeeeee> 0.6283 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> DUET </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6065 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6722 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6301 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> DUET_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6322 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6773 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6500 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MatchPyramid </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6317 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6913 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6434 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MatchPyramid_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6160 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6689 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6215 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> DRMM_TKS </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6458 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6956 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6586 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> DRMM_TKS_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6500 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6958 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6555 </td>
   </tr>  
   <tr>
   	 <td align="center", bgcolor=#eeeeee> EAttention </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6129 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6698 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4979 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6326 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ESelfAttention </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5815 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6392 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6022 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ECrossAttention </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5787 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6423 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6052 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> ELSTMAttention </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6212 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6816 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4852 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6332 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiMPM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6370 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.7050 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5232 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6498 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MergedAttention </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6074 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6632 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4852 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6221 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiGRU </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6152 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6733 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4895 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6293 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> BiLSTM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6010 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6679 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4895 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6264 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MultiBiGRU </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5907 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6612 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4852 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6135 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MultiBiLSTM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5694 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6331 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4768 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5845 </td>
   </tr>
  
