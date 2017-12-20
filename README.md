@@ -253,6 +253,20 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6326 </td>
   </tr>
   <tr>
+  	 <td align="center", bgcolor=#eeeeee> EAttention_100d </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6273 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6766 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4810 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6319 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> ECautiousAttention </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5549 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6255 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4051 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5758 </td>
+  </tr>
+  <tr>
   	 <td align="center", bgcolor=#eeeeee> ESelfAttention </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5815 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6392 </td>
@@ -274,11 +288,25 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6332 </td>
   </tr>
   <tr>
+  	 <td align="center", bgcolor=#eeeeee> ELSTMAttention_100d </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6329 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6816 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5148 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6451 </td>
+  </tr>
+  <tr>
   	 <td align="center", bgcolor=#eeeeee> BiMPM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6370 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.7050 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5232 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6498 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> BiMPM_100d </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6516 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.7170 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5485 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6691 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MergedAttention </td>
@@ -295,11 +323,25 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6293 </td>
   </tr>
   <tr>
+  	 <td align="center", bgcolor=#eeeeee> BiGRU_100d </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6227 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6803 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4979 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6355 </td>
+  </tr>
+  <tr>
   	 <td align="center", bgcolor=#eeeeee> BiLSTM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6010 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6679 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.4895 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6264 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> BiLSTM_100d </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6072 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6636 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4810 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6240 </td>
   </tr>
   <tr>
   	 <td align="center", bgcolor=#eeeeee> MultiBiGRU </td>
