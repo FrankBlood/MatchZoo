@@ -42,11 +42,21 @@ class ECautiousAttention(BasicModel):
         def get_last_state(bidirection):
             return concatenate([bidirection[:, -1, :self.config['hidden_size']], bidirection[:, 0, self.config['hidden_size']:]])
 
+        # 第一种匹配方式
+        def full_matching(x):
+            context, last_state = x
+            # context = BatchNormalization()(context)
+            # last_state = BatchNormalization()(last_state)
+            matching = multiply([context, last_state])
+            matching = Conv1D(filters=self.config['hidden_size'], kernel_size=1, activation='tanh')(matching)
+            return matching
+
         embedding = Embedding(self.config['vocab_size'], self.config['embed_size'], weights=[self.config['embed']],
                               trainable=self.embed_trainable)
-        conv1d = Conv1D(filters=self.config['hidden_size']/2, kernel_size=3, padding='valid', activation='relu')
-        convert = Dense(self.config['hidden_size']/2, activation='tanh')
-        transfer = Conv1D(filters=self.config['hidden_size']/2, kernel_size=1, padding='same', activation='relu')
+        conv1d = Conv1D(filters=self.config['hidden_size'], kernel_size=3, padding='valid', activation='relu')
+        convert = Dense(self.config['embed_size'], activation='tanh')
+        transfer = Conv1D(filters=self.config['hidden_size'], kernel_size=1, padding='same', activation='tanh')
+        extract = Conv1D(filters=self.config['hidden_size'], kernel_size=1, padding='same', activation='relu')
         rnn_with_seq = Bidirectional(GRU(units=self.config['hidden_size'], dropout=self.config['dropout_rate'],
                                          recurrent_dropout=self.config['dropout_rate'], return_sequences=True))
 
@@ -66,12 +76,6 @@ class ECautiousAttention(BasicModel):
         q_global_pool = GlobalMaxPooling1D()(q_conv)
         q_global_pool = convert(q_global_pool)
         show_layer_info("Global Max Pooling Q", q_global_pool)
-        # q_global_pool_repeat = RepeatVector(self.config['text1_maxlen'])(q_global_pool)
-        # show_layer_info("Repeat Global Max Pooling Q", q_global_pool_repeat)
-        # merge_embed_conv_q = concatenate([q_embed, q_global_pool_repeat])
-        merge_embed_conv_q = multiply([q_embed, q_global_pool])
-        merge_embed_conv_q = transfer(merge_embed_conv_q)
-        show_layer_info("Merge Embed and Conv of Q", merge_embed_conv_q)
 
         d_conv = conv1d(d_embed)
         d_conv = Dropout(self.config['dropout_rate'])(d_conv)
@@ -79,17 +83,17 @@ class ECautiousAttention(BasicModel):
         d_global_pool = GlobalMaxPooling1D()(d_conv)
         d_global_pool = convert(d_global_pool)
         show_layer_info("Global Max Pooling D", d_global_pool)
-        # d_global_pool_repeat = RepeatVector(self.config['text2_maxlen'])(d_global_pool)
-        # show_layer_info("Repeat Global Max Pooling D", d_global_pool_repeat)
-        # merge_embed_conv_d = concatenate([d_embed, d_global_pool_repeat])
-        merge_embed_conv_d = multiply([d_embed, d_global_pool])
-        merge_embed_conv_d = transfer(merge_embed_conv_d)
-        show_layer_info("Merge Embed and Conv of D", merge_embed_conv_d)
 
-        q_rep = rnn_with_seq(merge_embed_conv_q)
-        show_layer_info('Bidirectional-GRU', q_rep)
-        d_rep = rnn_with_seq(merge_embed_conv_d)
-        show_layer_info('Bidirectional-GRU', d_rep)
+        # 计算多角度matching向量
+        matching_q = Lambda(lambda x: full_matching(x))([q_embed, d_global_pool])
+        show_layer_info('Matching of query', matching_q)
+        matching_d = Lambda(lambda x: full_matching(x))([d_embed, q_global_pool])
+        show_layer_info('Matching of doc', matching_d)
+
+        q_rep = rnn_with_seq(matching_q)
+        show_layer_info('Bidirectional-GRU of Q', q_rep)
+        d_rep = rnn_with_seq(matching_d)
+        show_layer_info('Bidirectional-GRU of D', d_rep)
 
         q_rep_last_state = Lambda(lambda x: get_last_state(x))(q_rep)
         show_layer_info('Last state-Q-representation', q_rep_last_state)

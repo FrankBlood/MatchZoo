@@ -15,18 +15,18 @@ sys.path.append('../matchzoo/utils/')
 from Match import *
 from utility import *
 
-class ECautiousAttention1(BasicModel):
+class ECautiousBiMPM(BasicModel):
     def __init__(self, config):
-        super(ECautiousAttention1, self).__init__(config)
-        self.__name = 'ECautiousAttention1'
+        super(ECautiousBiMPM, self).__init__(config)
+        self.__name = 'ECautiousBiMPM'
         self.check_list = [ 'text1_maxlen', 'text2_maxlen',
                    'embed', 'embed_size', 'train_embed',  'vocab_size',
                    'hidden_size', 'topk', 'dropout_rate']
         self.embed_trainable = config['train_embed']
         self.setup(config)
         if not self.check():
-            raise TypeError('[ECautiousAttention1] parameter check wrong')
-        print('[ECautiousAttention1] init done', end='\n')
+            raise TypeError('[ECautiousBiMPM] parameter check wrong')
+        print('[ECautiousBiMPM] init done', end='\n')
 
     def setup(self, config):
         if not isinstance(config, dict):
@@ -42,6 +42,28 @@ class ECautiousAttention1(BasicModel):
         def get_last_state(bidirection):
             return concatenate([bidirection[:, -1, :self.config['hidden_size']], bidirection[:, 0, self.config['hidden_size']:]])
 
+        # 第一种匹配方式
+        def full_matching(context, last_state):
+            # context = BatchNormalization()(context)
+            # last_state = BatchNormalization()(last_state)
+            matching = multiply([context, last_state])
+            matching = Conv1D(filters=20, kernel_size=1, activation='tanh')(matching)
+            return matching
+
+        def full_matching_question(context):
+            context_question, context_utterance = context[0], context[1]
+            last_state_of_utterance = get_last_state(context_utterance)
+
+            matching_question = full_matching(context_question, last_state_of_utterance)
+            return matching_question
+
+        def full_matching_utterance(context):
+            context_question, context_utterance = context[0], context[1]
+            last_state_of_question = get_last_state(context_question)
+
+            matching_utterance = full_matching(context_utterance, last_state_of_question)
+            return matching_utterance
+
         query = Input(name='query', shape=(self.config['text1_maxlen'],))
         show_layer_info('Input', query)
         doc = Input(name='doc', shape=(self.config['text2_maxlen'],))
@@ -53,77 +75,77 @@ class ECautiousAttention1(BasicModel):
         d_embed = embedding(doc)
         show_layer_info('Embedding', d_embed)
 
-        conv1d = Conv1D(filters=32, kernel_size=3, padding='same', activation='relu')
+        conv1d = Conv1D(filters=self.config['hidden_size'], kernel_size=3, padding='valid', activation='relu')
+        convert = Dense(self.config['embed_size'], activation='tanh')
+        transfer = Conv1D(filters=self.config['hidden_size'], kernel_size=1, padding='same', activation='tanh')
+        extract = Conv1D(filters=self.config['hidden_size'], kernel_size=1, padding='same', activation='relu')
         rnn_with_seq = Bidirectional(GRU(units=self.config['hidden_size'], dropout=self.config['dropout_rate'],
                                          recurrent_dropout=self.config['dropout_rate'], return_sequences=True))
+
+        # Context Representation Layer: 定义带每个step隐藏的RNN网络（用GRU代替LSTM）
+        context_representation = Bidirectional(GRU(units=self.config['hidden_size'],
+                                                   dropout=self.config['dropout_rate'],
+                                                   recurrent_dropout=self.config['dropout_rate'],
+                                                   return_sequences=True))
+
+        # Aggregation Layer: 定义只保留最后一层的RNN网络（用GRU代替LSTM）
+        aggregation = Bidirectional(GRU(units=20,
+                                        dropout=self.config['dropout_rate'],
+                                        recurrent_dropout=self.config['dropout_rate']))
+
         q_conv = conv1d(q_embed)
         q_conv = Dropout(self.config['dropout_rate'])(q_conv)
         show_layer_info("Conv1D Q", q_conv)
         q_global_pool = GlobalMaxPooling1D()(q_conv)
+        q_global_pool = convert(q_global_pool)
         show_layer_info("Global Max Pooling Q", q_global_pool)
         q_global_pool_repeat = RepeatVector(self.config['text1_maxlen'])(q_global_pool)
         show_layer_info("Repeat Global Max Pooling Q", q_global_pool_repeat)
         merge_embed_conv_q = concatenate([q_embed, q_global_pool_repeat])
+        merge_embed_conv_q = transfer(merge_embed_conv_q)
         show_layer_info("Merge Embed and Conv of Q", merge_embed_conv_q)
 
         d_conv = conv1d(d_embed)
         d_conv = Dropout(self.config['dropout_rate'])(d_conv)
         show_layer_info("Conv1D D", d_conv)
         d_global_pool = GlobalMaxPooling1D()(d_conv)
+        d_global_pool = convert(d_global_pool)
         show_layer_info("Global Max Pooling Q", d_global_pool)
         d_global_pool_repeat = RepeatVector(self.config['text2_maxlen'])(d_global_pool)
         show_layer_info("Repeat Global Max Pooling D", d_global_pool_repeat)
         merge_embed_conv_d = concatenate([d_embed, d_global_pool_repeat])
+        merge_embed_conv_d = transfer(merge_embed_conv_d)
         show_layer_info("Merge Embed and Conv of D", merge_embed_conv_d)
 
-        q_rep = rnn_with_seq(merge_embed_conv_q)
-        show_layer_info('Bidirectional-GRU', q_rep)
-        d_rep = rnn_with_seq(merge_embed_conv_d)
-        show_layer_info('Bidirectional-GRU', d_rep)
+        # 计算带每个step隐藏层的RNN输出
+        context_q = context_representation(merge_embed_conv_q)
+        show_layer_info('Context of query', context_q)
+        context_d = context_representation(merge_embed_conv_d)
+        show_layer_info('Context of doc', context_d)
 
-        q_rep_last_state = Lambda(lambda x: get_last_state(x))(q_rep)
-        show_layer_info('Last state-Q-representation', q_rep_last_state)
-        d_rep_last_state = Lambda(lambda x: get_last_state(x))(d_rep)
-        show_layer_info('Last state-D-representation', d_rep_last_state)
+        # 计算多角度matching向量
+        matching_q = Lambda(lambda x: full_matching_question(x))([context_q, context_d])
+        show_layer_info('Matching of query', matching_q)
+        matching_d = Lambda(lambda x: full_matching_utterance(x))([context_q, context_d])
+        show_layer_info('Matching of doc', matching_d)
 
-        attention = concatenate([q_rep_last_state, d_rep_last_state])
-        attention = Dense(self.config['hidden_size']*2, activation='tanh')(attention)
-        # attention = Dropout(self.config['dropout_rate'])(attention)
-        show_layer_info('Attention', attention)
+        # 计算集合
+        aggregation_question = aggregation(matching_q)
+        show_layer_info('Aggregation of query', aggregation_question)
+        aggregation_utterance = aggregation(matching_d)
+        show_layer_info('Aggregation of doc', aggregation_utterance)
 
-        attention_q = dot([q_rep, attention], axes=-1)
-        attention_q = Activation('softmax')(attention_q)
-        show_layer_info('Attention of Q', attention_q)
-
-        attention_d = dot([d_rep, attention], axes=-1)
-        attention_d = Activation('softmax')(attention_d)
-        show_layer_info('Attention of D', attention_d)
-
-        # 对有hidden state的输出用attention加权求和
-        q_rep = Permute([2, 1])(q_rep)
-        d_rep = Permute([2, 1])(d_rep)
-
-        new_q_rep = multiply([q_rep, attention_q])
-        new_d_rep = multiply([d_rep, attention_d])
-        new_q_rep = Permute([2, 1])(new_q_rep)
-        new_d_rep = Permute([2, 1])(new_d_rep)
-
-        new_q_rep = Lambda(lambda x: K.sum(x, axis=1))(new_q_rep)
-        show_layer_info('Final representation of Q', new_q_rep)
-        new_d_rep = Lambda(lambda x: K.sum(x, axis=1))(new_d_rep)
-        show_layer_info('Final representation of D', new_d_rep)
-
-        merged = concatenate([new_q_rep, new_d_rep, q_global_pool, d_global_pool])
-        # merged = Dropout(self.config['dropout_rate'])(merged)
-        show_layer_info('Aggression of Two texts', merged)
-        merged = Dense(self.config['hidden_size'] * 2, activation='relu')(merged)
+        # 计算分类评分
+        merged = concatenate([aggregation_question, aggregation_utterance])
+        merged = Dense(20 * 2, activation='relu')(merged)
         merged = Dropout(self.config['dropout_rate'])(merged)
         merged = BatchNormalization()(merged)
+        show_layer_info('Merged 1', merged)
 
-        merged = Dense(self.config['hidden_size'], activation='relu')(merged)
+        merged = Dense(20, activation='relu')(merged)
         merged = Dropout(self.config['dropout_rate'])(merged)
         merged = BatchNormalization()(merged)
-        show_layer_info('Final representation of two texts', merged)
+        show_layer_info('Merged 2', merged)
 
         if self.config['target_mode'] == 'classification':
             out_ = Dense(2, activation='softmax')(merged)
