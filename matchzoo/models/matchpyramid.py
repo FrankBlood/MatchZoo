@@ -51,6 +51,25 @@ class MatchPyramid(BasicModel):
         show_layer_info('Embedding', d_embed)
 
         cross = Dot(axes=[2, 2], normalize=False)([q_embed, d_embed])
+
+        # def cal_binsum(cross, bin_num=20):
+        #     shape = cross.get_shape()
+        #     qnum = shape[1]
+        #     mbinsum = np.zeros((qnum, bin_num), dtype=np.float32)
+        #     for (i, j), v in np.ndenumerate(cross):
+        #         if i >= qnum:
+        #             break
+        #         vid = int((v + 1.) / 2. * (bin_num - 1.))
+        #         mbinsum[i][vid] += v
+        #         # mhist += 1. # smooth is not needed for computing bin sum
+        #         # mhist = np.log10(mhist) # not needed for computing  bin sum
+        #
+        #     return mbinsum.flatten()
+        #
+        # bins = Lambda(lambda x: cal_binsum(x))(cross)
+        # out1 = Dense(50)(bins)
+
+
         show_layer_info('Dot', cross)
         cross_reshape = Reshape((self.config['text1_maxlen'], self.config['text2_maxlen'], 1))(cross)
         show_layer_info('Reshape', cross_reshape)

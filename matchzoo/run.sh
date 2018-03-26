@@ -58,8 +58,14 @@
 # nohup python main.py --phase train --model_file models/wikiqa_config/ecrossattention_wikiqa.config > ./logs/log.ecrossattention.1215 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecrossattention_wikiqa.config
 
-nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention_wikiqa.config > ./logs/log.ecautiousattention.1218 &
+# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention_wikiqa.config > ./logs/log.ecautiousattention.1221 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecautiousattention_wikiqa.config
+
+# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattentionpooling_wikiqa.config > ./logs/log.ecautiousattentionpooling.1221 &
+# python main.py --phase predict --model_file models/wikiqa_config/ecautiousattentionpooling_wikiqa.config
+
+# nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousbimpm_wikiqa.config > ./logs/log.ecautiousbimpm.1221 &
+# python main.py --phase predict --model_file models/wikiqa_config/ecautiousbimpm_wikiqa.config
 
 # nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention1_wikiqa.config > ./logs/log.ecautiousattention1.1217 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecautiousattention1_wikiqa.config
@@ -73,5 +79,6 @@ nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousat
 # nohup python main.py --phase train --model_file models/wikiqa_config/ecautiousattention4_wikiqa.config > ./logs/log.ecautiousattention4.1217 &
 # python main.py --phase predict --model_file models/wikiqa_config/ecautiousattention4_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/wikiqa_config/innerattention_wikiqa.config > ./logs/log.innerattention.1217 &
+nohup python main.py --phase train --model_file models/wikiqa_config/innerattention_wikiqa.config > ./logs/log.innerattention.1221 &
 # python main.py --phase predict --model_file models/wikiqa_config/innerattention_wikiqa.config
+

@@ -385,7 +385,8 @@ class Recurrent(Layer):
         base_config = super(Recurrent, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
 
-class ATTENTION_INNER_GRU(Recurrent):
+
+class INNER_ATTENTION_GRU(Recurrent):
 
     """Guoxiu He raises this first time.
 
@@ -429,7 +430,6 @@ class ATTENTION_INNER_GRU(Recurrent):
 
     @interfaces.legacy_recurrent_support
     def __init__(self, units,
-                 attention=None,
                  activation='tanh',
                  recurrent_activation='hard_sigmoid',
                  use_bias=True,
@@ -447,9 +447,8 @@ class ATTENTION_INNER_GRU(Recurrent):
                  recurrent_dropout=0.,
                  attention_dropout=0.,
                  **kwargs):
-        super(ATTENTION_INNER_GRU, self).__init__(**kwargs)
+        super(INNER_ATTENTION_GRU, self).__init__(**kwargs)
         self.units = units
-        self.attention = attention
         self.activation = activations.get(activation)
         self.recurrent_activation = activations.get(recurrent_activation)
         self.use_bias = use_bias
@@ -648,7 +647,6 @@ class ATTENTION_INNER_GRU(Recurrent):
 
     def get_config(self):
         config = {'units': self.units,
-                  'attention': self.attention,
                   'activation': activations.serialize(self.activation),
                   'recurrent_activation': activations.serialize(self.recurrent_activation),
                   'use_bias': self.use_bias,
@@ -664,7 +662,7 @@ class ATTENTION_INNER_GRU(Recurrent):
                   'bias_constraint': constraints.serialize(self.bias_constraint),
                   'dropout': self.dropout,
                   'recurrent_dropout': self.recurrent_dropout}
-        base_config = super(ATTENTION_INNER_GRU, self).get_config()
+        base_config = super(INNER_ATTENTION_GRU, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
 
 class ATTENTION_INNER_GRU_TMP(Recurrent):
