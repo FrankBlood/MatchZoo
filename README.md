@@ -3,7 +3,7 @@
 </div>
 
 ---
-MatchZoo is a toolkit for text matching. It was developed with a focus on facilitating the designing, comparing and sharing of deep text matching models. There are a number of deep matching methods, such as DRMM, MatchPyramid, MV-LSTM, aNMM, DUET, ARC-I, ARC-II, DSSM, and CDSSM, designed with a unified interface. Potential tasks related to MatchZoo include document retrieval, question answering, conversational response ranking, paraphrase identification, etc. We are always happy to receive any code constributions, suggestions, comments from all our MatchZoo users.
+MatchZoo is a toolkit for text matching. It was developed with a focus on facilitating the designing, comparing and sharing of deep text matching models. There are a number of deep matching methods, such as DRMM, MatchPyramid, MV-LSTM, aNMM, DUET, ARC-I, ARC-II, DSSM, and CDSSM, designed with a unified interface. Potential tasks related to MatchZoo include document retrieval, question answering, conversational response ranking, paraphrase identification, etc. We are always happy to receive any code contributions, suggestions, comments from all our MatchZoo users.
 
 <table>
   <tr>
@@ -83,7 +83,7 @@ Moreover, the toolkit has implemented two schools of representative deep text ma
 For learning the deep matching models, the toolkit provides a variety of objective functions for regression, classification and ranking. For example, the ranking-related objective functions include several well-known pointwise, pairwise and listwise losses. It is flexible for users to pick up different objective functions in the training phase for optimization. Once a model has been trained, the toolkit could be used to produce a matching score, predict a matching label, or rank target texts (e.g., a document) against an input text.
 
 ## Benchmark Results:
-Here, we adopt <a href="https://www.microsoft.com/en-us/download/details.aspx?id=52419">WikiQA</a> dataset for an example to inllustrate the usage of MatchZoo. WikiQA is a popular benchmark dataset for answer sentence selection in question answering. We have provided <a href="./data/WikiQA/run_data.sh">a script</a> to download the dataset, and prepared it into the MatchZoo data format. In the <a href="">models directory</a>, there are a number of configurations about each model for WikiQA dataset. 
+Here, we adopt <a href="https://www.microsoft.com/en-us/download/details.aspx?id=52419">WikiQA</a> dataset for an example to illustrate the usage of MatchZoo. WikiQA is a popular benchmark dataset for answer sentence selection in question answering. We have provided <a href="./data/WikiQA/run_data.sh">a script</a> to download the dataset, and prepared it into the MatchZoo data format. In the <a href="">models directory</a>, there are a number of configurations about each model for WikiQA dataset. 
 
 Take the DRMM as an example. In training phase, you can run
 ```
@@ -239,6 +239,7 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6586 </td>
   </tr>
   <tr>
+<<<<<<< HEAD
   	 <td align="center", bgcolor=#eeeeee> DRMM_TKS_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6500 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6958 </td>
@@ -356,6 +357,12 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6331 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.4768 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5845 </td>
+=======
+  	 <td align="center", bgcolor=#eeeeee> K-NRM </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6268 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6693 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6256 </td>
+>>>>>>> 01b8e58b170af83b1c31512abeca0a81234eb5ec
   </tr>
  
 </table>
@@ -377,7 +384,7 @@ Here, the DRMM_TKS is a variant of DRMM for short text matching. Specifically, t
 this model is an implementation of <a href="http://www.bigdatalab.ac.cn/~gjf/papers/2016/CIKM2016a_guo.pdf">A Deep Relevance Matching Model for Ad-hoc Retrieval</a>.
 
 - model file: models/drmm.py
-- config file: models/drmm_ranking.config
+- model config: models/drmm_ranking.config
 
 ---
 2. MatchPyramid
@@ -385,7 +392,7 @@ this model is an implementation of <a href="http://www.bigdatalab.ac.cn/~gjf/pap
 this model is an implementation of <a href="https://arxiv.org/abs/1602.06359"> Text Matching as Image Recognition</a>
 
 - model file: models/matchpyramid.py
-- config file: models/matchpyramid_ranking.config
+- model config: models/matchpyramid_ranking.config
 
 ---
 3. ARC-I
@@ -401,7 +408,7 @@ this model is an implementation of <a href="https://arxiv.org/abs/1503.03244">Co
 this model is an implementation of <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/cikm2013_DSSM_fullversion.pdf">Learning Deep Structured Semantic Models for Web Search using Clickthrough Data</a>
 
 - model file: models/dssm.py
-- config file: models/dssm_ranking.config
+- model config: models/dssm_ranking.config
 
 ---
 5. CDSSM
@@ -409,7 +416,7 @@ this model is an implementation of <a href="https://www.microsoft.com/en-us/rese
 this model is an implementation of <a href="https://www.microsoft.com/en-us/research/publication/learning-semantic-representations-using-convolutional-neural-networks-for-web-search/">Learning Semantic Representations Using Convolutional Neural Networks for Web Search</a>
 
 - model file: models/cdssm.py
-- config file: models/cdssm_ranking.config
+- model config: models/cdssm_ranking.config
 
 ---
 6. ARC-II
@@ -443,9 +450,17 @@ this model is an implementation of <a href="https://dl.acm.org/citation.cfm?id=3
 - model config: models/duet_ranking.config
 
 ---
-10. models under development:
+10. K-NRM
 
-<a href="https://arxiv.org/abs/1604.04378">Match-SRNN</a>, <a href="https://arxiv.org/abs/1710.05649">DeepRank</a>, <a href="https://arxiv.org/abs/1706.06613">K-NRM</a> ....
+this model is an implementation of <a href="https://arxiv.org/abs/1706.06613">End-to-End Neural Ad-hoc Ranking with Kernel Pooling</a>
+
+- model file: models/knrm.py
+- model config: models/knrm_ranking.config
+
+---
+11. models under development:
+
+<a href="https://arxiv.org/abs/1604.04378">Match-SRNN</a>, <a href="https://arxiv.org/abs/1710.05649">DeepRank</a> ....
 
 ## Citation
 
@@ -492,7 +507,7 @@ Development Teams
 
 Acknowledgements
 =====
-We would like to express our appreciation to the following people for contributing source code to MatchZoo, including [Yixing Fan](https://scholar.google.com/citations?user=w5kGcUsAAAAJ&hl=en), [Liang Pang](https://scholar.google.com/citations?user=1dgQHBkAAAAJ&hl=zh-CN), [Liu Yang](https://sites.google.com/site/lyangwww/), [Yukun Zheng](), [Lijuan Chen](), [Jianpeng Hou](https://github.com/HouJP), [Zhou Yang](), [Niuguo cheng](https://github.com/niuox) etc..
+We would like to express our appreciation to the following people for contributing source code to MatchZoo, including [Yixing Fan](https://scholar.google.com/citations?user=w5kGcUsAAAAJ&hl=en), [Liang Pang](https://scholar.google.com/citations?user=1dgQHBkAAAAJ&hl=zh-CN), [Liu Yang](https://sites.google.com/site/lyangwww/), [Yukun Zheng](), [Lijuan Chen](), [Jianpeng Hou](https://github.com/HouJP), [Zhou Yang](https://github.com/zhouzhouyang520), [Niuguo cheng](https://github.com/niuox) etc..
 
 Feedback and Join Us
 =====
