@@ -23,6 +23,7 @@ from utils import *
 import inputs
 import metrics
 from losses import *
+from optimizers import *
 
 config = tensorflow.ConfigProto()
 config.gpu_options.allow_growth = True
@@ -56,6 +57,8 @@ def train(config):
     # read basic config
     global_conf = config["global"]
     optimizer = global_conf['optimizer']
+    optimizer=optimizers.get(optimizer)
+    K.set_value(optimizer.lr, global_conf['learning_rate'])
     weights_file = str(global_conf['weights_file']) + '.%d'
     weights_file_h5 = str(global_conf['weights_file']) + '.h5'
     display_interval = int(global_conf['display_interval'])
