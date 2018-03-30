@@ -1,7 +1,7 @@
 # nohup python main.py --phase train --model_file models/wikiqa_config/drmm_wikiqa.config > ./logs/log.drmm.1214 &
 # python main.py --phase predict --model_file models/wikiqa_config/drmm_wikiqa.config
 
-nohup python main.py --phase train --model_file models/wikiqa_config/bimpm_wikiqa.config > ./logs/log.bimpm.0330 &
+# nohup python main.py --phase train --model_file models/wikiqa_config/bimpm_wikiqa.config > ./logs/log.bimpm.0330 &
 # python main.py --phase predict --model_file models/wikiqa_config/bimpm_wikiqa.config
 
 # nohup python main.py --phase train --model_file models/wikiqa_config/eattention_wikiqa.config > ./logs/log.eattention.1216 &
@@ -82,3 +82,5 @@ nohup python main.py --phase train --model_file models/wikiqa_config/bimpm_wikiq
 # nohup python main.py --phase train --model_file models/wikiqa_config/innerattention_wikiqa.config > ./logs/log.innerattention.1218 &
 # python main.py --phase predict --model_file models/wikiqa_config/innerattention_wikiqa.config
 
+nohup python main.py --phase train --model_file models/wikiqa_config/knrm_wikiqa.config > ./logs/log.knrm.0330 &
+# python main.py --phase predict --model_file models/wikiqa_config/innerattention_wikiqa.config
