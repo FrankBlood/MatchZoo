@@ -23,18 +23,17 @@ from utils import *
 import inputs
 import metrics
 from losses import *
-from optimizers import *
 
-config = tensorflow.ConfigProto()
-config.gpu_options.allow_growth = True
-sess = tensorflow.Session(config = config)
+# config = tensorflow.ConfigProto()
+# config.gpu_options.allow_growth = True
+# sess = tensorflow.Session(config = config)
 
-# from keras.backend.tensorflow_backend import set_session
-# num_threads = os.environ.get('OMP_NUM_THREADS')
-# gpu_options = tensorflow.GPUOptions(per_process_gpu_memory_fraction=0.5)
-# config=tensorflow.ConfigProto(gpu_options=gpu_options, intra_op_parallelism_threads=num_threads)
-# # config.gpu_options.allow_growth = True
-# set_session(tensorflow.Session(config=config))
+from keras.backend.tensorflow_backend import set_session
+num_threads = os.environ.get('OMP_NUM_THREADS')
+gpu_options = tensorflow.GPUOptions(per_process_gpu_memory_fraction=0.2)
+config=tensorflow.ConfigProto(gpu_options=gpu_options, intra_op_parallelism_threads=num_threads)
+# config.gpu_options.allow_growth = True
+set_session(tensorflow.Session(config=config))
 
 def load_model(config):
     global_conf = config["global"]
@@ -57,8 +56,6 @@ def train(config):
     # read basic config
     global_conf = config["global"]
     optimizer = global_conf['optimizer']
-    optimizer=optimizers.get(optimizer)
-    K.set_value(optimizer.lr, global_conf['learning_rate'])
     weights_file = str(global_conf['weights_file']) + '.%d'
     weights_file_h5 = str(global_conf['weights_file']) + '.h5'
     display_interval = int(global_conf['display_interval'])
@@ -69,6 +66,7 @@ def train(config):
     # read input config
     input_conf = config['inputs']
     share_input_conf = input_conf['share']
+
 
     # collect embedding
     if 'embed_path' in share_input_conf:
@@ -347,7 +345,7 @@ def main(argv):
     model_file =  args.model_file
     with open(model_file, 'r') as f:
         config = json.load(f)
-    phase = args.phase
+    # phase = args.phase
     if args.phase == 'train':
         train(config)
     elif args.phase == 'predict':
