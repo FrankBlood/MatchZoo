@@ -239,7 +239,6 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6586 </td>
   </tr>
   <tr>
-<<<<<<< HEAD
   	 <td align="center", bgcolor=#eeeeee> DRMM_TKS_Hegx </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6500 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6958 </td>
@@ -357,12 +356,12 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> 0.6331 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.4768 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.5845 </td>
-=======
+  </tr>
+  <tr>
   	 <td align="center", bgcolor=#eeeeee> K-NRM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6268 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6693 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6256 </td>
->>>>>>> 01b8e58b170af83b1c31512abeca0a81234eb5ec
   </tr>
  
 </table>
