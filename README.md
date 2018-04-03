@@ -361,7 +361,15 @@ I will update more models.
   	 <td align="center", bgcolor=#eeeeee> K-NRM </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6268 </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6693 </td>
+  	 <td align="center", bgcolor=#eeeeee> None </td>
   	 <td align="center", bgcolor=#eeeeee> 0.6256 </td>
+  </tr>
+  <tr>
+  	 <td align="center", bgcolor=#eeeeee> AMANDA </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5803 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.6370 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.4388 </td>
+  	 <td align="center", bgcolor=#eeeeee> 0.5972 </td>
   </tr>
  
 </table>

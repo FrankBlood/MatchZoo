@@ -82,5 +82,9 @@
 # nohup python main.py --phase train --model_file models/wikiqa_config/innerattention_wikiqa.config > ./logs/log.innerattention.1218 &
 # python main.py --phase predict --model_file models/wikiqa_config/innerattention_wikiqa.config
 
-nohup python main.py --phase train --model_file models/wikiqa_config/knrm_wikiqa.config > ./logs/log.knrm.0330 &
-# python main.py --phase predict --model_file models/wikiqa_config/innerattention_wikiqa.config
+# nohup python main.py --phase train --model_file models/wikiqa_config/knrm_wikiqa.config > ./logs/log.knrm.0330 &
+# python main.py --phase predict --model_file models/wikiqa_config/knrm_wikiqa.config
+
+# nohup python main.py --phase train --model_file models/wikiqa_config/amanda_wikiqa.config > ./logs/log.amanda.0330 &
+# python main.py --phase train --model_file models/wikiqa_config/amanda_wikiqa.config
+python main.py --phase predict --model_file models/wikiqa_config/amanda_wikiqa.config

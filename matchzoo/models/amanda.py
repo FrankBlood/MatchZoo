@@ -5,7 +5,7 @@ import keras
 import keras.backend as K
 from keras.models import Sequential, Model
 from keras.layers import *
-from keras.layers import Reshape, Embedding,Merge, Dot
+from keras.layers import Reshape, Embedding, Merge, Dot
 from keras.optimizers import Adam
 from model import BasicModel
 
@@ -20,8 +20,8 @@ class AMANDA(BasicModel):
         super(AMANDA, self).__init__(config)
         self.__name = 'AMANDA'
         self.check_list = [ 'text1_maxlen', 'text2_maxlen',
-                   'embed', 'embed_size', 'train_embed',  'vocab_size',
-                   'hidden_size', 'topk', 'dropout_rate']
+                            'embed', 'embed_size', 'train_embed',  'vocab_size',
+                            'hidden_size', 'dropout_rate']
         self.embed_trainable = config['train_embed']
         self.setup(config)
         if not self.check():
@@ -33,32 +33,15 @@ class AMANDA(BasicModel):
             raise TypeError('parameter config should be dict:', config)
 
         self.set_default('hidden_size', 32)
-        self.set_default('topk', 100)
         self.set_default('dropout_rate', 0)
         self.config.update(config)
 
     def build(self):
 
-        def get_last_state(bidirection):
-            return concatenate([bidirection[:, -1, :self.config['hidden_size']], bidirection[:, 0, self.config['hidden_size']:]])
+        embedding = Embedding(self.config['vocab_size'], self.config['embed_size'],
+                              weights=[self.config['embed']], trainable=self.embed_trainable)
 
-        # 第一种匹配方式
-        def full_matching(x):
-            context, last_state = x
-            # context = BatchNormalization()(context)
-            # last_state = BatchNormalization()(last_state)
-            matching = multiply([context, last_state])
-            matching = Conv1D(filters=self.config['hidden_size'], kernel_size=1, activation='tanh')(matching)
-            return matching
-
-        embedding = Embedding(self.config['vocab_size'], self.config['embed_size'], weights=[self.config['embed']],
-                              trainable=self.embed_trainable)
-        conv1d = Conv1D(filters=self.config['hidden_size'], kernel_size=3, padding='valid', activation='relu')
-        convert = Dense(self.config['embed_size'], activation='tanh')
-        transfer = Conv1D(filters=self.config['hidden_size'], kernel_size=1, padding='same', activation='tanh')
-        extract = Conv1D(filters=self.config['hidden_size'], kernel_size=1, padding='same', activation='relu')
-        rnn_with_seq = Bidirectional(GRU(units=self.config['hidden_size'], dropout=self.config['dropout_rate'],
-                                         recurrent_dropout=self.config['dropout_rate'], return_sequences=True))
+        sequence_level_encoding = Bidirectional(CuDNNLSTM(units=self.config['hidden_size'], return_sequences=True))
 
         query = Input(name='query', shape=(self.config['text1_maxlen'],))
         show_layer_info('Input', query)
@@ -70,71 +53,28 @@ class AMANDA(BasicModel):
         d_embed = embedding(doc)
         show_layer_info('Embedding', d_embed)
 
-        q_conv = conv1d(q_embed)
-        q_conv = Dropout(self.config['dropout_rate'])(q_conv)
-        show_layer_info("Conv1D Q", q_conv)
-        q_global_pool = GlobalMaxPooling1D()(q_conv)
-        q_global_pool = convert(q_global_pool)
-        show_layer_info("Global Max Pooling Q", q_global_pool)
+        q_seq_encoded = sequence_level_encoding(q_embed)
+        show_layer_info('Sequence-level Encoding', q_seq_encoded)
+        d_seq_encoded = sequence_level_encoding(d_embed)
+        show_layer_info('Sequence-level Encoding', d_seq_encoded)
 
-        d_conv = conv1d(d_embed)
-        d_conv = Dropout(self.config['dropout_rate'])(d_conv)
-        show_layer_info("Conv1D D", d_conv)
-        d_global_pool = GlobalMaxPooling1D()(d_conv)
-        d_global_pool = convert(d_global_pool)
-        show_layer_info("Global Max Pooling D", d_global_pool)
+        Attention_matrix = dot([d_seq_encoded, q_seq_encoded], axes=-1)
+        show_layer_info('Attention matrix', Attention_matrix)
+        Row_Softmax_matrix = TimeDistributed(Activation('softmax'))(Attention_matrix)
+        # show_layer_info('Sequence-level Encoding', Row_Softmax_matrix)
+        Aggregated_G_matrix = dot([Row_Softmax_matrix, q_seq_encoded], axes=[2, 1])
+        show_layer_info('Aggregated G matrix', Aggregated_G_matrix)
 
-        # 计算多角度matching向量
-        matching_q = Lambda(lambda x: full_matching(x))([q_embed, d_global_pool])
-        show_layer_info('Matching of query', matching_q)
-        matching_d = Lambda(lambda x: full_matching(x))([d_embed, q_global_pool])
-        show_layer_info('Matching of doc', matching_d)
+        Query_Depend_Doc_S_matrix = concatenate([d_seq_encoded, Aggregated_G_matrix])
+        show_layer_info('Sequence-level Encoding', Query_Depend_Doc_S_matrix)
 
-        q_rep = rnn_with_seq(matching_q)
-        show_layer_info('Bidirectional-GRU of Q', q_rep)
-        d_rep = rnn_with_seq(matching_d)
-        show_layer_info('Bidirectional-GRU of D', d_rep)
+        Query_Depend_Doc_LSTM_V_matrix = Bidirectional(CuDNNLSTM(units=self.config['hidden_size'],
+                                           # dropout=self.config['dropout_rate'],
+                                           # recurrent_dropout=self.config['dropout_rate'],
+                                           return_sequences=False))(Query_Depend_Doc_S_matrix)
+        show_layer_info('Sequence-level Encoding', Query_Depend_Doc_LSTM_V_matrix)
 
-        q_rep_last_state = Lambda(lambda x: get_last_state(x))(q_rep)
-        show_layer_info('Last state-Q-representation', q_rep_last_state)
-        d_rep_last_state = Lambda(lambda x: get_last_state(x))(d_rep)
-        show_layer_info('Last state-D-representation', d_rep_last_state)
-
-        attention = concatenate([q_rep_last_state, d_rep_last_state])
-        attention = Dense(self.config['hidden_size']*2, activation='tanh')(attention)
-        # attention = Dropout(self.config['dropout_rate'])(attention)
-        show_layer_info('Attention', attention)
-
-        attention_q = dot([q_rep, attention], axes=-1, normalize=True)
-        attention_q = Activation('softmax')(attention_q)
-        show_layer_info('Attention of Q', attention_q)
-
-        attention_d = dot([d_rep, attention], axes=-1, normalize=True)
-        attention_d = Activation('softmax')(attention_d)
-        show_layer_info('Attention of D', attention_d)
-
-        # 对有hidden state的输出用attention加权求和
-        q_rep = Permute([2, 1])(q_rep)
-        d_rep = Permute([2, 1])(d_rep)
-
-        new_q_rep = multiply([q_rep, attention_q])
-        new_d_rep = multiply([d_rep, attention_d])
-        new_q_rep = Permute([2, 1])(new_q_rep)
-        new_d_rep = Permute([2, 1])(new_d_rep)
-
-        new_q_rep = Lambda(lambda x: K.sum(x, axis=1))(new_q_rep)
-        show_layer_info('Final representation of Q', new_q_rep)
-        new_d_rep = Lambda(lambda x: K.sum(x, axis=1))(new_d_rep)
-        show_layer_info('Final representation of D', new_d_rep)
-
-        merged = concatenate([new_q_rep, new_d_rep])
-        # merged = Dropout(self.config['dropout_rate'])(merged)
-        show_layer_info('Aggression of Two texts', merged)
-        merged = Dense(self.config['hidden_size'] * 2, activation='relu')(merged)
-        merged = Dropout(self.config['dropout_rate'])(merged)
-        merged = BatchNormalization()(merged)
-
-        merged = Dense(self.config['hidden_size'], activation='relu')(merged)
+        merged = Dense(self.config['hidden_size'], activation='relu')(Query_Depend_Doc_LSTM_V_matrix)
         merged = Dropout(self.config['dropout_rate'])(merged)
         merged = BatchNormalization()(merged)
         show_layer_info('Final representation of two texts', merged)
