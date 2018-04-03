@@ -2,13 +2,19 @@
 from __future__ import print_function
 from __future__ import absolute_import
 from keras.optimizers import Adam
-from keras.initializers import Constant, RandomNormal
+from keras.initializers import Constant, RandomNormal, RandomUniform
 from keras.constraints import maxnorm, unitnorm, non_neg, min_max_norm, non_neg
 from keras.regularizers import l2, l1
+from keras.models import Model
 from keras.layers import Input, Embedding, Dense, Activation, Lambda, Dot
 from keras.activations import softmax
+from keras.backend import tensorflow_backend as tf
 from model import BasicModel
-from utils.utility import *
+# from utils.utility import *
+
+import sys
+sys.path.append('../matchzoo/utils/')
+from utility import *
 
 class KNRM(BasicModel):
     def __init__(self, config):
@@ -32,7 +38,7 @@ class KNRM(BasicModel):
     def build(self):
         def Kernel_layer(mu,sigma):
             def kernel(x):
-                return K.tf.exp(-0.5 * (x - mu) * (x - mu) / sigma / sigma)
+                return tf.exp(-0.5 * (x - mu) * (x - mu) / sigma / sigma)
             return Activation(kernel)
 
         query = Input(name='query', shape=(self.config['text1_maxlen'],))
@@ -56,20 +62,20 @@ class KNRM(BasicModel):
                 mu = 1.0
             mm_exp = Kernel_layer(mu, sigma)(mm)
             show_layer_info('Exponent of mm:', mm_exp)
-            mm_doc_sum = Lambda(lambda x: K.tf.reduce_sum(x,2))(mm_exp)
+            mm_doc_sum = Lambda(lambda x: tf.reduce_sum(x,2))(mm_exp)
             show_layer_info('Sum of document', mm_doc_sum)
-            mm_log = Activation(K.tf.log1p)(mm_doc_sum)
+            mm_log = Activation(tf.log1p)(mm_doc_sum)
             show_layer_info('Logarithm of sum', mm_log)
-            mm_sum = Lambda(lambda x: K.tf.reduce_sum(x, 1))(mm_log)
+            mm_sum = Lambda(lambda x: tf.reduce_sum(x, 1))(mm_log)
             show_layer_info('Sum of all exponent', mm_sum)
             KM.append(mm_sum)
 
-        Phi = Lambda(lambda x: K.tf.stack(x, 1))(KM)
+        Phi = Lambda(lambda x: tf.stack(x, 1))(KM)
         show_layer_info('Stack', Phi)
         if self.config['target_mode'] == 'classification':
-            out_ = Dense(2, activation='softmax', kernel_initializer=initializers.RandomUniform(minval=-0.014, maxval=0.014), bias_initializer='zeros')(Phi)
+            out_ = Dense(2, activation='softmax', kernel_initializer=RandomUniform(minval=-0.014, maxval=0.014), bias_initializer='zeros')(Phi)
         elif self.config['target_mode'] in ['regression', 'ranking']:
-            out_ = Dense(1, kernel_initializer=initializers.RandomUniform(minval=-0.014, maxval=0.014), bias_initializer='zeros')(Phi)
+            out_ = Dense(1, kernel_initializer=RandomUniform(minval=-0.014, maxval=0.014), bias_initializer='zeros')(Phi)
         show_layer_info('Dense', out_)
 
         model = Model(inputs=[query, doc], outputs=[out_])
