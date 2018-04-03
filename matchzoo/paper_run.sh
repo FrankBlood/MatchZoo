@@ -13,7 +13,7 @@
 # nohup python main.py --phase train --model_file models/paper_wikiqa_config/arcii_wikiqa.config > ./paper_logs/log.arcii.0402 &
 # python main.py --phase predict --model_file models/paper_wikiqa_config/arcii_wikiqa.config
 
-# nohup python main.py --phase train --model_file models/paper_wikiqa_config/bigru_wikiqa.config > ./paper_logs/log.bigru.0402 &
+nohup python main.py --phase train --model_file models/paper_wikiqa_config/bigru_wikiqa.config > ./paper_logs/log.bigru.0403 &
 # python main.py --phase predict --model_file models/paper_wikiqa_config/bigru_wikiqa.config
 
 # nohup python main.py --phase train --model_file models/paper_wikiqa_config/bilstm_wikiqa.config > ./paper_logs/log.bilstm.0402 &
@@ -56,6 +56,6 @@
 # python main.py --phase predict --model_file models/paper_wikiqa_config/ecrosslstmattention_wikiqa.config
 
 # nohup python main.py --phase train --model_file models/paper_wikiqa_config/eselflstmattention_wikiqa.config > ./paper_logs/log.eselflstmattention.0402 &
-python main.py --phase predict --model_file models/paper_wikiqa_config/eselflstmattention_wikiqa.config
+# python main.py --phase predict --model_file models/paper_wikiqa_config/eselflstmattention_wikiqa.config
 
 
