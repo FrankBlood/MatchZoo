@@ -13,6 +13,8 @@ from model import BasicModel
 from utils.utility import *
 from layers.SparseFullyConnectedLayer import *
 
+from ann_visualizer.visualize import ann_viz
+
 class DSSM(BasicModel):
     def __init__(self, config):
         super(DSSM, self).__init__(config)
@@ -78,4 +80,5 @@ class DSSM(BasicModel):
 
         model = Model(inputs=[query, doc], outputs=[out_])
         model.summary()
+        ann_viz(model, view=True, filename='mymodel.gv', title="MyNeural Network")
         return model
