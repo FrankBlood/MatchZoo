@@ -67,6 +67,13 @@ The results are as follows.
     <td align="center", bgcolor=#eeeeee> 0.648403 </td>
   </tr>
   <tr>
+    <td align="center", bgcolor=#eeeeee> ELSTMCautiousAttention </td>
+    <td align="center", bgcolor=#eeeeee> 0.668859 </td>
+    <td align="center", bgcolor=#eeeeee> 0.722621 </td>
+    <td align="center", bgcolor=#eeeeee> 0.544304 </td>
+    <td align="center", bgcolor=#eeeeee> 0.678586 </td>
+  </tr>
+  <tr>
     <td align="center", bgcolor=#eeeeee> ANMM </td>
     <td align="center", bgcolor=#eeeeee> 0.628366 </td>
     <td align="center", bgcolor=#eeeeee> 0.675884 </td>
