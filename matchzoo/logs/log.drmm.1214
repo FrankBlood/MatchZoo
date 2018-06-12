@@ -1,0 +1,1730 @@
+Using TensorFlow backend.
+2017-12-14 19:48:07.338766: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-14 19:48:07.338805: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-14 19:48:07.338814: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-14 19:48:07.458940: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:893] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2017-12-14 19:48:07.459261: I tensorflow/core/common_runtime/gpu/gpu_device.cc:940] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB
+major: 6 minor: 1 memoryClockRate (GHz) 1.7715
+pciBusID 0000:01:00.0
+Total memory: 5.93GiB
+Free memory: 5.58GiB
+2017-12-14 19:48:07.459285: I tensorflow/core/common_runtime/gpu/gpu_device.cc:961] DMA: 0 
+2017-12-14 19:48:07.459295: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   Y 
+2017-12-14 19:48:07.459311: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0)
+{
+  "inputs": {
+    "test": {
+      "phase": "EVAL", 
+      "input_type": "DRMM_ListGenerator", 
+      "hist_feats_file": "../data/WikiQA/relation_test.hist-60.txt", 
+      "relation_file": "../data/WikiQA/relation_test.txt", 
+      "batch_list": 10
+    }, 
+    "predict": {
+      "phase": "PREDICT", 
+      "input_type": "DRMM_ListGenerator", 
+      "hist_feats_file": "../data/WikiQA/relation_test.hist-60.txt", 
+      "relation_file": "../data/WikiQA/relation_test.txt", 
+      "batch_list": 10
+    }, 
+    "train": {
+      "relation_file": "../data/WikiQA/relation_train.txt", 
+      "input_type": "DRMM_PairGenerator", 
+      "batch_size": 100, 
+      "batch_per_iter": 5, 
+      "hist_feats_file": "../data/WikiQA/relation_train.hist-60.txt", 
+      "phase": "TRAIN", 
+      "query_per_iter": 50, 
+      "use_iter": false
+    }, 
+    "share": {
+      "vocab_size": 18678, 
+      "use_dpool": false, 
+      "embed_size": 300, 
+      "target_mode": "ranking", 
+      "text1_corpus": "../data/WikiQA/corpus_preprocessed.txt", 
+      "text2_corpus": "../data/WikiQA/corpus_preprocessed.txt", 
+      "hist_size": 60, 
+      "embed_path": "../data/WikiQA/embed.idf", 
+      "text1_maxlen": 10, 
+      "train_embed": false, 
+      "text2_maxlen": 40
+    }, 
+    "valid": {
+      "phase": "EVAL", 
+      "input_type": "DRMM_ListGenerator", 
+      "hist_feats_file": "../data/WikiQA/relation_valid.hist-60.txt", 
+      "relation_file": "../data/WikiQA/relation_valid.txt", 
+      "batch_list": 10
+    }
+  }, 
+  "global": {
+    "optimizer": "adadelta", 
+    "num_iters": 500, 
+    "save_weights_iters": 10, 
+    "learning_rate": 0.0001, 
+    "test_weights_iters": 500, 
+    "weights_file": "./models/weights/drmm.wikiqa.weights", 
+    "model_type": "PY", 
+    "display_interval": 10
+  }, 
+  "outputs": {
+    "predict": {
+      "save_format": "TREC", 
+      "save_path": "predict.test.wikiqa.txt"
+    }
+  }, 
+  "losses": [
+    {
+      "object_name": "rank_hinge_loss", 
+      "object_params": {
+        "margin": 1.0
+      }
+    }
+  ], 
+  "metrics": [
+    "ndcg@3", 
+    "ndcg@5", 
+    "map"
+  ], 
+  "net_name": "DRMM", 
+  "model": {
+    "model_py": "drmm.DRMM", 
+    "setting": {
+      "dropout_rate": 0.0, 
+      "hidden_sizes": [
+        20, 
+        1
+      ], 
+      "num_layers": 2
+    }, 
+    "model_path": "./models/"
+  }
+}
+[../data/WikiQA/embed.idf]
+	Embedding size: 18677
+Generate numpy embed: %s (18678, 300)
+[Embedding] Embedding Load Done.
+[Input] Process Input Tags. [u'train'] in TRAIN, [u'test', u'valid'] in EVAL.
+[../data/WikiQA/corpus_preprocessed.txt]
+	Data size: 24106
+[Dataset] 1 Dataset Load Done.
+{u'relation_file': u'../data/WikiQA/relation_train.txt', u'vocab_size': 18678, u'query_per_iter': 50, u'use_dpool': False, u'embed_size': 300, u'target_mode': u'ranking', u'input_type': u'DRMM_PairGenerator', u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'batch_size': 100, u'batch_per_iter': 5, u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'hist_size': 60, u'hist_feats_file': u'../data/WikiQA/relation_train.hist-60.txt', u'embed_path': u'../data/WikiQA/embed.idf', u'text1_maxlen': 10, u'phase': u'TRAIN', 'embed': array([[ 7.78767204,  7.78767204,  7.78767204, ...,  7.78767204,
+         7.78767204,  7.78767204],
+       [ 4.46623993,  4.46623993,  4.46623993, ...,  4.46623993,
+         4.46623993,  4.46623993],
+       [ 8.4808197 ,  8.4808197 ,  8.4808197 , ...,  8.4808197 ,
+         8.4808197 ,  8.4808197 ],
+       ..., 
+       [ 8.99164486,  8.99164486,  8.99164486, ...,  8.99164486,
+         8.99164486,  8.99164486],
+       [ 8.99164486,  8.99164486,  8.99164486, ...,  8.99164486,
+         8.99164486,  8.99164486],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40, u'use_iter': False}
+[../data/WikiQA/relation_train.txt]
+	Instance size: 20360
+Pair Instance Count: 8995
+[../data/WikiQA/relation_train.hist-60.txt]
+	Feature size: 20360
+[DRMM_PairGenerator] init done
+{u'relation_file': u'../data/WikiQA/relation_test.txt', u2017-12-14 19:48:09.068015: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0)
+'vocab_size': 18678, u'use_dpool': False, u'embed_size': 300, u'target_mode': u'ranking', u'input_type': u'DRMM_ListGenerator', u'batch_list': 10, u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'hist_size': 60, u'hist_feats_file': u'../data/WikiQA/relation_test.hist-60.txt', u'embed_path': u'../data/WikiQA/embed.idf', u'text1_maxlen': 10, u'phase': u'EVAL', 'embed': array([[ 7.78767204,  7.78767204,  7.78767204, ...,  7.78767204,
+         7.78767204,  7.78767204],
+       [ 4.46623993,  4.46623993,  4.46623993, ...,  4.46623993,
+         4.46623993,  4.46623993],
+       [ 8.4808197 ,  8.4808197 ,  8.4808197 , ...,  8.4808197 ,
+         8.4808197 ,  8.4808197 ],
+       ..., 
+       [ 8.99164486,  8.99164486,  8.99164486, ...,  8.99164486,
+         8.99164486,  8.99164486],
+       [ 8.99164486,  8.99164486,  8.99164486, ...,  8.99164486,
+         8.99164486,  8.99164486],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40}
+[../data/WikiQA/relation_test.txt]
+	Instance size: 2341
+List Instance Count: 237
+[../data/WikiQA/relation_test.hist-60.txt]
+	Feature size: 2341
+[DRMM_ListGenerator] init done, list number: 237. 
+{u'relation_file': u'../data/WikiQA/relation_valid.txt', u'vocab_size': 18678, u'use_dpool': False, u'embed_size': 300, u'target_mode': u'ranking', u'input_type': u'DRMM_ListGenerator', u'batch_list': 10, u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'hist_size': 60, u'hist_feats_file': u'../data/WikiQA/relation_valid.hist-60.txt', u'embed_path': u'../data/WikiQA/embed.idf', u'text1_maxlen': 10, u'phase': u'EVAL', 'embed': array([[ 7.78767204,  7.78767204,  7.78767204, ...,  7.78767204,
+         7.78767204,  7.78767204],
+       [ 4.46623993,  4.46623993,  4.46623993, ...,  4.46623993,
+         4.46623993,  4.46623993],
+       [ 8.4808197 ,  8.4808197 ,  8.4808197 , ...,  8.4808197 ,
+         8.4808197 ,  8.4808197 ],
+       ..., 
+       [ 8.99164486,  8.99164486,  8.99164486, ...,  8.99164486,
+         8.99164486,  8.99164486],
+       [ 8.99164486,  8.99164486,  8.99164486, ...,  8.99164486,
+         8.99164486,  8.99164486],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40}
+[../data/WikiQA/relation_valid.txt]
+	Instance size: 1126
+List Instance Count: 122
+[../data/WikiQA/relation_valid.hist-60.txt]
+	Feature size: 1126
+[DRMM_ListGenerator] init done, list number: 122. 
+[DRMM] init done
+[layer]: Input	[shape]: [None, 10] 
+[33m [Memory] Total Memory Use: 466.9414 MB 	 Resident: 478148 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Input	[shape]: [None, 10, 60] 
+[33m [Memory] Total Memory Use: 466.9414 MB 	 Resident: 478148 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Embedding	[shape]: [None, 10, 300] 
+[33m [Memory] Total Memory Use: 718.9531 MB 	 Resident: 736208 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Dense	[shape]: [None, 10, 1] 
+[33m [Memory] Total Memory Use: 719.6406 MB 	 Resident: 736912 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Lambda-softmax	[shape]: [None, 10, 1] 
+[33m [Memory] Total Memory Use: 719.6406 MB 	 Resident: 736912 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Dropout	[shape]: [None, 10, 60] 
+[33m [Memory] Total Memory Use: 719.6406 MB 	 Resident: 736912 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Dense	[shape]: [None, 10, 20] 
+[33m [Memory] Total Memory Use: 720.0117 MB 	 Resident: 737292 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Dense	[shape]: [None, 10, 1] 
+[33m [Memory] Total Memory Use: 720.0117 MB 	 Resident: 737292 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Permute	[shape]: [None, 1, 10] 
+[33m [Memory] Total Memory Use: 720.0117 MB 	 Resident: 737292 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Reshape	[shape]: [None, 10] 
+[33m [Memory] Total Memory Use: 720.2617 MB 	 Resident: 737548 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Reshape	[shape]: [None, 10] 
+[33m [Memory] Total Memory Use: 720.2617 MB 	 Resident: 737548 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Dense	[shape]: [None, 1] 
+[33m [Memory] Total Memory Use: 720.2617 MB 	 Resident: 737548 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[Model] Model Compile Done.
+[12-14-2017 19:48:09]	[Train:train] Iter:0	loss=1.000066
+[12-14-2017 19:48:10]	[Eval:test] Iter:0	ndcg@3=0.338211	map=0.379875	ndcg@5=0.412992
+[12-14-2017 19:48:10]	[Eval:test] Now the val map is 0.379875.
+[12-14-2017 19:48:10]	[Eval:valid] Iter:0	ndcg@3=0.324457	map=0.379410	ndcg@5=0.416410
+[12-14-2017 19:48:10]	[Train:train] Iter:1	loss=0.999828
+[12-14-2017 19:48:10]	[Eval:test] Iter:1	ndcg@3=0.382800	map=0.425863	ndcg@5=0.457343
+[12-14-2017 19:48:10]	[Eval:test] Now the val map is 0.425863.
+[12-14-2017 19:48:10]	[Eval:valid] Iter:1	ndcg@3=0.370712	map=0.417240	ndcg@5=0.464165
+[12-14-2017 19:48:10]	[Train:train] Iter:2	loss=0.996328
+[12-14-2017 19:48:10]	[Eval:test] Iter:2	ndcg@3=0.455336	map=0.479142	ndcg@5=0.513492
+[12-14-2017 19:48:11]	[Eval:test] Now the val map is 0.479142.
+[12-14-2017 19:48:11]	[Eval:valid] Iter:2	ndcg@3=0.480231	map=0.496443	ndcg@5=0.557493
+[12-14-2017 19:48:11]	[Train:train] Iter:3	loss=0.986201
+[12-14-2017 19:48:11]	[Eval:test] Iter:3	ndcg@3=0.466885	map=0.500338	ndcg@5=0.538717
+[12-14-2017 19:48:11]	[Eval:test] Now the val map is 0.500338.
+[12-14-2017 19:48:11]	[Eval:valid] Iter:3	ndcg@3=0.510849	map=0.538074	ndcg@5=0.588255
+[12-14-2017 19:48:11]	[Train:train] Iter:4	loss=0.978047
+[12-14-2017 19:48:11]	[Eval:test] Iter:4	ndcg@3=0.465940	map=0.500761	ndcg@5=0.548962
+[12-14-2017 19:48:11]	[Eval:test] Now the val map is 0.500761.
+[12-14-2017 19:48:11]	[Eval:valid] Iter:4	ndcg@3=0.529195	map=0.544782	ndcg@5=0.598626
+[12-14-2017 19:48:12]	[Train:train] Iter:5	loss=0.966837
+[12-14-2017 19:48:12]	[Eval:test] Iter:5	ndcg@3=0.478406	map=0.504238	ndcg@5=0.543876
+[12-14-2017 19:48:12]	[Eval:test] Now the val map is 0.504238.
+[12-14-2017 19:48:12]	[Eval:valid] Iter:5	ndcg@3=0.534463	map=0.559303	ndcg@5=0.601096
+[12-14-2017 19:48:12]	[Train:train] Iter:6	loss=0.940599
+[12-14-2017 19:48:12]	[Eval:test] Iter:6	ndcg@3=0.478112	map=0.506540	ndcg@5=0.550816
+[12-14-2017 19:48:12]	[Eval:test] Now the val map is 0.506540.
+[12-14-2017 19:48:12]	[Eval:valid] Iter:6	ndcg@3=0.540293	map=0.564615	ndcg@5=0.600932
+[12-14-2017 19:48:12]	[Train:train] Iter:7	loss=0.922050
+[12-14-2017 19:48:12]	[Eval:test] Iter:7	ndcg@3=0.476769	map=0.509509	ndcg@5=0.552957
+[12-14-2017 19:48:13]	[Eval:test] Now the val map is 0.509509.
+[12-14-2017 19:48:13]	[Eval:valid] Iter:7	ndcg@3=0.547416	map=0.561573	ndcg@5=0.593809
+[12-14-2017 19:48:13]	[Train:train] Iter:8	loss=0.874906
+[12-14-2017 19:48:13]	[Eval:test] Iter:8	ndcg@3=0.487049	map=0.509933	ndcg@5=0.550709
+[12-14-2017 19:48:13]	[Eval:test] Now the val map is 0.509933.
+[12-14-2017 19:48:13]	[Eval:valid] Iter:8	ndcg@3=0.549368	map=0.561836	ndcg@5=0.602675
+[12-14-2017 19:48:13]	[Train:train] Iter:9	loss=0.821760
+[12-14-2017 19:48:13]	[Eval:test] Iter:9	ndcg@3=0.480129	map=0.512372	ndcg@5=0.560067
+[12-14-2017 19:48:13]	[Eval:test] Now the val map is 0.512372.
+[12-14-2017 19:48:13]	[Eval:valid] Iter:9	ndcg@3=0.553979	map=0.576834	ndcg@5=0.619958
+[12-14-2017 19:48:13]	[Train:train] Iter:10	loss=0.804323
+[12-14-2017 19:48:13]	[Eval:test] Iter:10	ndcg@3=0.486672	map=0.506589	ndcg@5=0.557513
+[12-14-2017 19:48:13]	[Eval:valid] Iter:10	ndcg@3=0.558106	map=0.576971	ndcg@5=0.615847
+[12-14-2017 19:48:14]	[Train:train] Iter:11	loss=0.797558
+[12-14-2017 19:48:14]	[Eval:test] Iter:11	ndcg@3=0.491037	map=0.514129	ndcg@5=0.561424
+[12-14-2017 19:48:14]	[Eval:test] Now the val map is 0.514129.
+[12-14-2017 19:48:14]	[Eval:valid] Iter:11	ndcg@3=0.548149	map=0.575819	ndcg@5=0.610890
+[12-14-2017 19:48:14]	[Train:train] Iter:12	loss=0.810723
+[12-14-2017 19:48:14]	[Eval:test] Iter:12	ndcg@3=0.490694	map=0.510373	ndcg@5=0.560585
+[12-14-2017 19:48:14]	[Eval:valid] Iter:12	ndcg@3=0.550325	map=0.585167	ndcg@5=0.614621
+[12-14-2017 19:48:14]	[Train:train] Iter:13	loss=0.759541
+[12-14-2017 19:48:14]	[Eval:test] Iter:13	ndcg@3=0.497460	map=0.511819	ndcg@5=0.559247
+[12-14-2017 19:48:14]	[Eval:valid] Iter:13	ndcg@3=0.554423	map=0.586260	ndcg@5=0.615548
+[12-14-2017 19:48:14]	[Train:train] Iter:14	loss=0.765204
+[12-14-2017 19:48:14]	[Eval:test] Iter:14	ndcg@3=0.491131	map=0.512415	ndcg@5=0.562878
+[12-14-2017 19:48:15]	[Eval:valid] Iter:14	ndcg@3=0.551175	map=0.577503	ndcg@5=0.618164
+[12-14-2017 19:48:15]	[Train:train] Iter:15	loss=0.783446
+[12-14-2017 19:48:15]	[Eval:test] Iter:15	ndcg@3=0.488469	map=0.513466	ndcg@5=0.560489
+[12-14-2017 19:48:15]	[Eval:valid] Iter:15	ndcg@3=0.553321	map=0.569679	ndcg@5=0.611249
+[12-14-2017 19:48:15]	[Train:train] Iter:16	loss=0.731564
+[12-14-2017 19:48:15]	[Eval:test] Iter:16	ndcg@3=0.492739	map=0.513409	ndcg@5=0.563039
+[12-14-2017 19:48:15]	[Eval:valid] Iter:16	ndcg@3=0.547076	map=0.573009	ndcg@5=0.614779
+[12-14-2017 19:48:15]	[Train:train] Iter:17	loss=0.759776
+[12-14-2017 19:48:15]	[Eval:test] Iter:17	ndcg@3=0.488375	map=0.511176	ndcg@5=0.565672
+[12-14-2017 19:48:15]	[Eval:valid] Iter:17	ndcg@3=0.552248	map=0.575331	ndcg@5=0.619655
+[12-14-2017 19:48:15]	[Train:train] Iter:18	loss=0.750597
+[12-14-2017 19:48:16]	[Eval:test] Iter:18	ndcg@3=0.491489	map=0.513523	ndcg@5=0.562504
+[12-14-2017 19:48:16]	[Eval:valid] Iter:18	ndcg@3=0.556346	map=0.578961	ndcg@5=0.614274
+[12-14-2017 19:48:16]	[Train:train] Iter:19	loss=0.768327
+[12-14-2017 19:48:16]	[Eval:test] Iter:19	ndcg@3=0.488360	map=0.511746	ndcg@5=0.561180
+[12-14-2017 19:48:16]	[Eval:valid] Iter:19	ndcg@3=0.552248	map=0.574409	ndcg@5=0.614842
+[12-14-2017 19:48:16]	[Train:train] Iter:20	loss=0.760794
+[12-14-2017 19:48:16]	[Eval:test] Iter:20	ndcg@3=0.488812	map=0.514000	ndcg@5=0.559929
+[12-14-2017 19:48:16]	[Eval:valid] Iter:20	ndcg@3=0.554423	map=0.574043	ndcg@5=0.618510
+[12-14-2017 19:48:16]	[Train:train] Iter:21	loss=0.772314
+[12-14-2017 19:48:16]	[Eval:test] Iter:21	ndcg@3=0.493147	map=0.515372	ndcg@5=0.559397
+[12-14-2017 19:48:16]	[Eval:test] Now the val map is 0.515372.
+[12-14-2017 19:48:16]	[Eval:valid] Iter:21	ndcg@3=0.557448	map=0.577278	ndcg@5=0.611027
+[12-14-2017 19:48:16]	[Train:train] Iter:22	loss=0.749353
+[12-14-2017 19:48:17]	[Eval:test] Iter:22	ndcg@3=0.491281	map=0.512555	ndcg@5=0.561946
+[12-14-2017 19:48:17]	[Eval:valid] Iter:22	ndcg@3=0.555273	map=0.574800	ndcg@5=0.623185
+[12-14-2017 19:48:17]	[Train:train] Iter:23	loss=0.781046
+[12-14-2017 19:48:17]	[Eval:test] Iter:23	ndcg@3=0.493356	map=0.515511	ndcg@5=0.560562
+[12-14-2017 19:48:17]	[Eval:test] Now the val map is 0.515511.
+[12-14-2017 19:48:17]	[Eval:valid] Iter:23	ndcg@3=0.555273	map=0.578029	ndcg@5=0.625705
+[12-14-2017 19:48:17]	[Train:train] Iter:24	loss=0.766363
+[12-14-2017 19:48:17]	[Eval:test] Iter:24	ndcg@3=0.502366	map=0.515114	ndcg@5=0.559141
+[12-14-2017 19:48:17]	[Eval:valid] Iter:24	ndcg@3=0.555496	map=0.582462	ndcg@5=0.619213
+[12-14-2017 19:48:17]	[Train:train] Iter:25	loss=0.763279
+[12-14-2017 19:48:17]	[Eval:test] Iter:25	ndcg@3=0.495485	map=0.513225	ndcg@5=0.563560
+[12-14-2017 19:48:18]	[Eval:valid] Iter:25	ndcg@3=0.555273	map=0.569775	ndcg@5=0.621184
+[12-14-2017 19:48:18]	[Train:train] Iter:26	loss=0.761907
+[12-14-2017 19:48:18]	[Eval:test] Iter:26	ndcg@3=0.500968	map=0.518090	ndcg@5=0.565288
+[12-14-2017 19:48:18]	[Eval:test] Now the val map is 0.518090.
+[12-14-2017 19:48:18]	[Eval:valid] Iter:26	ndcg@3=0.557419	map=0.570868	ndcg@5=0.615273
+[12-14-2017 19:48:18]	[Train:train] Iter:27	loss=0.749670
+[12-14-2017 19:48:18]	[Eval:test] Iter:27	ndcg@3=0.504893	map=0.518034	ndcg@5=0.562659
+[12-14-2017 19:48:18]	[Eval:valid] Iter:27	ndcg@3=0.555467	map=0.567821	ndcg@5=0.622086
+[12-14-2017 19:48:18]	[Train:train] Iter:28	loss=0.731085
+[12-14-2017 19:48:18]	[Eval:test] Iter:28	ndcg@3=0.508545	map=0.525556	ndcg@5=0.571974
+[12-14-2017 19:48:18]	[Eval:test] Now the val map is 0.525556.
+[12-14-2017 19:48:18]	[Eval:valid] Iter:28	ndcg@3=0.551369	map=0.572354	ndcg@5=0.625111
+[12-14-2017 19:48:18]	[Train:train] Iter:29	loss=0.728332
+[12-14-2017 19:48:19]	[Eval:test] Iter:29	ndcg@3=0.510004	map=0.525033	ndcg@5=0.572225
+[12-14-2017 19:48:19]	[Eval:valid] Iter:29	ndcg@3=0.550519	map=0.578079	ndcg@5=0.624972
+[12-14-2017 19:48:19]	[Train:train] Iter:30	loss=0.726174
+[12-14-2017 19:48:19]	[Eval:test] Iter:30	ndcg@3=0.503301	map=0.522081	ndcg@5=0.565786
+[12-14-2017 19:48:19]	[Eval:valid] Iter:30	ndcg@3=0.568206	map=0.590078	ndcg@5=0.633957
+[12-14-2017 19:48:19]	[Train:train] Iter:31	loss=0.730516
+[12-14-2017 19:48:19]	[Eval:test] Iter:31	ndcg@3=0.506222	map=0.516692	ndcg@5=0.566251
+[12-14-2017 19:48:19]	[Eval:valid] Iter:31	ndcg@3=0.558493	map=0.575741	ndcg@5=0.632317
+[12-14-2017 19:48:19]	[Train:train] Iter:32	loss=0.753597
+[12-14-2017 19:48:19]	[Eval:test] Iter:32	ndcg@3=0.510342	map=0.523113	ndcg@5=0.568610
+[12-14-2017 19:48:19]	[Eval:valid] Iter:32	ndcg@3=0.552886	map=0.578156	ndcg@5=0.633176
+[12-14-2017 19:48:19]	[Train:train] Iter:33	loss=0.772901
+[12-14-2017 19:48:20]	[Eval:test] Iter:33	ndcg@3=0.508999	map=0.519021	ndcg@5=0.564801
+[12-14-2017 19:48:20]	[Eval:valid] Iter:33	ndcg@3=0.557835	map=0.585216	ndcg@5=0.627056
+[12-14-2017 19:48:20]	[Train:train] Iter:34	loss=0.729244
+[12-14-2017 19:48:20]	[Eval:test] Iter:34	ndcg@3=0.505784	map=0.519730	ndcg@5=0.568176
+[12-14-2017 19:48:20]	[Eval:valid] Iter:34	ndcg@3=0.554809	map=0.574060	ndcg@5=0.635398
+[12-14-2017 19:48:20]	[Train:train] Iter:35	loss=0.739438
+[12-14-2017 19:48:20]	[Eval:test] Iter:35	ndcg@3=0.501012	map=0.516943	ndcg@5=0.566078
+[12-14-2017 19:48:20]	[Eval:valid] Iter:35	ndcg@3=0.556984	map=0.575028	ndcg@5=0.627402
+[12-14-2017 19:48:20]	[Train:train] Iter:36	loss=0.778633
+[12-14-2017 19:48:20]	[Eval:test] Iter:36	ndcg@3=0.507327	map=0.524312	ndcg@5=0.566363
+[12-14-2017 19:48:20]	[Eval:valid] Iter:36	ndcg@3=0.566031	map=0.590925	ndcg@5=0.629625
+[12-14-2017 19:48:21]	[Train:train] Iter:37	loss=0.730561
+[12-14-2017 19:48:21]	[Eval:test] Iter:37	ndcg@3=0.502814	map=0.521592	ndcg@5=0.567269
+[12-14-2017 19:48:21]	[Eval:valid] Iter:37	ndcg@3=0.570130	map=0.585058	ndcg@5=0.633869
+[12-14-2017 19:48:21]	[Train:train] Iter:38	loss=0.715802
+[12-14-2017 19:48:21]	[Eval:test] Iter:38	ndcg@3=0.505232	map=0.522513	ndcg@5=0.565242
+[12-14-2017 19:48:21]	[Eval:valid] Iter:38	ndcg@3=0.554809	map=0.573210	ndcg@5=0.624176
+[12-14-2017 19:48:21]	[Train:train] Iter:39	loss=0.747096
+[12-14-2017 19:48:21]	[Eval:test] Iter:39	ndcg@3=0.505117	map=0.519463	ndcg@5=0.566155
+[12-14-2017 19:48:21]	[Eval:valid] Iter:39	ndcg@3=0.560010	map=0.579413	ndcg@5=0.627402
+[12-14-2017 19:48:21]	[Train:train] Iter:40	loss=0.772551
+[12-14-2017 19:48:21]	[Eval:test] Iter:40	ndcg@3=0.507327	map=0.519725	ndcg@5=0.568232
+[12-14-2017 19:48:22]	[Eval:valid] Iter:40	ndcg@3=0.560010	map=0.575680	ndcg@5=0.627043
+[12-14-2017 19:48:22]	[Train:train] Iter:41	loss=0.770697
+[12-14-2017 19:48:22]	[Eval:test] Iter:41	ndcg@3=0.504227	map=0.520299	ndcg@5=0.565609
+[12-14-2017 19:48:22]	[Eval:valid] Iter:41	ndcg@3=0.563006	map=0.579957	ndcg@5=0.631513
+[12-14-2017 19:48:22]	[Train:train] Iter:42	loss=0.733953
+[12-14-2017 19:48:22]	[Eval:test] Iter:42	ndcg@3=0.505525	map=0.517176	ndcg@5=0.567807
+[12-14-2017 19:48:22]	[Eval:valid] Iter:42	ndcg@3=0.558908	map=0.578613	ndcg@5=0.627624
+[12-14-2017 19:48:22]	[Train:train] Iter:43	loss=0.723706
+[12-14-2017 19:48:22]	[Eval:test] Iter:43	ndcg@3=0.512666	map=0.527289	ndcg@5=0.572089
+[12-14-2017 19:48:22]	[Eval:test] Now the val map is 0.527289.
+[12-14-2017 19:48:22]	[Eval:valid] Iter:43	ndcg@3=0.553959	map=0.570944	ndcg@5=0.627907
+[12-14-2017 19:48:22]	[Train:train] Iter:44	loss=0.737273
+[12-14-2017 19:48:23]	[Eval:test] Iter:44	ndcg@3=0.505377	map=0.517498	ndcg@5=0.565064
+[12-14-2017 19:48:23]	[Eval:valid] Iter:44	ndcg@3=0.565181	map=0.592450	ndcg@5=0.632574
+[12-14-2017 19:48:23]	[Train:train] Iter:45	loss=0.756406
+[12-14-2017 19:48:23]	[Eval:test] Iter:45	ndcg@3=0.501711	map=0.521885	ndcg@5=0.566831
+[12-14-2017 19:48:23]	[Eval:valid] Iter:45	ndcg@3=0.572305	map=0.587733	ndcg@5=0.633142
+[12-14-2017 19:48:23]	[Train:train] Iter:46	loss=0.752667
+[12-14-2017 19:48:23]	[Eval:test] Iter:46	ndcg@3=0.510049	map=0.527234	ndcg@5=0.575434
+[12-14-2017 19:48:23]	[Eval:valid] Iter:46	ndcg@3=0.561083	map=0.585235	ndcg@5=0.638202
+[12-14-2017 19:48:23]	[Train:train] Iter:47	loss=0.720285
+[12-14-2017 19:48:23]	[Eval:test] Iter:47	ndcg@3=0.508706	map=0.522614	ndcg@5=0.573286
+[12-14-2017 19:48:23]	[Eval:valid] Iter:47	ndcg@3=0.565181	map=0.585902	ndcg@5=0.635079
+[12-14-2017 19:48:23]	[Train:train] Iter:48	loss=0.753206
+[12-14-2017 19:48:24]	[Eval:test] Iter:48	ndcg@3=0.504825	map=0.523207	ndcg@5=0.569101
+[12-14-2017 19:48:24]	[Eval:valid] Iter:48	ndcg@3=0.564108	map=0.580174	ndcg@5=0.635390
+[12-14-2017 19:48:24]	[Train:train] Iter:49	loss=0.694067
+[12-14-2017 19:48:24]	[Eval:test] Iter:49	ndcg@3=0.512159	map=0.525786	ndcg@5=0.569058
+[12-14-2017 19:48:24]	[Eval:valid] Iter:49	ndcg@3=0.568206	map=0.585559	ndcg@5=0.643796
+[12-14-2017 19:48:24]	[Train:train] Iter:50	loss=0.704705
+[12-14-2017 19:48:24]	[Eval:test] Iter:50	ndcg@3=0.509775	map=0.524971	ndcg@5=0.571572
+[12-14-2017 19:48:24]	[Eval:valid] Iter:50	ndcg@3=0.565181	map=0.586185	ndcg@5=0.634006
+[12-14-2017 19:48:24]	[Train:train] Iter:51	loss=0.763302
+[12-14-2017 19:48:24]	[Eval:test] Iter:51	ndcg@3=0.509597	map=0.523344	ndcg@5=0.572394
+[12-14-2017 19:48:24]	[Eval:valid] Iter:51	ndcg@3=0.576403	map=0.581585	ndcg@5=0.639129
+[12-14-2017 19:48:25]	[Train:train] Iter:52	loss=0.723731
+[12-14-2017 19:48:25]	[Eval:test] Iter:52	ndcg@3=0.511607	map=0.526491	ndcg@5=0.575434
+[12-14-2017 19:48:25]	[Eval:valid] Iter:52	ndcg@3=0.561933	map=0.583464	ndcg@5=0.634179
+[12-14-2017 19:48:25]	[Train:train] Iter:53	loss=0.760987
+[12-14-2017 19:48:25]	[Eval:test] Iter:53	ndcg@3=0.510149	map=0.521657	ndcg@5=0.567761
+[12-14-2017 19:48:25]	[Eval:valid] Iter:53	ndcg@3=0.568206	map=0.582464	ndcg@5=0.632574
+[12-14-2017 19:48:25]	[Train:train] Iter:54	loss=0.753549
+[12-14-2017 19:48:25]	[Eval:test] Iter:54	ndcg@3=0.504825	map=0.525661	ndcg@5=0.567915
+[12-14-2017 19:48:25]	[Eval:valid] Iter:54	ndcg@3=0.565181	map=0.582951	ndcg@5=0.635599
+[12-14-2017 19:48:25]	[Train:train] Iter:55	loss=0.740746
+[12-14-2017 19:48:25]	[Eval:test] Iter:55	ndcg@3=0.509597	map=0.526232	ndcg@5=0.578202
+[12-14-2017 19:48:26]	[Eval:valid] Iter:55	ndcg@3=0.558058	map=0.576861	ndcg@5=0.628980
+[12-14-2017 19:48:26]	[Train:train] Iter:56	loss=0.715421
+[12-14-2017 19:48:26]	[Eval:test] Iter:56	ndcg@3=0.509890	map=0.522123	ndcg@5=0.571796
+[12-14-2017 19:48:26]	[Eval:valid] Iter:56	ndcg@3=0.568206	map=0.588611	ndcg@5=0.636104
+[12-14-2017 19:48:26]	[Train:train] Iter:57	loss=0.691751
+[12-14-2017 19:48:26]	[Eval:test] Iter:57	ndcg@3=0.512452	map=0.530294	ndcg@5=0.574169
+[12-14-2017 19:48:26]	[Eval:test] Now the val map is 0.530294.
+[12-14-2017 19:48:26]	[Eval:valid] Iter:57	ndcg@3=0.556984	map=0.579390	ndcg@5=0.627907
+[12-14-2017 19:48:26]	[Train:train] Iter:58	loss=0.728734
+[12-14-2017 19:48:26]	[Eval:test] Iter:58	ndcg@3=0.508054	map=0.522604	ndcg@5=0.575547
+[12-14-2017 19:48:26]	[Eval:valid] Iter:58	ndcg@3=0.561083	map=0.592026	ndcg@5=0.635536
+[12-14-2017 19:48:26]	[Train:train] Iter:59	loss=0.751406
+[12-14-2017 19:48:26]	[Eval:test] Iter:59	ndcg@3=0.510642	map=0.527432	ndcg@5=0.570017
+[12-14-2017 19:48:27]	[Eval:valid] Iter:59	ndcg@3=0.572305	map=0.588871	ndcg@5=0.644155
+[12-14-2017 19:48:27]	[Train:train] Iter:60	loss=0.755264
+[12-14-2017 19:48:27]	[Eval:test] Iter:60	ndcg@3=0.511332	map=0.527870	ndcg@5=0.570018
+[12-14-2017 19:48:27]	[Eval:valid] Iter:60	ndcg@3=0.566254	map=0.587942	ndcg@5=0.636459
+[12-14-2017 19:48:27]	[Train:train] Iter:61	loss=0.761797
+[12-14-2017 19:48:27]	[Eval:test] Iter:61	ndcg@3=0.509044	map=0.529223	ndcg@5=0.573056
+[12-14-2017 19:48:27]	[Eval:valid] Iter:61	ndcg@3=0.569280	map=0.585127	ndcg@5=0.638202
+[12-14-2017 19:48:27]	[Train:train] Iter:62	loss=0.736181
+[12-14-2017 19:48:27]	[Eval:test] Iter:62	ndcg@3=0.509497	map=0.529413	ndcg@5=0.577992
+[12-14-2017 19:48:27]	[Eval:valid] Iter:62	ndcg@3=0.565181	map=0.586367	ndcg@5=0.643796
+[12-14-2017 19:48:27]	[Train:train] Iter:63	loss=0.708597
+[12-14-2017 19:48:28]	[Eval:test] Iter:63	ndcg@3=0.511707	map=0.522887	ndcg@5=0.572851
+[12-14-2017 19:48:28]	[Eval:valid] Iter:63	ndcg@3=0.566254	map=0.586152	ndcg@5=0.640348
+[12-14-2017 19:48:28]	[Train:train] Iter:64	loss=0.751766
+[12-14-2017 19:48:28]	[Eval:test] Iter:64	ndcg@3=0.508054	map=0.526494	ndcg@5=0.572213
+[12-14-2017 19:48:28]	[Eval:valid] Iter:64	ndcg@3=0.572305	map=0.592823	ndcg@5=0.643082
+[12-14-2017 19:48:28]	[Train:train] Iter:65	loss=0.702435
+[12-14-2017 19:48:28]	[Eval:test] Iter:65	ndcg@3=0.504825	map=0.525534	ndcg@5=0.569101
+[12-14-2017 19:48:28]	[Eval:valid] Iter:65	ndcg@3=0.573378	map=0.582805	ndcg@5=0.636609
+[12-14-2017 19:48:28]	[Train:train] Iter:66	loss=0.704083
+[12-14-2017 19:48:28]	[Eval:test] Iter:66	ndcg@3=0.508785	map=0.525849	ndcg@5=0.576757
+[12-14-2017 19:48:28]	[Eval:valid] Iter:66	ndcg@3=0.556984	map=0.577870	ndcg@5=0.634103
+[12-14-2017 19:48:28]	[Train:train] Iter:67	loss=0.727103
+[12-14-2017 19:48:29]	[Eval:test] Iter:67	ndcg@3=0.511707	map=0.532082	ndcg@5=0.577355
+[12-14-2017 19:48:29]	[Eval:test] Now the val map is 0.532082.
+[12-14-2017 19:48:29]	[Eval:valid] Iter:67	ndcg@3=0.561083	map=0.585879	ndcg@5=0.635536
+[12-14-2017 19:48:29]	[Train:train] Iter:68	loss=0.723639
+[12-14-2017 19:48:29]	[Eval:test] Iter:68	ndcg@3=0.516871	map=0.531336	ndcg@5=0.575091
+[12-14-2017 19:48:29]	[Eval:valid] Iter:68	ndcg@3=0.573378	map=0.593366	ndcg@5=0.641275
+[12-14-2017 19:48:29]	[Train:train] Iter:69	loss=0.717001
+[12-14-2017 19:48:29]	[Eval:test] Iter:69	ndcg@3=0.518677	map=0.537526	ndcg@5=0.586686
+[12-14-2017 19:48:29]	[Eval:test] Now the val map is 0.537526.
+[12-14-2017 19:48:29]	[Eval:valid] Iter:69	ndcg@3=0.562156	map=0.582268	ndcg@5=0.638916
+[12-14-2017 19:48:29]	[Train:train] Iter:70	loss=0.755501
+[12-14-2017 19:48:29]	[Eval:test] Iter:70	ndcg@3=0.520538	map=0.531495	ndcg@5=0.578281
+[12-14-2017 19:48:30]	[Eval:valid] Iter:70	ndcg@3=0.570353	map=0.588285	ndcg@5=0.640411
+[12-14-2017 19:48:30]	[Train:train] Iter:71	loss=0.738822
+[12-14-2017 19:48:30]	[Eval:test] Iter:71	ndcg@3=0.511646	map=0.532112	ndcg@5=0.577915
+[12-14-2017 19:48:30]	[Eval:valid] Iter:71	ndcg@3=0.578549	map=0.590351	ndcg@5=0.646510
+[12-14-2017 19:48:30]	[Train:train] Iter:72	loss=0.700396
+[12-14-2017 19:48:30]	[Eval:test] Iter:72	ndcg@3=0.515766	map=0.532113	ndcg@5=0.578943
+[12-14-2017 19:48:30]	[Eval:valid] Iter:72	ndcg@3=0.575524	map=0.597309	ndcg@5=0.639387
+[12-14-2017 19:48:30]	[Train:train] Iter:73	loss=0.761872
+[12-14-2017 19:48:30]	[Eval:test] Iter:73	ndcg@3=0.512099	map=0.534322	ndcg@5=0.578173
+[12-14-2017 19:48:30]	[Eval:valid] Iter:73	ndcg@3=0.583721	map=0.595962	ndcg@5=0.639387
+[12-14-2017 19:48:30]	[Train:train] Iter:74	loss=0.755095
+[12-14-2017 19:48:30]	[Eval:test] Iter:74	ndcg@3=0.517567	map=0.535975	ndcg@5=0.585015
+[12-14-2017 19:48:31]	[Eval:valid] Iter:74	ndcg@3=0.576306	map=0.599290	ndcg@5=0.643339
+[12-14-2017 19:48:31]	[Train:train] Iter:75	loss=0.757908
+[12-14-2017 19:48:31]	[Eval:test] Iter:75	ndcg@3=0.513727	map=0.532914	ndcg@5=0.580979
+[12-14-2017 19:48:31]	[Eval:valid] Iter:75	ndcg@3=0.578549	map=0.593562	ndcg@5=0.645015
+[12-14-2017 19:48:31]	[Train:train] Iter:76	loss=0.736861
+[12-14-2017 19:48:31]	[Eval:test] Iter:76	ndcg@3=0.517308	map=0.531099	ndcg@5=0.578395
+[12-14-2017 19:48:31]	[Eval:valid] Iter:76	ndcg@3=0.580404	map=0.597865	ndcg@5=0.647797
+[12-14-2017 19:48:31]	[Train:train] Iter:77	loss=0.712968
+[12-14-2017 19:48:31]	[Eval:test] Iter:77	ndcg@3=0.513189	map=0.531977	ndcg@5=0.572363
+[12-14-2017 19:48:31]	[Eval:valid] Iter:77	ndcg@3=0.586746	map=0.594869	ndcg@5=0.647583
+[12-14-2017 19:48:31]	[Train:train] Iter:78	loss=0.748184
+[12-14-2017 19:48:32]	[Eval:test] Iter:78	ndcg@3=0.516318	map=0.534196	ndcg@5=0.578833
+[12-14-2017 19:48:32]	[Eval:valid] Iter:78	ndcg@3=0.579623	map=0.594576	ndcg@5=0.641844
+[12-14-2017 19:48:32]	[Train:train] Iter:79	loss=0.690729
+[12-14-2017 19:48:32]	[Eval:test] Iter:79	ndcg@3=0.520786	map=0.533432	ndcg@5=0.583175
+[12-14-2017 19:48:32]	[Eval:valid] Iter:79	ndcg@3=0.570353	map=0.584295	ndcg@5=0.641062
+[12-14-2017 19:48:32]	[Train:train] Iter:80	loss=0.682805
+[12-14-2017 19:48:32]	[Eval:test] Iter:80	ndcg@3=0.514796	map=0.534571	ndcg@5=0.582990
+[12-14-2017 19:48:32]	[Eval:valid] Iter:80	ndcg@3=0.569280	map=0.587209	ndcg@5=0.636818
+[12-14-2017 19:48:32]	[Train:train] Iter:81	loss=0.694484
+[12-14-2017 19:48:32]	[Eval:test] Iter:81	ndcg@3=0.508955	map=0.537419	ndcg@5=0.585430
+[12-14-2017 19:48:32]	[Eval:valid] Iter:81	ndcg@3=0.571426	map=0.592192	ndcg@5=0.646656
+[12-14-2017 19:48:33]	[Train:train] Iter:82	loss=0.721878
+[12-14-2017 19:48:33]	[Eval:test] Iter:82	ndcg@3=0.511094	map=0.531646	ndcg@5=0.574466
+[12-14-2017 19:48:33]	[Eval:valid] Iter:82	ndcg@3=0.582648	map=0.598470	ndcg@5=0.643339
+[12-14-2017 19:48:33]	[Train:train] Iter:83	loss=0.760097
+[12-14-2017 19:48:33]	[Eval:test] Iter:83	ndcg@3=0.521787	map=0.536007	ndcg@5=0.583458
+[12-14-2017 19:48:33]	[Eval:valid] Iter:83	ndcg@3=0.579623	map=0.593942	ndcg@5=0.650040
+[12-14-2017 19:48:33]	[Train:train] Iter:84	loss=0.729141
+[12-14-2017 19:48:33]	[Eval:test] Iter:84	ndcg@3=0.513204	map=0.529888	ndcg@5=0.574886
+[12-14-2017 19:48:33]	[Eval:valid] Iter:84	ndcg@3=0.571426	map=0.589912	ndcg@5=0.645374
+[12-14-2017 19:48:33]	[Train:train] Iter:85	loss=0.737657
+[12-14-2017 19:48:33]	[Eval:test] Iter:85	ndcg@3=0.512651	map=0.538103	ndcg@5=0.577201
+[12-14-2017 19:48:34]	[Eval:test] Now the val map is 0.538103.
+[12-14-2017 19:48:34]	[Eval:valid] Iter:85	ndcg@3=0.584503	map=0.597455	ndcg@5=0.646981
+[12-14-2017 19:48:34]	[Train:train] Iter:86	loss=0.725473
+[12-14-2017 19:48:34]	[Eval:test] Iter:86	ndcg@3=0.519970	map=0.532377	ndcg@5=0.584397
+[12-14-2017 19:48:34]	[Eval:valid] Iter:86	ndcg@3=0.591626	map=0.602877	ndcg@5=0.651959
+[12-14-2017 19:48:34]	[Train:train] Iter:87	loss=0.711088
+[12-14-2017 19:48:34]	[Eval:test] Iter:87	ndcg@3=0.519533	map=0.535196	ndcg@5=0.578920
+[12-14-2017 19:48:34]	[Eval:valid] Iter:87	ndcg@3=0.580404	map=0.600272	ndcg@5=0.647292
+[12-14-2017 19:48:34]	[Train:train] Iter:88	loss=0.691347
+[12-14-2017 19:48:34]	[Eval:test] Iter:88	ndcg@3=0.512358	map=0.531753	ndcg@5=0.583101
+[12-14-2017 19:48:34]	[Eval:valid] Iter:88	ndcg@3=0.588601	map=0.600545	ndcg@5=0.650463
+[12-14-2017 19:48:34]	[Train:train] Iter:89	loss=0.686576
+[12-14-2017 19:48:34]	[Eval:test] Iter:89	ndcg@3=0.515866	map=0.530924	ndcg@5=0.581055
+[12-14-2017 19:48:35]	[Eval:valid] Iter:89	ndcg@3=0.592699	map=0.597559	ndcg@5=0.647860
+[12-14-2017 19:48:35]	[Train:train] Iter:90	loss=0.726692
+[12-14-2017 19:48:35]	[Eval:test] Iter:90	ndcg@3=0.514239	map=0.534199	ndcg@5=0.584951
+[12-14-2017 19:48:35]	[Eval:valid] Iter:90	ndcg@3=0.583721	map=0.594881	ndcg@5=0.645583
+[12-14-2017 19:48:35]	[Train:train] Iter:91	loss=0.713358
+[12-14-2017 19:48:35]	[Eval:test] Iter:91	ndcg@3=0.515751	map=0.535152	ndcg@5=0.580505
+[12-14-2017 19:48:35]	[Eval:valid] Iter:91	ndcg@3=0.591626	map=0.596219	ndcg@5=0.647292
+[12-14-2017 19:48:35]	[Train:train] Iter:92	loss=0.715866
+[12-14-2017 19:48:35]	[Eval:test] Iter:92	ndcg@3=0.516871	map=0.531595	ndcg@5=0.580737
+[12-14-2017 19:48:35]	[Eval:valid] Iter:92	ndcg@3=0.589674	map=0.596905	ndcg@5=0.653032
+[12-14-2017 19:48:35]	[Train:train] Iter:93	loss=0.750755
+[12-14-2017 19:48:36]	[Eval:test] Iter:93	ndcg@3=0.514939	map=0.532622	ndcg@5=0.585738
+[12-14-2017 19:48:36]	[Eval:valid] Iter:93	ndcg@3=0.588601	map=0.601797	ndcg@5=0.648428
+[12-14-2017 19:48:36]	[Train:train] Iter:94	loss=0.666986
+[12-14-2017 19:48:36]	[Eval:test] Iter:94	ndcg@3=0.520523	map=0.532498	ndcg@5=0.581057
+[12-14-2017 19:48:36]	[Eval:valid] Iter:94	ndcg@3=0.584503	map=0.604208	ndcg@5=0.647860
+[12-14-2017 19:48:36]	[Train:train] Iter:95	loss=0.724343
+[12-14-2017 19:48:36]	[Eval:test] Iter:95	ndcg@3=0.516856	map=0.532706	ndcg@5=0.578420
+[12-14-2017 19:48:36]	[Eval:valid] Iter:95	ndcg@3=0.591626	map=0.598652	ndcg@5=0.650007
+[12-14-2017 19:48:36]	[Train:train] Iter:96	loss=0.739976
+[12-14-2017 19:48:36]	[Eval:test] Iter:96	ndcg@3=0.516318	map=0.533617	ndcg@5=0.579253
+[12-14-2017 19:48:36]	[Eval:valid] Iter:96	ndcg@3=0.591626	map=0.604800	ndcg@5=0.653600
+[12-14-2017 19:48:37]	[Train:train] Iter:97	loss=0.726175
+[12-14-2017 19:48:37]	[Eval:test] Iter:97	ndcg@3=0.521528	map=0.531212	ndcg@5=0.581182
+[12-14-2017 19:48:37]	[Eval:valid] Iter:97	ndcg@3=0.588601	map=0.597182	ndcg@5=0.648933
+[12-14-2017 19:48:37]	[Train:train] Iter:98	loss=0.685040
+[12-14-2017 19:48:37]	[Eval:test] Iter:98	ndcg@3=0.515299	map=0.532201	ndcg@5=0.582362
+[12-14-2017 19:48:37]	[Eval:valid] Iter:98	ndcg@3=0.592699	map=0.596606	ndcg@5=0.647501
+[12-14-2017 19:48:37]	[Train:train] Iter:99	loss=0.730642
+[12-14-2017 19:48:37]	[Eval:test] Iter:99	ndcg@3=0.514015	map=0.534723	ndcg@5=0.584498
+[12-14-2017 19:48:37]	[Eval:valid] Iter:99	ndcg@3=0.578452	map=0.594066	ndcg@5=0.653896
+[12-14-2017 19:48:37]	[Train:train] Iter:100	loss=0.756208
+[12-14-2017 19:48:37]	[Eval:test] Iter:100	ndcg@3=0.519533	map=0.532447	ndcg@5=0.582427
+[12-14-2017 19:48:37]	[Eval:valid] Iter:100	ndcg@3=0.592699	map=0.604077	ndcg@5=0.651390
+[12-14-2017 19:48:38]	[Train:train] Iter:101	loss=0.688449
+[12-14-2017 19:48:38]	[Eval:test] Iter:101	ndcg@3=0.517308	map=0.534624	ndcg@5=0.582322
+[12-14-2017 19:48:38]	[Eval:valid] Iter:101	ndcg@3=0.580404	map=0.597504	ndcg@5=0.648365
+[12-14-2017 19:48:38]	[Train:train] Iter:102	loss=0.738250
+[12-14-2017 19:48:38]	[Eval:test] Iter:102	ndcg@3=0.515751	map=0.531911	ndcg@5=0.578655
+[12-14-2017 19:48:38]	[Eval:valid] Iter:102	ndcg@3=0.581477	map=0.600060	ndcg@5=0.644835
+[12-14-2017 19:48:38]	[Train:train] Iter:103	loss=0.734834
+[12-14-2017 19:48:38]	[Eval:test] Iter:103	ndcg@3=0.514761	map=0.537956	ndcg@5=0.581030
+[12-14-2017 19:48:38]	[Eval:valid] Iter:103	ndcg@3=0.589674	map=0.593513	ndcg@5=0.645908
+[12-14-2017 19:48:38]	[Train:train] Iter:104	loss=0.737758
+[12-14-2017 19:48:38]	[Eval:test] Iter:104	ndcg@3=0.512651	map=0.532410	ndcg@5=0.581105
+[12-14-2017 19:48:39]	[Eval:valid] Iter:104	ndcg@3=0.584503	map=0.608361	ndcg@5=0.648365
+[12-14-2017 19:48:39]	[Train:train] Iter:105	loss=0.752445
+[12-14-2017 19:48:39]	[Eval:test] Iter:105	ndcg@3=0.517975	map=0.535642	ndcg@5=0.580650
+[12-14-2017 19:48:39]	[Eval:valid] Iter:105	ndcg@3=0.588601	map=0.597494	ndcg@5=0.645403
+[12-14-2017 19:48:39]	[Train:train] Iter:106	loss=0.710246
+[12-14-2017 19:48:39]	[Eval:test] Iter:106	ndcg@3=0.519533	map=0.538957	ndcg@5=0.577276
+[12-14-2017 19:48:39]	[Eval:test] Now the val map is 0.538957.
+[12-14-2017 19:48:39]	[Eval:valid] Iter:106	ndcg@3=0.584503	map=0.596925	ndcg@5=0.648933
+[12-14-2017 19:48:39]	[Train:train] Iter:107	loss=0.692345
+[12-14-2017 19:48:39]	[Eval:test] Iter:107	ndcg@3=0.518154	map=0.538853	ndcg@5=0.579739
+[12-14-2017 19:48:39]	[Eval:valid] Iter:107	ndcg@3=0.589674	map=0.597559	ndcg@5=0.653032
+[12-14-2017 19:48:39]	[Train:train] Iter:108	loss=0.699695
+[12-14-2017 19:48:40]	[Eval:test] Iter:108	ndcg@3=0.510541	map=0.531976	ndcg@5=0.583438
+[12-14-2017 19:48:40]	[Eval:valid] Iter:108	ndcg@3=0.588601	map=0.608178	ndcg@5=0.648006
+[12-14-2017 19:48:40]	[Train:train] Iter:109	loss=0.678841
+[12-14-2017 19:48:40]	[Eval:test] Iter:109	ndcg@3=0.516318	map=0.537946	ndcg@5=0.583840
+[12-14-2017 19:48:40]	[Eval:valid] Iter:109	ndcg@3=0.576306	map=0.595778	ndcg@5=0.651895
+[12-14-2017 19:48:40]	[Train:train] Iter:110	loss=0.709054
+[12-14-2017 19:48:40]	[Eval:test] Iter:110	ndcg@3=0.514228	map=0.533173	ndcg@5=0.579847
+[12-14-2017 19:48:40]	[Eval:valid] Iter:110	ndcg@3=0.591626	map=0.600809	ndcg@5=0.648428
+[12-14-2017 19:48:40]	[Train:train] Iter:111	loss=0.733582
+[12-14-2017 19:48:40]	[Eval:test] Iter:111	ndcg@3=0.519970	map=0.533366	ndcg@5=0.586984
+[12-14-2017 19:48:40]	[Eval:valid] Iter:111	ndcg@3=0.583429	map=0.602268	ndcg@5=0.644267
+[12-14-2017 19:48:40]	[Train:train] Iter:112	loss=0.694196
+[12-14-2017 19:48:41]	[Eval:test] Iter:112	ndcg@3=0.517049	map=0.531870	ndcg@5=0.578819
+[12-14-2017 19:48:41]	[Eval:valid] Iter:112	ndcg@3=0.588601	map=0.601758	ndcg@5=0.648574
+[12-14-2017 19:48:41]	[Train:train] Iter:113	loss=0.730615
+[12-14-2017 19:48:41]	[Eval:test] Iter:113	ndcg@3=0.513382	map=0.532078	ndcg@5=0.582636
+[12-14-2017 19:48:41]	[Eval:valid] Iter:113	ndcg@3=0.588601	map=0.597476	ndcg@5=0.648933
+[12-14-2017 19:48:41]	[Train:train] Iter:114	loss=0.705695
+[12-14-2017 19:48:41]	[Eval:test] Iter:114	ndcg@3=0.514502	map=0.532794	ndcg@5=0.577321
+[12-14-2017 19:48:41]	[Eval:valid] Iter:114	ndcg@3=0.595725	map=0.596925	ndcg@5=0.648365
+[12-14-2017 19:48:41]	[Train:train] Iter:115	loss=0.720354
+[12-14-2017 19:48:41]	[Eval:test] Iter:115	ndcg@3=0.521429	map=0.536731	ndcg@5=0.584621
+[12-14-2017 19:48:41]	[Eval:valid] Iter:115	ndcg@3=0.584503	map=0.600469	ndcg@5=0.652463
+[12-14-2017 19:48:42]	[Train:train] Iter:116	loss=0.696948
+[12-14-2017 19:48:42]	[Eval:test] Iter:116	ndcg@3=0.515751	map=0.535350	ndcg@5=0.577402
+[12-14-2017 19:48:42]	[Eval:valid] Iter:116	ndcg@3=0.599823	map=0.602019	ndcg@5=0.653600
+[12-14-2017 19:48:42]	[Train:train] Iter:117	loss=0.699109
+[12-14-2017 19:48:42]	[Eval:test] Iter:117	ndcg@3=0.520263	map=0.532078	ndcg@5=0.582474
+[12-14-2017 19:48:42]	[Eval:valid] Iter:117	ndcg@3=0.591626	map=0.601592	ndcg@5=0.648428
+[12-14-2017 19:48:42]	[Train:train] Iter:118	loss=0.695408
+[12-14-2017 19:48:42]	[Eval:test] Iter:118	ndcg@3=0.514502	map=0.530856	ndcg@5=0.578044
+[12-14-2017 19:48:42]	[Eval:valid] Iter:118	ndcg@3=0.588601	map=0.596792	ndcg@5=0.647860
+[12-14-2017 19:48:42]	[Train:train] Iter:119	loss=0.708442
+[12-14-2017 19:48:42]	[Eval:test] Iter:119	ndcg@3=0.512651	map=0.535743	ndcg@5=0.579472
+[12-14-2017 19:48:43]	[Eval:valid] Iter:119	ndcg@3=0.599823	map=0.601853	ndcg@5=0.648428
+[12-14-2017 19:48:43]	[Train:train] Iter:120	loss=0.765068
+[12-14-2017 19:48:43]	[Eval:test] Iter:120	ndcg@3=0.512651	map=0.532346	ndcg@5=0.585312
+[12-14-2017 19:48:43]	[Eval:valid] Iter:120	ndcg@3=0.579331	map=0.602860	ndcg@5=0.646724
+[12-14-2017 19:48:43]	[Train:train] Iter:121	loss=0.723868
+[12-14-2017 19:48:43]	[Eval:test] Iter:121	ndcg@3=0.520263	map=0.532639	ndcg@5=0.582066
+[12-14-2017 19:48:43]	[Eval:valid] Iter:121	ndcg@3=0.587528	map=0.604117	ndcg@5=0.653032
+[12-14-2017 19:48:43]	[Train:train] Iter:122	loss=0.685734
+[12-14-2017 19:48:43]	[Eval:test] Iter:122	ndcg@3=0.517716	map=0.533029	ndcg@5=0.581832
+[12-14-2017 19:48:43]	[Eval:valid] Iter:122	ndcg@3=0.588601	map=0.594271	ndcg@5=0.645403
+[12-14-2017 19:48:43]	[Train:train] Iter:123	loss=0.704087
+[12-14-2017 19:48:43]	[Eval:test] Iter:123	ndcg@3=0.513204	map=0.533289	ndcg@5=0.585802
+[12-14-2017 19:48:44]	[Eval:valid] Iter:123	ndcg@3=0.588601	map=0.602467	ndcg@5=0.645403
+[12-14-2017 19:48:44]	[Train:train] Iter:124	loss=0.697757
+[12-14-2017 19:48:44]	[Eval:test] Iter:124	ndcg@3=0.515054	map=0.532022	ndcg@5=0.586729
+[12-14-2017 19:48:44]	[Eval:valid] Iter:124	ndcg@3=0.588601	map=0.597395	ndcg@5=0.648006
+[12-14-2017 19:48:44]	[Train:train] Iter:125	loss=0.678824
+[12-14-2017 19:48:44]	[Eval:test] Iter:125	ndcg@3=0.513382	map=0.531738	ndcg@5=0.582474
+[12-14-2017 19:48:44]	[Eval:valid] Iter:125	ndcg@3=0.588601	map=0.601999	ndcg@5=0.652527
+[12-14-2017 19:48:44]	[Train:train] Iter:126	loss=0.694603
+[12-14-2017 19:48:44]	[Eval:test] Iter:126	ndcg@3=0.515020	map=0.535495	ndcg@5=0.583653
+[12-14-2017 19:48:44]	[Eval:valid] Iter:126	ndcg@3=0.583429	map=0.602440	ndcg@5=0.651181
+[12-14-2017 19:48:44]	[Train:train] Iter:127	loss=0.738299
+[12-14-2017 19:48:45]	[Eval:test] Iter:127	ndcg@3=0.519273	map=0.532292	ndcg@5=0.584469
+[12-14-2017 19:48:45]	[Eval:valid] Iter:127	ndcg@3=0.593773	map=0.601575	ndcg@5=0.653600
+[12-14-2017 19:48:45]	[Train:train] Iter:128	loss=0.718118
+[12-14-2017 19:48:45]	[Eval:test] Iter:128	ndcg@3=0.516871	map=0.532327	ndcg@5=0.586870
+[12-14-2017 19:48:45]	[Eval:valid] Iter:128	ndcg@3=0.580404	map=0.601493	ndcg@5=0.651390
+[12-14-2017 19:48:45]	[Train:train] Iter:129	loss=0.764433
+[12-14-2017 19:48:45]	[Eval:test] Iter:129	ndcg@3=0.512651	map=0.535270	ndcg@5=0.583692
+[12-14-2017 19:48:45]	[Eval:valid] Iter:129	ndcg@3=0.588601	map=0.604926	ndcg@5=0.653600
+[12-14-2017 19:48:45]	[Train:train] Iter:130	loss=0.714554
+[12-14-2017 19:48:45]	[Eval:test] Iter:130	ndcg@3=0.517423	map=0.533067	ndcg@5=0.581690
+[12-14-2017 19:48:45]	[Eval:valid] Iter:130	ndcg@3=0.595725	map=0.597247	ndcg@5=0.648006
+[12-14-2017 19:48:45]	[Train:train] Iter:131	loss=0.739850
+[12-14-2017 19:48:46]	[Eval:test] Iter:131	ndcg@3=0.516318	map=0.531703	ndcg@5=0.578368
+[12-14-2017 19:48:46]	[Eval:valid] Iter:131	ndcg@3=0.591626	map=0.601739	ndcg@5=0.648428
+[12-14-2017 19:48:46]	[Train:train] Iter:132	loss=0.728429
+[12-14-2017 19:48:46]	[Eval:test] Iter:132	ndcg@3=0.512651	map=0.532538	ndcg@5=0.583730
+[12-14-2017 19:48:46]	[Eval:valid] Iter:132	ndcg@3=0.588601	map=0.602030	ndcg@5=0.644267
+[12-14-2017 19:48:46]	[Train:train] Iter:133	loss=0.743647
+[12-14-2017 19:48:46]	[Eval:test] Iter:133	ndcg@3=0.516059	map=0.531144	ndcg@5=0.581807
+[12-14-2017 19:48:46]	[Eval:valid] Iter:133	ndcg@3=0.591626	map=0.604926	ndcg@5=0.645403
+[12-14-2017 19:48:46]	[Train:train] Iter:134	loss=0.722230
+[12-14-2017 19:48:46]	[Eval:test] Iter:134	ndcg@3=0.518767	map=0.535152	ndcg@5=0.585576
+[12-14-2017 19:48:46]	[Eval:valid] Iter:134	ndcg@3=0.583429	map=0.596242	ndcg@5=0.647438
+[12-14-2017 19:48:47]	[Train:train] Iter:135	loss=0.690529
+[12-14-2017 19:48:47]	[Eval:test] Iter:135	ndcg@3=0.520085	map=0.534750	ndcg@5=0.577580
+[12-14-2017 19:48:47]	[Eval:valid] Iter:135	ndcg@3=0.584503	map=0.601745	ndcg@5=0.653032
+[12-14-2017 19:48:47]	[Train:train] Iter:136	loss=0.742327
+[12-14-2017 19:48:47]	[Eval:test] Iter:136	ndcg@3=0.520278	map=0.532720	ndcg@5=0.579882
+[12-14-2017 19:48:47]	[Eval:valid] Iter:136	ndcg@3=0.588601	map=0.602877	ndcg@5=0.651959
+[12-14-2017 19:48:47]	[Train:train] Iter:137	loss=0.716828
+[12-14-2017 19:48:47]	[Eval:test] Iter:137	ndcg@3=0.513204	map=0.532576	ndcg@5=0.578995
+[12-14-2017 19:48:47]	[Eval:valid] Iter:137	ndcg@3=0.591626	map=0.603580	ndcg@5=0.656625
+[12-14-2017 19:48:47]	[Train:train] Iter:138	loss=0.700346
+[12-14-2017 19:48:47]	[Eval:test] Iter:138	ndcg@3=0.516871	map=0.531840	ndcg@5=0.578812
+[12-14-2017 19:48:48]	[Eval:valid] Iter:138	ndcg@3=0.592699	map=0.601511	ndcg@5=0.647860
+[12-14-2017 19:48:48]	[Train:train] Iter:139	loss=0.731787
+[12-14-2017 19:48:48]	[Eval:test] Iter:139	ndcg@3=0.515866	map=0.536915	ndcg@5=0.578208
+[12-14-2017 19:48:48]	[Eval:valid] Iter:139	ndcg@3=0.596798	map=0.601719	ndcg@5=0.652527
+[12-14-2017 19:48:48]	[Train:train] Iter:140	loss=0.746480
+[12-14-2017 19:48:48]	[Eval:test] Iter:140	ndcg@3=0.517423	map=0.532935	ndcg@5=0.579180
+[12-14-2017 19:48:48]	[Eval:valid] Iter:140	ndcg@3=0.599823	map=0.603414	ndcg@5=0.648428
+[12-14-2017 19:48:48]	[Train:train] Iter:141	loss=0.670451
+[12-14-2017 19:48:48]	[Eval:test] Iter:141	ndcg@3=0.519273	map=0.536307	ndcg@5=0.580814
+[12-14-2017 19:48:48]	[Eval:valid] Iter:141	ndcg@3=0.591626	map=0.597218	ndcg@5=0.656057
+[12-14-2017 19:48:48]	[Train:train] Iter:142	loss=0.736793
+[12-14-2017 19:48:49]	[Eval:test] Iter:142	ndcg@3=0.517209	map=0.532960	ndcg@5=0.588288
+[12-14-2017 19:48:49]	[Eval:valid] Iter:142	ndcg@3=0.583429	map=0.607495	ndcg@5=0.650463
+[12-14-2017 19:48:49]	[Train:train] Iter:143	loss=0.685007
+[12-14-2017 19:48:49]	[Eval:test] Iter:143	ndcg@3=0.518235	map=0.535668	ndcg@5=0.586315
+[12-14-2017 19:48:49]	[Eval:valid] Iter:143	ndcg@3=0.584503	map=0.602030	ndcg@5=0.647860
+[12-14-2017 19:48:49]	[Train:train] Iter:144	loss=0.765607
+[12-14-2017 19:48:49]	[Eval:test] Iter:144	ndcg@3=0.516871	map=0.533296	ndcg@5=0.581030
+[12-14-2017 19:48:49]	[Eval:valid] Iter:144	ndcg@3=0.591626	map=0.597640	ndcg@5=0.651599
+[12-14-2017 19:48:49]	[Train:train] Iter:145	loss=0.698823
+[12-14-2017 19:48:49]	[Eval:test] Iter:145	ndcg@3=0.517975	map=0.536432	ndcg@5=0.580502
+[12-14-2017 19:48:49]	[Eval:valid] Iter:145	ndcg@3=0.593773	map=0.597949	ndcg@5=0.648428
+[12-14-2017 19:48:49]	[Train:train] Iter:146	loss=0.739599
+[12-14-2017 19:48:50]	[Eval:test] Iter:146	ndcg@3=0.515866	map=0.532564	ndcg@5=0.580997
+[12-14-2017 19:48:50]	[Eval:valid] Iter:146	ndcg@3=0.591626	map=0.603433	ndcg@5=0.650575
+[12-14-2017 19:48:50]	[Train:train] Iter:147	loss=0.723993
+[12-14-2017 19:48:50]	[Eval:test] Iter:147	ndcg@3=0.512392	map=0.532188	ndcg@5=0.581291
+[12-14-2017 19:48:50]	[Eval:valid] Iter:147	ndcg@3=0.588601	map=0.598242	ndcg@5=0.651959
+[12-14-2017 19:48:50]	[Train:train] Iter:148	loss=0.716798
+[12-14-2017 19:48:50]	[Eval:test] Iter:148	ndcg@3=0.510835	map=0.533438	ndcg@5=0.577440
+[12-14-2017 19:48:50]	[Eval:valid] Iter:148	ndcg@3=0.596798	map=0.602731	ndcg@5=0.645403
+[12-14-2017 19:48:50]	[Train:train] Iter:149	loss=0.688084
+[12-14-2017 19:48:50]	[Eval:test] Iter:149	ndcg@3=0.512944	map=0.531369	ndcg@5=0.581280
+[12-14-2017 19:48:50]	[Eval:valid] Iter:149	ndcg@3=0.588601	map=0.597901	ndcg@5=0.651599
+[12-14-2017 19:48:51]	[Train:train] Iter:150	loss=0.755517
+[12-14-2017 19:48:51]	[Eval:test] Iter:150	ndcg@3=0.514761	map=0.531984	ndcg@5=0.579018
+[12-14-2017 19:48:51]	[Eval:valid] Iter:150	ndcg@3=0.591626	map=0.602487	ndcg@5=0.648933
+[12-14-2017 19:48:51]	[Train:train] Iter:151	loss=0.750550
+[12-14-2017 19:48:51]	[Eval:test] Iter:151	ndcg@3=0.514761	map=0.532397	ndcg@5=0.578627
+[12-14-2017 19:48:51]	[Eval:valid] Iter:151	ndcg@3=0.588601	map=0.602048	ndcg@5=0.648428
+[12-14-2017 19:48:51]	[Train:train] Iter:152	loss=0.716218
+[12-14-2017 19:48:51]	[Eval:test] Iter:152	ndcg@3=0.518980	map=0.535351	ndcg@5=0.583605
+[12-14-2017 19:48:51]	[Eval:valid] Iter:152	ndcg@3=0.591626	map=0.597754	ndcg@5=0.653600
+[12-14-2017 19:48:51]	[Train:train] Iter:153	loss=0.696995
+[12-14-2017 19:48:51]	[Eval:test] Iter:153	ndcg@3=0.515573	map=0.532151	ndcg@5=0.586055
+[12-14-2017 19:48:52]	[Eval:valid] Iter:153	ndcg@3=0.585576	map=0.602030	ndcg@5=0.649438
+[12-14-2017 19:48:52]	[Train:train] Iter:154	loss=0.719269
+[12-14-2017 19:48:52]	[Eval:test] Iter:154	ndcg@3=0.515313	map=0.535713	ndcg@5=0.581507
+[12-14-2017 19:48:52]	[Eval:valid] Iter:154	ndcg@3=0.588601	map=0.597640	ndcg@5=0.648428
+[12-14-2017 19:48:52]	[Train:train] Iter:155	loss=0.728141
+[12-14-2017 19:48:52]	[Eval:test] Iter:155	ndcg@3=0.518721	map=0.531992	ndcg@5=0.581882
+[12-14-2017 19:48:52]	[Eval:valid] Iter:155	ndcg@3=0.591626	map=0.604926	ndcg@5=0.648574
+[12-14-2017 19:48:52]	[Train:train] Iter:156	loss=0.733955
+[12-14-2017 19:48:52]	[Eval:test] Iter:156	ndcg@3=0.519533	map=0.533347	ndcg@5=0.581690
+[12-14-2017 19:48:52]	[Eval:valid] Iter:156	ndcg@3=0.588601	map=0.601612	ndcg@5=0.653600
+[12-14-2017 19:48:52]	[Train:train] Iter:157	loss=0.736845
+[12-14-2017 19:48:52]	[Eval:test] Iter:157	ndcg@3=0.511433	map=0.531259	ndcg@5=0.584621
+[12-14-2017 19:48:53]	[Eval:valid] Iter:157	ndcg@3=0.580404	map=0.600209	ndcg@5=0.647292
+[12-14-2017 19:48:53]	[Train:train] Iter:158	loss=0.753271
+[12-14-2017 19:48:53]	[Eval:test] Iter:158	ndcg@3=0.515900	map=0.531166	ndcg@5=0.578025
+[12-14-2017 19:48:53]	[Eval:valid] Iter:158	ndcg@3=0.588601	map=0.601101	ndcg@5=0.659796
+[12-14-2017 19:48:53]	[Train:train] Iter:159	loss=0.725086
+[12-14-2017 19:48:53]	[Eval:test] Iter:159	ndcg@3=0.516871	map=0.532098	ndcg@5=0.577103
+[12-14-2017 19:48:53]	[Eval:valid] Iter:159	ndcg@3=0.591626	map=0.603414	ndcg@5=0.645403
+[12-14-2017 19:48:53]	[Train:train] Iter:160	loss=0.744845
+[12-14-2017 19:48:53]	[Eval:test] Iter:160	ndcg@3=0.515054	map=0.533258	ndcg@5=0.581882
+[12-14-2017 19:48:53]	[Eval:valid] Iter:160	ndcg@3=0.596798	map=0.601689	ndcg@5=0.645403
+[12-14-2017 19:48:53]	[Train:train] Iter:161	loss=0.733940
+[12-14-2017 19:48:54]	[Eval:test] Iter:161	ndcg@3=0.517601	map=0.533961	ndcg@5=0.586291
+[12-14-2017 19:48:54]	[Eval:valid] Iter:161	ndcg@3=0.593773	map=0.602860	ndcg@5=0.650575
+[12-14-2017 19:48:54]	[Train:train] Iter:162	loss=0.758573
+[12-14-2017 19:48:54]	[Eval:test] Iter:162	ndcg@3=0.518965	map=0.534645	ndcg@5=0.583844
+[12-14-2017 19:48:54]	[Eval:valid] Iter:162	ndcg@3=0.581477	map=0.599405	ndcg@5=0.653537
+[12-14-2017 19:48:54]	[Train:train] Iter:163	loss=0.766272
+[12-14-2017 19:48:54]	[Eval:test] Iter:163	ndcg@3=0.520085	map=0.533765	ndcg@5=0.581582
+[12-14-2017 19:48:54]	[Eval:valid] Iter:163	ndcg@3=0.593773	map=0.604780	ndcg@5=0.648574
+[12-14-2017 19:48:54]	[Train:train] Iter:164	loss=0.731765
+[12-14-2017 19:48:54]	[Eval:test] Iter:164	ndcg@3=0.519452	map=0.534976	ndcg@5=0.581531
+[12-14-2017 19:48:54]	[Eval:valid] Iter:164	ndcg@3=0.591626	map=0.602467	ndcg@5=0.651959
+[12-14-2017 19:48:54]	[Train:train] Iter:165	loss=0.721814
+[12-14-2017 19:48:55]	[Eval:test] Iter:165	ndcg@3=0.517423	map=0.538645	ndcg@5=0.580075
+[12-14-2017 19:48:55]	[Eval:valid] Iter:165	ndcg@3=0.587528	map=0.597071	ndcg@5=0.656057
+[12-14-2017 19:48:55]	[Train:train] Iter:166	loss=0.719475
+[12-14-2017 19:48:55]	[Eval:test] Iter:166	ndcg@3=0.515313	map=0.536226	ndcg@5=0.577276
+[12-14-2017 19:48:55]	[Eval:valid] Iter:166	ndcg@3=0.591626	map=0.604780	ndcg@5=0.651959
+[12-14-2017 19:48:55]	[Train:train] Iter:167	loss=0.762047
+[12-14-2017 19:48:55]	[Eval:test] Iter:167	ndcg@3=0.512377	map=0.530657	ndcg@5=0.577336
+[12-14-2017 19:48:55]	[Eval:valid] Iter:167	ndcg@3=0.599823	map=0.597949	ndcg@5=0.645403
+[12-14-2017 19:48:55]	[Train:train] Iter:168	loss=0.708018
+[12-14-2017 19:48:55]	[Eval:test] Iter:168	ndcg@3=0.516303	map=0.533078	ndcg@5=0.582064
+[12-14-2017 19:48:55]	[Eval:valid] Iter:168	ndcg@3=0.588601	map=0.600662	ndcg@5=0.653600
+[12-14-2017 19:48:56]	[Train:train] Iter:169	loss=0.702195
+[12-14-2017 19:48:56]	[Eval:test] Iter:169	ndcg@3=0.515054	map=0.530253	ndcg@5=0.581659
+[12-14-2017 19:48:56]	[Eval:valid] Iter:169	ndcg@3=0.595725	map=0.603560	ndcg@5=0.648428
+[12-14-2017 19:48:56]	[Train:train] Iter:170	loss=0.726480
+[12-14-2017 19:48:56]	[Eval:test] Iter:170	ndcg@3=0.512392	map=0.535279	ndcg@5=0.583037
+[12-14-2017 19:48:56]	[Eval:valid] Iter:170	ndcg@3=0.588601	map=0.601689	ndcg@5=0.651959
+[12-14-2017 19:48:56]	[Train:train] Iter:171	loss=0.724477
+[12-14-2017 19:48:56]	[Eval:test] Iter:171	ndcg@3=0.512651	map=0.532456	ndcg@5=0.581290
+[12-14-2017 19:48:56]	[Eval:valid] Iter:171	ndcg@3=0.595725	map=0.597522	ndcg@5=0.653032
+[12-14-2017 19:48:56]	[Train:train] Iter:172	loss=0.735233
+[12-14-2017 19:48:56]	[Eval:test] Iter:172	ndcg@3=0.519533	map=0.535188	ndcg@5=0.583053
+[12-14-2017 19:48:56]	[Eval:valid] Iter:172	ndcg@3=0.588601	map=0.603560	ndcg@5=0.653600
+[12-14-2017 19:48:57]	[Train:train] Iter:173	loss=0.697436
+[12-14-2017 19:48:57]	[Eval:test] Iter:173	ndcg@3=0.517647	map=0.535943	ndcg@5=0.583893
+[12-14-2017 19:48:57]	[Eval:valid] Iter:173	ndcg@3=0.587528	map=0.596274	ndcg@5=0.649438
+[12-14-2017 19:48:57]	[Train:train] Iter:174	loss=0.688357
+[12-14-2017 19:48:57]	[Eval:test] Iter:174	ndcg@3=0.517716	map=0.532230	ndcg@5=0.583140
+[12-14-2017 19:48:57]	[Eval:valid] Iter:174	ndcg@3=0.591626	map=0.608859	ndcg@5=0.651959
+[12-14-2017 19:48:57]	[Train:train] Iter:175	loss=0.711488
+[12-14-2017 19:48:57]	[Eval:test] Iter:175	ndcg@3=0.521090	map=0.539249	ndcg@5=0.583540
+[12-14-2017 19:48:57]	[Eval:test] Now the val map is 0.539249.
+[12-14-2017 19:48:57]	[Eval:valid] Iter:175	ndcg@3=0.588601	map=0.597765	ndcg@5=0.648574
+[12-14-2017 19:48:57]	[Train:train] Iter:176	loss=0.719022
+[12-14-2017 19:48:57]	[Eval:test] Iter:176	ndcg@3=0.515232	map=0.532585	ndcg@5=0.579639
+[12-14-2017 19:48:58]	[Eval:valid] Iter:176	ndcg@3=0.591626	map=0.601853	ndcg@5=0.645403
+[12-14-2017 19:48:58]	[Train:train] Iter:177	loss=0.710758
+[12-14-2017 19:48:58]	[Eval:test] Iter:177	ndcg@3=0.517342	map=0.535614	ndcg@5=0.581135
+[12-14-2017 19:48:58]	[Eval:valid] Iter:177	ndcg@3=0.584503	map=0.604243	ndcg@5=0.648933
+[12-14-2017 19:48:58]	[Train:train] Iter:178	loss=0.724707
+[12-14-2017 19:48:58]	[Eval:test] Iter:178	ndcg@3=0.520975	map=0.535019	ndcg@5=0.581779
+[12-14-2017 19:48:58]	[Eval:valid] Iter:178	ndcg@3=0.588601	map=0.604791	ndcg@5=0.648428
+[12-14-2017 19:48:58]	[Train:train] Iter:179	loss=0.721901
+[12-14-2017 19:48:58]	[Eval:test] Iter:179	ndcg@3=0.517601	map=0.532766	ndcg@5=0.579485
+[12-14-2017 19:48:58]	[Eval:valid] Iter:179	ndcg@3=0.599823	map=0.601749	ndcg@5=0.651959
+[12-14-2017 19:48:58]	[Train:train] Iter:180	loss=0.754845
+[12-14-2017 19:48:59]	[Eval:test] Iter:180	ndcg@3=0.525488	map=0.541289	ndcg@5=0.583062
+[12-14-2017 19:48:59]	[Eval:test] Now the val map is 0.541289.
+[12-14-2017 19:48:59]	[Eval:valid] Iter:180	ndcg@3=0.589674	map=0.598366	ndcg@5=0.648574
+[12-14-2017 19:48:59]	[Train:train] Iter:181	loss=0.726602
+[12-14-2017 19:48:59]	[Eval:test] Iter:181	ndcg@3=0.520795	map=0.540880	ndcg@5=0.587482
+[12-14-2017 19:48:59]	[Eval:valid] Iter:181	ndcg@3=0.591260	map=0.598428	ndcg@5=0.644841
+[12-14-2017 19:48:59]	[Train:train] Iter:182	loss=0.694945
+[12-14-2017 19:48:59]	[Eval:test] Iter:182	ndcg@3=0.525756	map=0.542243	ndcg@5=0.583600
+[12-14-2017 19:48:59]	[Eval:test] Now the val map is 0.542243.
+[12-14-2017 19:48:59]	[Eval:valid] Iter:182	ndcg@3=0.590186	map=0.599191	ndcg@5=0.651610
+[12-14-2017 19:48:59]	[Train:train] Iter:183	loss=0.696172
+[12-14-2017 19:48:59]	[Eval:test] Iter:183	ndcg@3=0.524199	map=0.544250	ndcg@5=0.584597
+[12-14-2017 19:49:00]	[Eval:test] Now the val map is 0.544250.
+[12-14-2017 19:49:00]	[Eval:valid] Iter:183	ndcg@3=0.586088	map=0.601400	ndcg@5=0.651251
+[12-14-2017 19:49:00]	[Train:train] Iter:184	loss=0.738071
+[12-14-2017 19:49:00]	[Eval:test] Iter:184	ndcg@3=0.527413	map=0.542762	ndcg@5=0.585334
+[12-14-2017 19:49:00]	[Eval:valid] Iter:184	ndcg@3=0.591260	map=0.596999	ndcg@5=0.648794
+[12-14-2017 19:49:00]	[Train:train] Iter:185	loss=0.737017
+[12-14-2017 19:49:00]	[Eval:test] Iter:185	ndcg@3=0.525304	map=0.539636	ndcg@5=0.585812
+[12-14-2017 19:49:00]	[Eval:valid] Iter:185	ndcg@3=0.586088	map=0.598315	ndcg@5=0.654063
+[12-14-2017 19:49:00]	[Train:train] Iter:186	loss=0.715604
+[12-14-2017 19:49:00]	[Eval:test] Iter:186	ndcg@3=0.528518	map=0.539266	ndcg@5=0.588841
+[12-14-2017 19:49:00]	[Eval:valid] Iter:186	ndcg@3=0.587161	map=0.601354	ndcg@5=0.655495
+[12-14-2017 19:49:00]	[Train:train] Iter:187	loss=0.709147
+[12-14-2017 19:49:00]	[Eval:test] Iter:187	ndcg@3=0.525304	map=0.540955	ndcg@5=0.586104
+[12-14-2017 19:49:01]	[Eval:valid] Iter:187	ndcg@3=0.586088	map=0.604292	ndcg@5=0.650892
+[12-14-2017 19:49:01]	[Train:train] Iter:188	loss=0.710590
+[12-14-2017 19:49:01]	[Eval:test] Iter:188	ndcg@3=0.520339	map=0.537857	ndcg@5=0.585901
+[12-14-2017 19:49:01]	[Eval:valid] Iter:188	ndcg@3=0.580038	map=0.595576	ndcg@5=0.650313
+[12-14-2017 19:49:01]	[Train:train] Iter:189	loss=0.743245
+[12-14-2017 19:49:01]	[Eval:test] Iter:189	ndcg@3=0.521343	map=0.534210	ndcg@5=0.588105
+[12-14-2017 19:49:01]	[Eval:valid] Iter:189	ndcg@3=0.589113	map=0.597441	ndcg@5=0.649153
+[12-14-2017 19:49:01]	[Train:train] Iter:190	loss=0.754717
+[12-14-2017 19:49:01]	[Eval:test] Iter:190	ndcg@3=0.522448	map=0.535129	ndcg@5=0.583223
+[12-14-2017 19:49:01]	[Eval:valid] Iter:190	ndcg@3=0.591260	map=0.608080	ndcg@5=0.650226
+[12-14-2017 19:49:01]	[Train:train] Iter:191	loss=0.700944
+[12-14-2017 19:49:02]	[Eval:test] Iter:191	ndcg@3=0.525304	map=0.539306	ndcg@5=0.583442
+[12-14-2017 19:49:02]	[Eval:valid] Iter:191	ndcg@3=0.586088	map=0.601205	ndcg@5=0.655917
+[12-14-2017 19:49:02]	[Train:train] Iter:192	loss=0.705562
+[12-14-2017 19:49:02]	[Eval:test] Iter:192	ndcg@3=0.525304	map=0.534426	ndcg@5=0.584564
+[12-14-2017 19:49:02]	[Eval:valid] Iter:192	ndcg@3=0.589113	map=0.600984	ndcg@5=0.647721
+[12-14-2017 19:49:02]	[Train:train] Iter:193	loss=0.749096
+[12-14-2017 19:49:02]	[Eval:test] Iter:193	ndcg@3=0.526408	map=0.540930	ndcg@5=0.584839
+[12-14-2017 19:49:02]	[Eval:valid] Iter:193	ndcg@3=0.585209	map=0.601292	ndcg@5=0.653543
+[12-14-2017 19:49:02]	[Train:train] Iter:194	loss=0.704731
+[12-14-2017 19:49:02]	[Eval:test] Iter:194	ndcg@3=0.521637	map=0.535799	ndcg@5=0.585409
+[12-14-2017 19:49:02]	[Eval:valid] Iter:194	ndcg@3=0.589113	map=0.600642	ndcg@5=0.656422
+[12-14-2017 19:49:02]	[Train:train] Iter:195	loss=0.747925
+[12-14-2017 19:49:03]	[Eval:test] Iter:195	ndcg@3=0.519234	map=0.534460	ndcg@5=0.582606
+[12-14-2017 19:49:03]	[Eval:valid] Iter:195	ndcg@3=0.581990	map=0.609589	ndcg@5=0.648881
+[12-14-2017 19:49:03]	[Train:train] Iter:196	loss=0.702738
+[12-14-2017 19:49:03]	[Eval:test] Iter:196	ndcg@3=0.524751	map=0.541951	ndcg@5=0.586892
+[12-14-2017 19:49:03]	[Eval:valid] Iter:196	ndcg@3=0.591260	map=0.598827	ndcg@5=0.647867
+[12-14-2017 19:49:03]	[Train:train] Iter:197	loss=0.700596
+[12-14-2017 19:49:03]	[Eval:test] Iter:197	ndcg@3=0.516119	map=0.536604	ndcg@5=0.583775
+[12-14-2017 19:49:03]	[Eval:valid] Iter:197	ndcg@3=0.590186	map=0.607852	ndcg@5=0.649153
+[12-14-2017 19:49:03]	[Train:train] Iter:198	loss=0.700857
+[12-14-2017 19:49:03]	[Eval:test] Iter:198	ndcg@3=0.523194	map=0.537849	ndcg@5=0.588549
+[12-14-2017 19:49:03]	[Eval:valid] Iter:198	ndcg@3=0.589113	map=0.600945	ndcg@5=0.651251
+[12-14-2017 19:49:04]	[Train:train] Iter:199	loss=0.701930
+[12-14-2017 19:49:04]	[Eval:test] Iter:199	ndcg@3=0.519234	map=0.537585	ndcg@5=0.586655
+[12-14-2017 19:49:04]	[Eval:valid] Iter:199	ndcg@3=0.596431	map=0.611382	ndcg@5=0.650226
+[12-14-2017 19:49:04]	[Train:train] Iter:200	loss=0.735705
+[12-14-2017 19:49:04]	[Eval:test] Iter:200	ndcg@3=0.521084	map=0.535645	ndcg@5=0.587996
+[12-14-2017 19:49:04]	[Eval:valid] Iter:200	ndcg@3=0.590186	map=0.605833	ndcg@5=0.657350
+[12-14-2017 19:49:04]	[Train:train] Iter:201	loss=0.759133
+[12-14-2017 19:49:04]	[Eval:test] Iter:201	ndcg@3=0.526961	map=0.539105	ndcg@5=0.587209
+[12-14-2017 19:49:04]	[Eval:valid] Iter:201	ndcg@3=0.593212	map=0.604966	ndcg@5=0.650323
+[12-14-2017 19:49:04]	[Train:train] Iter:202	loss=0.681472
+[12-14-2017 19:49:04]	[Eval:test] Iter:202	ndcg@3=0.526961	map=0.538643	ndcg@5=0.584882
+[12-14-2017 19:49:05]	[Eval:valid] Iter:202	ndcg@3=0.590186	map=0.605762	ndcg@5=0.655495
+[12-14-2017 19:49:05]	[Train:train] Iter:203	loss=0.703056
+[12-14-2017 19:49:05]	[Eval:test] Iter:203	ndcg@3=0.522089	map=0.541807	ndcg@5=0.586892
+[12-14-2017 19:49:05]	[Eval:valid] Iter:203	ndcg@3=0.586088	map=0.599920	ndcg@5=0.652892
+[12-14-2017 19:49:05]	[Train:train] Iter:204	loss=0.705754
+[12-14-2017 19:49:05]	[Eval:test] Iter:204	ndcg@3=0.527413	map=0.539659	ndcg@5=0.587259
+[12-14-2017 19:49:05]	[Eval:valid] Iter:204	ndcg@3=0.591260	map=0.595922	ndcg@5=0.648517
+[12-14-2017 19:49:05]	[Train:train] Iter:205	loss=0.728443
+[12-14-2017 19:49:05]	[Eval:test] Iter:205	ndcg@3=0.526668	map=0.536653	ndcg@5=0.587920
+[12-14-2017 19:49:05]	[Eval:valid] Iter:205	ndcg@3=0.592138	map=0.604291	ndcg@5=0.651105
+[12-14-2017 19:49:05]	[Train:train] Iter:206	loss=0.696171
+[12-14-2017 19:49:05]	[Eval:test] Iter:206	ndcg@3=0.519234	map=0.535106	ndcg@5=0.585517
+[12-14-2017 19:49:06]	[Eval:valid] Iter:206	ndcg@3=0.591260	map=0.604272	ndcg@5=0.654325
+[12-14-2017 19:49:06]	[Train:train] Iter:207	loss=0.703492
+[12-14-2017 19:49:06]	[Eval:test] Iter:207	ndcg@3=0.518229	map=0.538324	ndcg@5=0.584068
+[12-14-2017 19:49:06]	[Eval:valid] Iter:207	ndcg@3=0.590186	map=0.610585	ndcg@5=0.654830
+[12-14-2017 19:49:06]	[Train:train] Iter:208	loss=0.670576
+[12-14-2017 19:49:06]	[Eval:test] Iter:208	ndcg@3=0.516119	map=0.533275	ndcg@5=0.577909
+[12-14-2017 19:49:06]	[Eval:valid] Iter:208	ndcg@3=0.583063	map=0.606174	ndcg@5=0.649449
+[12-14-2017 19:49:06]	[Train:train] Iter:209	loss=0.695774
+[12-14-2017 19:49:06]	[Eval:test] Iter:209	ndcg@3=0.516672	map=0.530878	ndcg@5=0.583063
+[12-14-2017 19:49:06]	[Eval:valid] Iter:209	ndcg@3=0.593212	map=0.614000	ndcg@5=0.657350
+[12-14-2017 19:49:06]	[Train:train] Iter:210	loss=0.715454
+[12-14-2017 19:49:07]	[Eval:test] Iter:210	ndcg@3=0.521084	map=0.534227	ndcg@5=0.585042
+[12-14-2017 19:49:07]	[Eval:valid] Iter:210	ndcg@3=0.587161	map=0.602646	ndcg@5=0.649153
+[12-14-2017 19:49:07]	[Train:train] Iter:211	loss=0.678395
+[12-14-2017 19:49:07]	[Eval:test] Iter:211	ndcg@3=0.523746	map=0.539366	ndcg@5=0.585702
+[12-14-2017 19:49:07]	[Eval:valid] Iter:211	ndcg@3=0.594285	map=0.601946	ndcg@5=0.659088
+[12-14-2017 19:49:07]	[Train:train] Iter:212	loss=0.716879
+[12-14-2017 19:49:07]	[Eval:test] Iter:212	ndcg@3=0.525856	map=0.539949	ndcg@5=0.586104
+[12-14-2017 19:49:07]	[Eval:valid] Iter:212	ndcg@3=0.591260	map=0.598035	ndcg@5=0.651397
+[12-14-2017 19:49:07]	[Train:train] Iter:213	loss=0.689741
+[12-14-2017 19:49:07]	[Eval:test] Iter:213	ndcg@3=0.526961	map=0.537136	ndcg@5=0.586204
+[12-14-2017 19:49:07]	[Eval:valid] Iter:213	ndcg@3=0.594285	map=0.600984	ndcg@5=0.651819
+[12-14-2017 19:49:08]	[Train:train] Iter:214	loss=0.743484
+[12-14-2017 19:49:08]	[Eval:test] Iter:214	ndcg@3=0.519786	map=0.534777	ndcg@5=0.581775
+[12-14-2017 19:49:08]	[Eval:valid] Iter:214	ndcg@3=0.587161	map=0.607784	ndcg@5=0.652829
+[12-14-2017 19:49:08]	[Train:train] Iter:215	loss=0.762051
+[12-14-2017 19:49:08]	[Eval:test] Iter:215	ndcg@3=0.518681	map=0.538499	ndcg@5=0.584765
+[12-14-2017 19:49:08]	[Eval:valid] Iter:215	ndcg@3=0.586088	map=0.608906	ndcg@5=0.652474
+[12-14-2017 19:49:08]	[Train:train] Iter:216	loss=0.678215
+[12-14-2017 19:49:08]	[Eval:test] Iter:216	ndcg@3=0.521084	map=0.535282	ndcg@5=0.585302
+[12-14-2017 19:49:08]	[Eval:valid] Iter:216	ndcg@3=0.589113	map=0.601363	ndcg@5=0.653252
+[12-14-2017 19:49:08]	[Train:train] Iter:217	loss=0.744826
+[12-14-2017 19:49:08]	[Eval:test] Iter:217	ndcg@3=0.522089	map=0.543042	ndcg@5=0.592928
+[12-14-2017 19:49:08]	[Eval:valid] Iter:217	ndcg@3=0.585015	map=0.598242	ndcg@5=0.650323
+[12-14-2017 19:49:09]	[Train:train] Iter:218	loss=0.735155
+[12-14-2017 19:49:09]	[Eval:test] Iter:218	ndcg@3=0.521084	map=0.534341	ndcg@5=0.584564
+[12-14-2017 19:49:09]	[Eval:valid] Iter:218	ndcg@3=0.587161	map=0.601325	ndcg@5=0.648794
+[12-14-2017 19:49:09]	[Train:train] Iter:219	loss=0.679576
+[12-14-2017 19:49:09]	[Eval:test] Iter:219	ndcg@3=0.520791	map=0.539163	ndcg@5=0.586875
+[12-14-2017 19:49:09]	[Eval:valid] Iter:219	ndcg@3=0.583063	map=0.603260	ndcg@5=0.655645
+[12-14-2017 19:49:09]	[Train:train] Iter:220	loss=0.718222
+[12-14-2017 19:49:09]	[Eval:test] Iter:220	ndcg@3=0.525756	map=0.540670	ndcg@5=0.590483
+[12-14-2017 19:49:09]	[Eval:valid] Iter:220	ndcg@3=0.591260	map=0.604405	ndcg@5=0.654422
+[12-14-2017 19:49:09]	[Train:train] Iter:221	loss=0.699283
+[12-14-2017 19:49:09]	[Eval:test] Iter:221	ndcg@3=0.520532	map=0.539406	ndcg@5=0.590709
+[12-14-2017 19:49:10]	[Eval:valid] Iter:221	ndcg@3=0.590186	map=0.600466	ndcg@5=0.648080
+[12-14-2017 19:49:10]	[Train:train] Iter:222	loss=0.710163
+[12-14-2017 19:49:10]	[Eval:test] Iter:222	ndcg@3=0.525304	map=0.536905	ndcg@5=0.584070
+[12-14-2017 19:49:10]	[Eval:valid] Iter:222	ndcg@3=0.589113	map=0.601621	ndcg@5=0.657593
+[12-14-2017 19:49:10]	[Train:train] Iter:223	loss=0.717322
+[12-14-2017 19:49:10]	[Eval:test] Iter:223	ndcg@3=0.528518	map=0.539656	ndcg@5=0.592031
+[12-14-2017 19:49:10]	[Eval:valid] Iter:223	ndcg@3=0.586088	map=0.601946	ndcg@5=0.653038
+[12-14-2017 19:49:10]	[Train:train] Iter:224	loss=0.682940
+[12-14-2017 19:49:10]	[Eval:test] Iter:224	ndcg@3=0.519234	map=0.537142	ndcg@5=0.585257
+[12-14-2017 19:49:10]	[Eval:valid] Iter:224	ndcg@3=0.591260	map=0.607169	ndcg@5=0.654325
+[12-14-2017 19:49:10]	[Train:train] Iter:225	loss=0.693821
+[12-14-2017 19:49:10]	[Eval:test] Iter:225	ndcg@3=0.525304	map=0.536714	ndcg@5=0.583225
+[12-14-2017 19:49:11]	[Eval:valid] Iter:225	ndcg@3=0.586088	map=0.598980	ndcg@5=0.651397
+[12-14-2017 19:49:11]	[Train:train] Iter:226	loss=0.702028
+[12-14-2017 19:49:11]	[Eval:test] Iter:226	ndcg@3=0.520532	map=0.538068	ndcg@5=0.584304
+[12-14-2017 19:49:11]	[Eval:valid] Iter:226	ndcg@3=0.586088	map=0.598290	ndcg@5=0.653252
+[12-14-2017 19:49:11]	[Train:train] Iter:227	loss=0.734205
+[12-14-2017 19:49:11]	[Eval:test] Iter:227	ndcg@3=0.519234	map=0.538692	ndcg@5=0.583700
+[12-14-2017 19:49:11]	[Eval:valid] Iter:227	ndcg@3=0.588235	map=0.600339	ndcg@5=0.650226
+[12-14-2017 19:49:11]	[Train:train] Iter:228	loss=0.731517
+[12-14-2017 19:49:11]	[Eval:test] Iter:228	ndcg@3=0.522901	map=0.537418	ndcg@5=0.586890
+[12-14-2017 19:49:11]	[Eval:valid] Iter:228	ndcg@3=0.590186	map=0.602616	ndcg@5=0.652324
+[12-14-2017 19:49:11]	[Train:train] Iter:229	loss=0.668853
+[12-14-2017 19:49:12]	[Eval:test] Iter:229	ndcg@3=0.529071	map=0.539011	ndcg@5=0.584807
+[12-14-2017 19:49:12]	[Eval:valid] Iter:229	ndcg@3=0.589113	map=0.602083	ndcg@5=0.650892
+[12-14-2017 19:49:12]	[Train:train] Iter:230	loss=0.741474
+[12-14-2017 19:49:12]	[Eval:test] Iter:230	ndcg@3=0.524751	map=0.543101	ndcg@5=0.586599
+[12-14-2017 19:49:12]	[Eval:valid] Iter:230	ndcg@3=0.598383	map=0.603648	ndcg@5=0.652324
+[12-14-2017 19:49:12]	[Train:train] Iter:231	loss=0.710939
+[12-14-2017 19:49:12]	[Eval:test] Iter:231	ndcg@3=0.524751	map=0.540196	ndcg@5=0.585862
+[12-14-2017 19:49:12]	[Eval:valid] Iter:231	ndcg@3=0.589113	map=0.601189	ndcg@5=0.649867
+[12-14-2017 19:49:12]	[Train:train] Iter:232	loss=0.765233
+[12-14-2017 19:49:12]	[Eval:test] Iter:232	ndcg@3=0.521084	map=0.541606	ndcg@5=0.585997
+[12-14-2017 19:49:12]	[Eval:valid] Iter:232	ndcg@3=0.589113	map=0.604292	ndcg@5=0.651965
+[12-14-2017 19:49:13]	[Train:train] Iter:233	loss=0.706507
+[12-14-2017 19:49:13]	[Eval:test] Iter:233	ndcg@3=0.521084	map=0.536840	ndcg@5=0.585644
+[12-14-2017 19:49:13]	[Eval:valid] Iter:233	ndcg@3=0.586088	map=0.597181	ndcg@5=0.649153
+[12-14-2017 19:49:13]	[Train:train] Iter:234	loss=0.745524
+[12-14-2017 19:49:13]	[Eval:test] Iter:234	ndcg@3=0.523746	map=0.541315	ndcg@5=0.584807
+[12-14-2017 19:49:13]	[Eval:valid] Iter:234	ndcg@3=0.590186	map=0.600330	ndcg@5=0.647867
+[12-14-2017 19:49:13]	[Train:train] Iter:235	loss=0.709001
+[12-14-2017 19:49:13]	[Eval:test] Iter:235	ndcg@3=0.525304	map=0.539882	ndcg@5=0.586364
+[12-14-2017 19:49:13]	[Eval:valid] Iter:235	ndcg@3=0.589113	map=0.598554	ndcg@5=0.647867
+[12-14-2017 19:49:13]	[Train:train] Iter:236	loss=0.739435
+[12-14-2017 19:49:13]	[Eval:test] Iter:236	ndcg@3=0.522641	map=0.545789	ndcg@5=0.585552
+[12-14-2017 19:49:14]	[Eval:test] Now the val map is 0.545789.
+[12-14-2017 19:49:14]	[Eval:valid] Iter:236	ndcg@3=0.593212	map=0.597500	ndcg@5=0.648794
+[12-14-2017 19:49:14]	[Train:train] Iter:237	loss=0.680339
+[12-14-2017 19:49:14]	[Eval:test] Iter:237	ndcg@3=0.527413	map=0.539814	ndcg@5=0.591186
+[12-14-2017 19:49:14]	[Eval:valid] Iter:237	ndcg@3=0.596431	map=0.607609	ndcg@5=0.660599
+[12-14-2017 19:49:14]	[Train:train] Iter:238	loss=0.725949
+[12-14-2017 19:49:14]	[Eval:test] Iter:238	ndcg@3=0.530075	map=0.543179	ndcg@5=0.587552
+[12-14-2017 19:49:14]	[Eval:valid] Iter:238	ndcg@3=0.585015	map=0.612442	ndcg@5=0.656520
+[12-14-2017 19:49:14]	[Train:train] Iter:239	loss=0.755856
+[12-14-2017 19:49:14]	[Eval:test] Iter:239	ndcg@3=0.524299	map=0.541974	ndcg@5=0.589704
+[12-14-2017 19:49:14]	[Eval:valid] Iter:239	ndcg@3=0.592333	map=0.605515	ndcg@5=0.661381
+[12-14-2017 19:49:14]	[Train:train] Iter:240	loss=0.677155
+[12-14-2017 19:49:14]	[Eval:test] Iter:240	ndcg@3=0.530075	map=0.543026	ndcg@5=0.589846
+[12-14-2017 19:49:15]	[Eval:valid] Iter:240	ndcg@3=0.586088	map=0.598226	ndcg@5=0.654568
+[12-14-2017 19:49:15]	[Train:train] Iter:241	loss=0.728630
+[12-14-2017 19:49:15]	[Eval:test] Iter:241	ndcg@3=0.520791	map=0.539255	ndcg@5=0.586522
+[12-14-2017 19:49:15]	[Eval:valid] Iter:241	ndcg@3=0.595358	map=0.605424	ndcg@5=0.654470
+[12-14-2017 19:49:15]	[Train:train] Iter:242	loss=0.692354
+[12-14-2017 19:49:15]	[Eval:test] Iter:242	ndcg@3=0.525304	map=0.540866	ndcg@5=0.583517
+[12-14-2017 19:49:15]	[Eval:valid] Iter:242	ndcg@3=0.586088	map=0.597534	ndcg@5=0.654063
+[12-14-2017 19:49:15]	[Train:train] Iter:243	loss=0.680687
+[12-14-2017 19:49:15]	[Eval:test] Iter:243	ndcg@3=0.525010	map=0.543646	ndcg@5=0.588397
+[12-14-2017 19:49:15]	[Eval:valid] Iter:243	ndcg@3=0.591260	map=0.600174	ndcg@5=0.647201
+[12-14-2017 19:49:15]	[Train:train] Iter:244	loss=0.692646
+[12-14-2017 19:49:16]	[Eval:test] Iter:244	ndcg@3=0.523746	map=0.538630	ndcg@5=0.586674
+[12-14-2017 19:49:16]	[Eval:valid] Iter:244	ndcg@3=0.595358	map=0.602509	ndcg@5=0.648940
+[12-14-2017 19:49:16]	[Train:train] Iter:245	loss=0.754671
+[12-14-2017 19:49:16]	[Eval:test] Iter:245	ndcg@3=0.524199	map=0.542084	ndcg@5=0.591421
+[12-14-2017 19:49:16]	[Eval:valid] Iter:245	ndcg@3=0.588235	map=0.601086	ndcg@5=0.656355
+[12-14-2017 19:49:16]	[Train:train] Iter:246	loss=0.721046
+[12-14-2017 19:49:16]	[Eval:test] Iter:246	ndcg@3=0.527413	map=0.543530	ndcg@5=0.585442
+[12-14-2017 19:49:16]	[Eval:valid] Iter:246	ndcg@3=0.588040	map=0.600722	ndcg@5=0.653854
+[12-14-2017 19:49:16]	[Train:train] Iter:247	loss=0.733236
+[12-14-2017 19:49:16]	[Eval:test] Iter:247	ndcg@3=0.522901	map=0.536403	ndcg@5=0.584705
+[12-14-2017 19:49:16]	[Eval:valid] Iter:247	ndcg@3=0.588235	map=0.611844	ndcg@5=0.658715
+[12-14-2017 19:49:16]	[Train:train] Iter:248	loss=0.637976
+[12-14-2017 19:49:17]	[Eval:test] Iter:248	ndcg@3=0.525304	map=0.540901	ndcg@5=0.592451
+[12-14-2017 19:49:17]	[Eval:valid] Iter:248	ndcg@3=0.590186	map=0.603238	ndcg@5=0.659234
+[12-14-2017 19:49:17]	[Train:train] Iter:249	loss=0.720617
+[12-14-2017 19:49:17]	[Eval:test] Iter:249	ndcg@3=0.522641	map=0.544154	ndcg@5=0.591111
+[12-14-2017 19:49:17]	[Eval:valid] Iter:249	ndcg@3=0.589113	map=0.597807	ndcg@5=0.651965
+[12-14-2017 19:49:17]	[Train:train] Iter:250	loss=0.731077
+[12-14-2017 19:49:17]	[Eval:test] Iter:250	ndcg@3=0.528518	map=0.544675	ndcg@5=0.591001
+[12-14-2017 19:49:17]	[Eval:valid] Iter:250	ndcg@3=0.589113	map=0.604428	ndcg@5=0.658015
+[12-14-2017 19:49:17]	[Train:train] Iter:251	loss=0.686721
+[12-14-2017 19:49:17]	[Eval:test] Iter:251	ndcg@3=0.528970	map=0.540666	ndcg@5=0.586892
+[12-14-2017 19:49:17]	[Eval:valid] Iter:251	ndcg@3=0.590186	map=0.602721	ndcg@5=0.655136
+[12-14-2017 19:49:18]	[Train:train] Iter:252	loss=0.683129
+[12-14-2017 19:49:18]	[Eval:test] Iter:252	ndcg@3=0.528970	map=0.542078	ndcg@5=0.590709
+[12-14-2017 19:49:18]	[Eval:valid] Iter:252	ndcg@3=0.590186	map=0.604331	ndcg@5=0.648940
+[12-14-2017 19:49:18]	[Train:train] Iter:253	loss=0.715367
+[12-14-2017 19:49:18]	[Eval:test] Iter:253	ndcg@3=0.519234	map=0.536391	ndcg@5=0.585073
+[12-14-2017 19:49:18]	[Eval:valid] Iter:253	ndcg@3=0.591260	map=0.605150	ndcg@5=0.647201
+[12-14-2017 19:49:18]	[Train:train] Iter:254	loss=0.715091
+[12-14-2017 19:49:18]	[Eval:test] Iter:254	ndcg@3=0.525856	map=0.539674	ndcg@5=0.590734
+[12-14-2017 19:49:18]	[Eval:valid] Iter:254	ndcg@3=0.591260	map=0.604736	ndcg@5=0.646842
+[12-14-2017 19:49:18]	[Train:train] Iter:255	loss=0.691113
+[12-14-2017 19:49:18]	[Eval:test] Iter:255	ndcg@3=0.521637	map=0.536229	ndcg@5=0.585117
+[12-14-2017 19:49:18]	[Eval:valid] Iter:255	ndcg@3=0.591260	map=0.607063	ndcg@5=0.655184
+[12-14-2017 19:49:19]	[Train:train] Iter:256	loss=0.716218
+[12-14-2017 19:49:19]	[Eval:test] Iter:256	ndcg@3=0.527966	map=0.539500	ndcg@5=0.589554
+[12-14-2017 19:49:19]	[Eval:valid] Iter:256	ndcg@3=0.586088	map=0.598247	ndcg@5=0.654568
+[12-14-2017 19:49:19]	[Train:train] Iter:257	loss=0.707068
+[12-14-2017 19:49:19]	[Eval:test] Iter:257	ndcg@3=0.525304	map=0.535345	ndcg@5=0.587336
+[12-14-2017 19:49:19]	[Eval:valid] Iter:257	ndcg@3=0.587161	map=0.602509	ndcg@5=0.657136
+[12-14-2017 19:49:19]	[Train:train] Iter:258	loss=0.699927
+[12-14-2017 19:49:19]	[Eval:test] Iter:258	ndcg@3=0.524458	map=0.543084	ndcg@5=0.590004
+[12-14-2017 19:49:19]	[Eval:valid] Iter:258	ndcg@3=0.588235	map=0.604740	ndcg@5=0.650372
+[12-14-2017 19:49:19]	[Train:train] Iter:259	loss=0.697068
+[12-14-2017 19:49:19]	[Eval:test] Iter:259	ndcg@3=0.525563	map=0.537912	ndcg@5=0.588187
+[12-14-2017 19:49:20]	[Eval:valid] Iter:259	ndcg@3=0.592333	map=0.611844	ndcg@5=0.656568
+[12-14-2017 19:49:20]	[Train:train] Iter:260	loss=0.686538
+[12-14-2017 19:49:20]	[Eval:test] Iter:260	ndcg@3=0.529523	map=0.538761	ndcg@5=0.585334
+[12-14-2017 19:49:20]	[Eval:valid] Iter:260	ndcg@3=0.590186	map=0.609795	ndcg@5=0.657136
+[12-14-2017 19:49:20]	[Train:train] Iter:261	loss=0.706126
+[12-14-2017 19:49:20]	[Eval:test] Iter:261	ndcg@3=0.523194	map=0.538466	ndcg@5=0.588306
+[12-14-2017 19:49:20]	[Eval:valid] Iter:261	ndcg@3=0.590186	map=0.603238	ndcg@5=0.660162
+[12-14-2017 19:49:20]	[Train:train] Iter:262	loss=0.730693
+[12-14-2017 19:49:20]	[Eval:test] Iter:262	ndcg@3=0.527120	map=0.537940	ndcg@5=0.588739
+[12-14-2017 19:49:20]	[Eval:valid] Iter:262	ndcg@3=0.588235	map=0.601189	ndcg@5=0.659739
+[12-14-2017 19:49:20]	[Train:train] Iter:263	loss=0.687856
+[12-14-2017 19:49:21]	[Eval:test] Iter:263	ndcg@3=0.530075	map=0.541449	ndcg@5=0.586657
+[12-14-2017 19:49:21]	[Eval:valid] Iter:263	ndcg@3=0.591260	map=0.603330	ndcg@5=0.657234
+[12-14-2017 19:49:21]	[Train:train] Iter:264	loss=0.717841
+[12-14-2017 19:49:21]	[Eval:test] Iter:264	ndcg@3=0.527413	map=0.542896	ndcg@5=0.586364
+[12-14-2017 19:49:21]	[Eval:valid] Iter:264	ndcg@3=0.589113	map=0.599112	ndcg@5=0.659088
+[12-14-2017 19:49:21]	[Train:train] Iter:265	loss=0.729442
+[12-14-2017 19:49:21]	[Eval:test] Iter:265	ndcg@3=0.522348	map=0.535993	ndcg@5=0.588372
+[12-14-2017 19:49:21]	[Eval:valid] Iter:265	ndcg@3=0.599456	map=0.600027	ndcg@5=0.651300
+[12-14-2017 19:49:21]	[Train:train] Iter:266	loss=0.740315
+[12-14-2017 19:49:21]	[Eval:test] Iter:266	ndcg@3=0.525304	map=0.544855	ndcg@5=0.592248
+[12-14-2017 19:49:21]	[Eval:valid] Iter:266	ndcg@3=0.592138	map=0.602003	ndcg@5=0.662259
+[12-14-2017 19:49:21]	[Train:train] Iter:267	loss=0.708907
+[12-14-2017 19:49:22]	[Eval:test] Iter:267	ndcg@3=0.522641	map=0.540939	ndcg@5=0.590049
+[12-14-2017 19:49:22]	[Eval:valid] Iter:267	ndcg@3=0.597504	map=0.605549	ndcg@5=0.657282
+[12-14-2017 19:49:22]	[Train:train] Iter:268	loss=0.674677
+[12-14-2017 19:49:22]	[Eval:test] Iter:268	ndcg@3=0.528970	map=0.542055	ndcg@5=0.592668
+[12-14-2017 19:49:22]	[Eval:valid] Iter:268	ndcg@3=0.590186	map=0.598251	ndcg@5=0.653966
+[12-14-2017 19:49:22]	[Train:train] Iter:269	loss=0.705226
+[12-14-2017 19:49:22]	[Eval:test] Iter:269	ndcg@3=0.527413	map=0.540274	ndcg@5=0.588766
+[12-14-2017 19:49:22]	[Eval:valid] Iter:269	ndcg@3=0.589113	map=0.601548	ndcg@5=0.657088
+[12-14-2017 19:49:22]	[Train:train] Iter:270	loss=0.725599
+[12-14-2017 19:49:22]	[Eval:test] Iter:270	ndcg@3=0.526861	map=0.542558	ndcg@5=0.590926
+[12-14-2017 19:49:22]	[Eval:valid] Iter:270	ndcg@3=0.587161	map=0.604092	ndcg@5=0.645769
+[12-14-2017 19:49:23]	[Train:train] Iter:271	loss=0.706056
+[12-14-2017 19:49:23]	[Eval:test] Iter:271	ndcg@3=0.525304	map=0.543016	ndcg@5=0.587996
+[12-14-2017 19:49:23]	[Eval:valid] Iter:271	ndcg@3=0.589113	map=0.602413	ndcg@5=0.659088
+[12-14-2017 19:49:23]	[Train:train] Iter:272	loss=0.722205
+[12-14-2017 19:49:23]	[Eval:test] Iter:272	ndcg@3=0.525856	map=0.542186	ndcg@5=0.584547
+[12-14-2017 19:49:23]	[Eval:valid] Iter:272	ndcg@3=0.589113	map=0.598803	ndcg@5=0.656063
+[12-14-2017 19:49:23]	[Train:train] Iter:273	loss=0.709823
+[12-14-2017 19:49:23]	[Eval:test] Iter:273	ndcg@3=0.522641	map=0.540809	ndcg@5=0.592081
+[12-14-2017 19:49:23]	[Eval:valid] Iter:273	ndcg@3=0.590186	map=0.606995	ndcg@5=0.660307
+[12-14-2017 19:49:23]	[Train:train] Iter:274	loss=0.690586
+[12-14-2017 19:49:23]	[Eval:test] Iter:274	ndcg@3=0.519234	map=0.538865	ndcg@5=0.583885
+[12-14-2017 19:49:24]	[Eval:valid] Iter:274	ndcg@3=0.587161	map=0.599200	ndcg@5=0.646633
+[12-14-2017 19:49:24]	[Train:train] Iter:275	loss=0.702665
+[12-14-2017 19:49:24]	[Eval:test] Iter:275	ndcg@3=0.527120	map=0.536870	ndcg@5=0.588372
+[12-14-2017 19:49:24]	[Eval:valid] Iter:275	ndcg@3=0.596431	map=0.600301	ndcg@5=0.653543
+[12-14-2017 19:49:24]	[Train:train] Iter:276	loss=0.685848
+[12-14-2017 19:49:24]	[Eval:test] Iter:276	ndcg@3=0.525856	map=0.543581	ndcg@5=0.587812
+[12-14-2017 19:49:24]	[Eval:valid] Iter:276	ndcg@3=0.583063	map=0.609374	ndcg@5=0.651397
+[12-14-2017 19:49:24]	[Train:train] Iter:277	loss=0.692104
+[12-14-2017 19:49:24]	[Eval:test] Iter:277	ndcg@3=0.527413	map=0.541848	ndcg@5=0.587184
+[12-14-2017 19:49:24]	[Eval:valid] Iter:277	ndcg@3=0.590186	map=0.602137	ndcg@5=0.657593
+[12-14-2017 19:49:24]	[Train:train] Iter:278	loss=0.722492
+[12-14-2017 19:49:24]	[Eval:test] Iter:278	ndcg@3=0.527413	map=0.543786	ndcg@5=0.592031
+[12-14-2017 19:49:25]	[Eval:valid] Iter:278	ndcg@3=0.586088	map=0.602925	ndcg@5=0.658307
+[12-14-2017 19:49:25]	[Train:train] Iter:279	loss=0.716792
+[12-14-2017 19:49:25]	[Eval:test] Iter:279	ndcg@3=0.527413	map=0.539580	ndcg@5=0.585074
+[12-14-2017 19:49:25]	[Eval:valid] Iter:279	ndcg@3=0.589113	map=0.602242	ndcg@5=0.657447
+[12-14-2017 19:49:25]	[Train:train] Iter:280	loss=0.696294
+[12-14-2017 19:49:25]	[Eval:test] Iter:280	ndcg@3=0.522901	map=0.537344	ndcg@5=0.588739
+[12-14-2017 19:49:25]	[Eval:valid] Iter:280	ndcg@3=0.590186	map=0.605833	ndcg@5=0.649299
+[12-14-2017 19:49:25]	[Train:train] Iter:281	loss=0.697352
+[12-14-2017 19:49:25]	[Eval:test] Iter:281	ndcg@3=0.527413	map=0.538791	ndcg@5=0.589261
+[12-14-2017 19:49:25]	[Eval:valid] Iter:281	ndcg@3=0.588235	map=0.601325	ndcg@5=0.655039
+[12-14-2017 19:49:25]	[Train:train] Iter:282	loss=0.695043
+[12-14-2017 19:49:26]	[Eval:test] Iter:282	ndcg@3=0.525304	map=0.540396	ndcg@5=0.587151
+[12-14-2017 19:49:26]	[Eval:valid] Iter:282	ndcg@3=0.596237	map=0.601548	ndcg@5=0.654063
+[12-14-2017 19:49:26]	[Train:train] Iter:283	loss=0.754194
+[12-14-2017 19:49:26]	[Eval:test] Iter:283	ndcg@3=0.525856	map=0.541529	ndcg@5=0.585334
+[12-14-2017 19:49:26]	[Eval:valid] Iter:283	ndcg@3=0.596237	map=0.606063	ndcg@5=0.654063
+[12-14-2017 19:49:26]	[Train:train] Iter:284	loss=0.737191
+[12-14-2017 19:49:26]	[Eval:test] Iter:284	ndcg@3=0.526115	map=0.537036	ndcg@5=0.587292
+[12-14-2017 19:49:26]	[Eval:valid] Iter:284	ndcg@3=0.587161	map=0.599959	ndcg@5=0.645769
+[12-14-2017 19:49:26]	[Train:train] Iter:285	loss=0.726311
+[12-14-2017 19:49:26]	[Eval:test] Iter:285	ndcg@3=0.529523	map=0.543925	ndcg@5=0.593296
+[12-14-2017 19:49:26]	[Eval:valid] Iter:285	ndcg@3=0.592333	map=0.600501	ndcg@5=0.664406
+[12-14-2017 19:49:27]	[Train:train] Iter:286	loss=0.728607
+[12-14-2017 19:49:27]	[Eval:test] Iter:286	ndcg@3=0.523453	map=0.535246	ndcg@5=0.585723
+[12-14-2017 19:49:27]	[Eval:valid] Iter:286	ndcg@3=0.588235	map=0.605120	ndcg@5=0.654766
+[12-14-2017 19:49:27]	[Train:train] Iter:287	loss=0.729016
+[12-14-2017 19:49:27]	[Eval:test] Iter:287	ndcg@3=0.529523	map=0.543513	ndcg@5=0.591219
+[12-14-2017 19:49:27]	[Eval:valid] Iter:287	ndcg@3=0.586088	map=0.601292	ndcg@5=0.655495
+[12-14-2017 19:49:27]	[Train:train] Iter:288	loss=0.690081
+[12-14-2017 19:49:27]	[Eval:test] Iter:288	ndcg@3=0.525856	map=0.543438	ndcg@5=0.583994
+[12-14-2017 19:49:27]	[Eval:valid] Iter:288	ndcg@3=0.589113	map=0.602413	ndcg@5=0.651037
+[12-14-2017 19:49:27]	[Train:train] Iter:289	loss=0.693008
+[12-14-2017 19:49:27]	[Eval:test] Iter:289	ndcg@3=0.519786	map=0.537443	ndcg@5=0.582768
+[12-14-2017 19:49:28]	[Eval:valid] Iter:289	ndcg@3=0.588235	map=0.603413	ndcg@5=0.649595
+[12-14-2017 19:49:28]	[Train:train] Iter:290	loss=0.709848
+[12-14-2017 19:49:28]	[Eval:test] Iter:290	ndcg@3=0.523194	map=0.536912	ndcg@5=0.586892
+[12-14-2017 19:49:28]	[Eval:valid] Iter:290	ndcg@3=0.587161	map=0.603374	ndcg@5=0.648794
+[12-14-2017 19:49:28]	[Train:train] Iter:291	loss=0.700066
+[12-14-2017 19:49:28]	[Eval:test] Iter:291	ndcg@3=0.517124	map=0.539804	ndcg@5=0.584771
+[12-14-2017 19:49:28]	[Eval:valid] Iter:291	ndcg@3=0.583063	map=0.606486	ndcg@5=0.655791
+[12-14-2017 19:49:28]	[Train:train] Iter:292	loss=0.744755
+[12-14-2017 19:49:28]	[Eval:test] Iter:292	ndcg@3=0.526961	map=0.542417	ndcg@5=0.586364
+[12-14-2017 19:49:28]	[Eval:valid] Iter:292	ndcg@3=0.586088	map=0.604326	ndcg@5=0.651037
+[12-14-2017 19:49:28]	[Train:train] Iter:293	loss=0.712734
+[12-14-2017 19:49:28]	[Eval:test] Iter:293	ndcg@3=0.525010	map=0.537592	ndcg@5=0.590557
+[12-14-2017 19:49:29]	[Eval:valid] Iter:293	ndcg@3=0.588235	map=0.604285	ndcg@5=0.653397
+[12-14-2017 19:49:29]	[Train:train] Iter:294	loss=0.748745
+[12-14-2017 19:49:29]	[Eval:test] Iter:294	ndcg@3=0.527413	map=0.540424	ndcg@5=0.586967
+[12-14-2017 19:49:29]	[Eval:valid] Iter:294	ndcg@3=0.589113	map=0.601377	ndcg@5=0.657088
+[12-14-2017 19:49:29]	[Train:train] Iter:295	loss=0.691546
+[12-14-2017 19:49:29]	[Eval:test] Iter:295	ndcg@3=0.520791	map=0.537912	ndcg@5=0.589844
+[12-14-2017 19:49:29]	[Eval:valid] Iter:295	ndcg@3=0.591260	map=0.600187	ndcg@5=0.650372
+[12-14-2017 19:49:29]	[Train:train] Iter:296	loss=0.718943
+[12-14-2017 19:49:29]	[Eval:test] Iter:296	ndcg@3=0.527413	map=0.538512	ndcg@5=0.587444
+[12-14-2017 19:49:29]	[Eval:valid] Iter:296	ndcg@3=0.598383	map=0.598138	ndcg@5=0.648940
+[12-14-2017 19:49:29]	[Train:train] Iter:297	loss=0.694039
+[12-14-2017 19:49:30]	[Eval:test] Iter:297	ndcg@3=0.530075	map=0.542847	ndcg@5=0.587736
+[12-14-2017 19:49:30]	[Eval:valid] Iter:297	ndcg@3=0.589113	map=0.601354	ndcg@5=0.653640
+[12-14-2017 19:49:30]	[Train:train] Iter:298	loss=0.728304
+[12-14-2017 19:49:30]	[Eval:test] Iter:298	ndcg@3=0.525304	map=0.540549	ndcg@5=0.589629
+[12-14-2017 19:49:30]	[Eval:valid] Iter:298	ndcg@3=0.588235	map=0.604456	ndcg@5=0.662910
+[12-14-2017 19:49:30]	[Train:train] Iter:299	loss=0.703138
+[12-14-2017 19:49:30]	[Eval:test] Iter:299	ndcg@3=0.529230	map=0.537349	ndcg@5=0.589292
+[12-14-2017 19:49:30]	[Eval:valid] Iter:299	ndcg@3=0.591260	map=0.607473	ndcg@5=0.654470
+[12-14-2017 19:49:30]	[Train:train] Iter:300	loss=0.719006
+[12-14-2017 19:49:30]	[Eval:test] Iter:300	ndcg@3=0.525304	map=0.542470	ndcg@5=0.584597
+[12-14-2017 19:49:30]	[Eval:valid] Iter:300	ndcg@3=0.586088	map=0.598554	ndcg@5=0.656209
+[12-14-2017 19:49:30]	[Train:train] Iter:301	loss=0.687529
+[12-14-2017 19:49:31]	[Eval:test] Iter:301	ndcg@3=0.523194	map=0.537807	ndcg@5=0.587996
+[12-14-2017 19:49:31]	[Eval:valid] Iter:301	ndcg@3=0.597310	map=0.604604	ndcg@5=0.651037
+[12-14-2017 19:49:31]	[Train:train] Iter:302	loss=0.718711
+[12-14-2017 19:49:31]	[Eval:test] Iter:302	ndcg@3=0.523194	map=0.537616	ndcg@5=0.586674
+[12-14-2017 19:49:31]	[Eval:valid] Iter:302	ndcg@3=0.587161	map=0.606380	ndcg@5=0.652470
+[12-14-2017 19:49:31]	[Train:train] Iter:303	loss=0.715121
+[12-14-2017 19:49:31]	[Eval:test] Iter:303	ndcg@3=0.523453	map=0.538213	ndcg@5=0.589184
+[12-14-2017 19:49:31]	[Eval:valid] Iter:303	ndcg@3=0.591260	map=0.600915	ndcg@5=0.656568
+[12-14-2017 19:49:31]	[Train:train] Iter:304	loss=0.670373
+[12-14-2017 19:49:31]	[Eval:test] Iter:304	ndcg@3=0.526568	map=0.536769	ndcg@5=0.588372
+[12-14-2017 19:49:31]	[Eval:valid] Iter:304	ndcg@3=0.595358	map=0.601735	ndcg@5=0.647201
+[12-14-2017 19:49:32]	[Train:train] Iter:305	loss=0.713137
+[12-14-2017 19:49:32]	[Eval:test] Iter:305	ndcg@3=0.523194	map=0.541052	ndcg@5=0.586179
+[12-14-2017 19:49:32]	[Eval:valid] Iter:305	ndcg@3=0.586088	map=0.602106	ndcg@5=0.648371
+[12-14-2017 19:49:32]	[Train:train] Iter:306	loss=0.720343
+[12-14-2017 19:49:32]	[Eval:test] Iter:306	ndcg@3=0.525010	map=0.540127	ndcg@5=0.587182
+[12-14-2017 19:49:32]	[Eval:valid] Iter:306	ndcg@3=0.588235	map=0.611708	ndcg@5=0.663478
+[12-14-2017 19:49:32]	[Train:train] Iter:307	loss=0.691837
+[12-14-2017 19:49:32]	[Eval:test] Iter:307	ndcg@3=0.517124	map=0.535273	ndcg@5=0.587063
+[12-14-2017 19:49:32]	[Eval:valid] Iter:307	ndcg@3=0.587161	map=0.610585	ndcg@5=0.652620
+[12-14-2017 19:49:32]	[Train:train] Iter:308	loss=0.700158
+[12-14-2017 19:49:32]	[Eval:test] Iter:308	ndcg@3=0.530075	map=0.544834	ndcg@5=0.591001
+[12-14-2017 19:49:33]	[Eval:valid] Iter:308	ndcg@3=0.590186	map=0.601633	ndcg@5=0.654111
+[12-14-2017 19:49:33]	[Train:train] Iter:309	loss=0.690096
+[12-14-2017 19:49:33]	[Eval:test] Iter:309	ndcg@3=0.525304	map=0.542876	ndcg@5=0.587996
+[12-14-2017 19:49:33]	[Eval:valid] Iter:309	ndcg@3=0.593212	map=0.606590	ndcg@5=0.665284
+[12-14-2017 19:49:33]	[Train:train] Iter:310	loss=0.760997
+[12-14-2017 19:49:33]	[Eval:test] Iter:310	ndcg@3=0.520791	map=0.540456	ndcg@5=0.592098
+[12-14-2017 19:49:33]	[Eval:valid] Iter:310	ndcg@3=0.580038	map=0.604398	ndcg@5=0.661176
+[12-14-2017 19:49:33]	[Train:train] Iter:311	loss=0.685866
+[12-14-2017 19:49:33]	[Eval:test] Iter:311	ndcg@3=0.523194	map=0.543030	ndcg@5=0.586657
+[12-14-2017 19:49:33]	[Eval:valid] Iter:311	ndcg@3=0.586088	map=0.600963	ndcg@5=0.655917
+[12-14-2017 19:49:33]	[Train:train] Iter:312	loss=0.710949
+[12-14-2017 19:49:33]	[Eval:test] Iter:312	ndcg@3=0.525304	map=0.543761	ndcg@5=0.586967
+[12-14-2017 19:49:34]	[Eval:valid] Iter:312	ndcg@3=0.600335	map=0.605334	ndcg@5=0.650892
+[12-14-2017 19:49:34]	[Train:train] Iter:313	loss=0.711137
+[12-14-2017 19:49:34]	[Eval:test] Iter:313	ndcg@3=0.525010	map=0.539453	ndcg@5=0.587031
+[12-14-2017 19:49:34]	[Eval:valid] Iter:313	ndcg@3=0.578965	map=0.594072	ndcg@5=0.649027
+[12-14-2017 19:49:34]	[Train:train] Iter:314	loss=0.693276
+[12-14-2017 19:49:34]	[Eval:test] Iter:314	ndcg@3=0.522641	map=0.541741	ndcg@5=0.586414
+[12-14-2017 19:49:34]	[Eval:valid] Iter:314	ndcg@3=0.589113	map=0.597734	ndcg@5=0.656063
+[12-14-2017 19:49:34]	[Train:train] Iter:315	loss=0.737449
+[12-14-2017 19:49:34]	[Eval:test] Iter:315	ndcg@3=0.520791	map=0.538630	ndcg@5=0.587785
+[12-14-2017 19:49:34]	[Eval:valid] Iter:315	ndcg@3=0.599456	map=0.600164	ndcg@5=0.656209
+[12-14-2017 19:49:34]	[Train:train] Iter:316	loss=0.759586
+[12-14-2017 19:49:35]	[Eval:test] Iter:316	ndcg@3=0.522348	map=0.535661	ndcg@5=0.586522
+[12-14-2017 19:49:35]	[Eval:valid] Iter:316	ndcg@3=0.592333	map=0.603648	ndcg@5=0.656568
+[12-14-2017 19:49:35]	[Train:train] Iter:317	loss=0.723995
+[12-14-2017 19:49:35]	[Eval:test] Iter:317	ndcg@3=0.526861	map=0.545688	ndcg@5=0.587184
+[12-14-2017 19:49:35]	[Eval:valid] Iter:317	ndcg@3=0.589113	map=0.604736	ndcg@5=0.662259
+[12-14-2017 19:49:35]	[Train:train] Iter:318	loss=0.663388
+[12-14-2017 19:49:35]	[Eval:test] Iter:318	ndcg@3=0.526408	map=0.540629	ndcg@5=0.590106
+[12-14-2017 19:49:35]	[Eval:valid] Iter:318	ndcg@3=0.586088	map=0.604331	ndcg@5=0.651397
+[12-14-2017 19:49:35]	[Train:train] Iter:319	loss=0.709731
+[12-14-2017 19:49:35]	[Eval:test] Iter:319	ndcg@3=0.526861	map=0.540285	ndcg@5=0.589846
+[12-14-2017 19:49:35]	[Eval:valid] Iter:319	ndcg@3=0.594285	map=0.605009	ndcg@5=0.660764
+[12-14-2017 19:49:35]	[Train:train] Iter:320	loss=0.711989
+[12-14-2017 19:49:36]	[Eval:test] Iter:320	ndcg@3=0.525304	map=0.540934	ndcg@5=0.586967
+[12-14-2017 19:49:36]	[Eval:valid] Iter:320	ndcg@3=0.589113	map=0.600613	ndcg@5=0.647298
+[12-14-2017 19:49:36]	[Train:train] Iter:321	loss=0.685581
+[12-14-2017 19:49:36]	[Eval:test] Iter:321	ndcg@3=0.529230	map=0.537821	ndcg@5=0.587770
+[12-14-2017 19:49:36]	[Eval:valid] Iter:321	ndcg@3=0.592333	map=0.611298	ndcg@5=0.653756
+[12-14-2017 19:49:36]	[Train:train] Iter:322	loss=0.685391
+[12-14-2017 19:49:36]	[Eval:test] Iter:322	ndcg@3=0.527413	map=0.542440	ndcg@5=0.592743
+[12-14-2017 19:49:36]	[Eval:valid] Iter:322	ndcg@3=0.590186	map=0.603311	ndcg@5=0.663478
+[12-14-2017 19:49:36]	[Train:train] Iter:323	loss=0.705289
+[12-14-2017 19:49:36]	[Eval:test] Iter:323	ndcg@3=0.525563	map=0.538136	ndcg@5=0.587000
+[12-14-2017 19:49:36]	[Eval:valid] Iter:323	ndcg@3=0.588235	map=0.611541	ndcg@5=0.661594
+[12-14-2017 19:49:37]	[Train:train] Iter:324	loss=0.695644
+[12-14-2017 19:49:37]	[Eval:test] Iter:324	ndcg@3=0.521343	map=0.534260	ndcg@5=0.585908
+[12-14-2017 19:49:37]	[Eval:valid] Iter:324	ndcg@3=0.595358	map=0.604437	ndcg@5=0.658360
+[12-14-2017 19:49:37]	[Train:train] Iter:325	loss=0.722366
+[12-14-2017 19:49:37]	[Eval:test] Iter:325	ndcg@3=0.522901	map=0.536857	ndcg@5=0.585958
+[12-14-2017 19:49:37]	[Eval:valid] Iter:325	ndcg@3=0.588235	map=0.604545	ndcg@5=0.658569
+[12-14-2017 19:49:37]	[Train:train] Iter:326	loss=0.728861
+[12-14-2017 19:49:37]	[Eval:test] Iter:326	ndcg@3=0.526861	map=0.546870	ndcg@5=0.594191
+[12-14-2017 19:49:37]	[Eval:test] Now the val map is 0.546870.
+[12-14-2017 19:49:37]	[Eval:valid] Iter:326	ndcg@3=0.593212	map=0.602589	ndcg@5=0.660259
+[12-14-2017 19:49:37]	[Train:train] Iter:327	loss=0.708056
+[12-14-2017 19:49:37]	[Eval:test] Iter:327	ndcg@3=0.526308	map=0.544248	ndcg@5=0.594593
+[12-14-2017 19:49:38]	[Eval:valid] Iter:327	ndcg@3=0.589113	map=0.601805	ndcg@5=0.653917
+[12-14-2017 19:49:38]	[Train:train] Iter:328	loss=0.734199
+[12-14-2017 19:49:38]	[Eval:test] Iter:328	ndcg@3=0.525756	map=0.541811	ndcg@5=0.589051
+[12-14-2017 19:49:38]	[Eval:valid] Iter:328	ndcg@3=0.592138	map=0.603330	ndcg@5=0.657234
+[12-14-2017 19:49:38]	[Train:train] Iter:329	loss=0.685682
+[12-14-2017 19:49:38]	[Eval:test] Iter:329	ndcg@3=0.525010	map=0.537996	ndcg@5=0.584337
+[12-14-2017 19:49:38]	[Eval:valid] Iter:329	ndcg@3=0.595358	map=0.612527	ndcg@5=0.657073
+[12-14-2017 19:49:38]	[Train:train] Iter:330	loss=0.711326
+[12-14-2017 19:49:38]	[Eval:test] Iter:330	ndcg@3=0.528418	map=0.546073	ndcg@5=0.589604
+[12-14-2017 19:49:38]	[Eval:valid] Iter:330	ndcg@3=0.587161	map=0.599447	ndcg@5=0.655136
+[12-14-2017 19:49:38]	[Train:train] Iter:331	loss=0.722686
+[12-14-2017 19:49:38]	[Eval:test] Iter:331	ndcg@3=0.527120	map=0.536226	ndcg@5=0.584445
+[12-14-2017 19:49:39]	[Eval:valid] Iter:331	ndcg@3=0.591260	map=0.612288	ndcg@5=0.665124
+[12-14-2017 19:49:39]	[Train:train] Iter:332	loss=0.697851
+[12-14-2017 19:49:39]	[Eval:test] Iter:332	ndcg@3=0.525304	map=0.542108	ndcg@5=0.591261
+[12-14-2017 19:49:39]	[Eval:valid] Iter:332	ndcg@3=0.587161	map=0.599252	ndcg@5=0.661478
+[12-14-2017 19:49:39]	[Train:train] Iter:333	loss=0.669009
+[12-14-2017 19:49:39]	[Eval:test] Iter:333	ndcg@3=0.524751	map=0.542829	ndcg@5=0.591403
+[12-14-2017 19:49:39]	[Eval:valid] Iter:333	ndcg@3=0.589113	map=0.596623	ndcg@5=0.653494
+[12-14-2017 19:49:39]	[Train:train] Iter:334	loss=0.705082
+[12-14-2017 19:49:39]	[Eval:test] Iter:334	ndcg@3=0.529523	map=0.546734	ndcg@5=0.592583
+[12-14-2017 19:49:39]	[Eval:valid] Iter:334	ndcg@3=0.585015	map=0.603893	ndcg@5=0.653854
+[12-14-2017 19:49:39]	[Train:train] Iter:335	loss=0.697654
+[12-14-2017 19:49:40]	[Eval:test] Iter:335	ndcg@3=0.523194	map=0.542346	ndcg@5=0.589846
+[12-14-2017 19:49:40]	[Eval:valid] Iter:335	ndcg@3=0.593212	map=0.602238	ndcg@5=0.657088
+[12-14-2017 19:49:40]	[Train:train] Iter:336	loss=0.716756
+[12-14-2017 19:49:40]	[Eval:test] Iter:336	ndcg@3=0.520791	map=0.537453	ndcg@5=0.589844
+[12-14-2017 19:49:40]	[Eval:valid] Iter:336	ndcg@3=0.589308	map=0.602179	ndcg@5=0.660958
+[12-14-2017 19:49:40]	[Train:train] Iter:337	loss=0.736163
+[12-14-2017 19:49:40]	[Eval:test] Iter:337	ndcg@3=0.525756	map=0.547726	ndcg@5=0.591713
+[12-14-2017 19:49:40]	[Eval:test] Now the val map is 0.547726.
+[12-14-2017 19:49:40]	[Eval:valid] Iter:337	ndcg@3=0.588235	map=0.605828	ndcg@5=0.658210
+[12-14-2017 19:49:40]	[Train:train] Iter:338	loss=0.698932
+[12-14-2017 19:49:40]	[Eval:test] Iter:338	ndcg@3=0.531080	map=0.543331	ndcg@5=0.595036
+[12-14-2017 19:49:40]	[Eval:valid] Iter:338	ndcg@3=0.594285	map=0.604914	ndcg@5=0.661740
+[12-14-2017 19:49:41]	[Train:train] Iter:339	loss=0.724328
+[12-14-2017 19:49:41]	[Eval:test] Iter:339	ndcg@3=0.531080	map=0.543099	ndcg@5=0.594928
+[12-14-2017 19:49:41]	[Eval:valid] Iter:339	ndcg@3=0.591260	map=0.600829	ndcg@5=0.657282
+[12-14-2017 19:49:41]	[Train:train] Iter:340	loss=0.678319
+[12-14-2017 19:49:41]	[Eval:test] Iter:340	ndcg@3=0.526861	map=0.545100	ndcg@5=0.594300
+[12-14-2017 19:49:41]	[Eval:valid] Iter:340	ndcg@3=0.596431	map=0.601594	ndcg@5=0.661526
+[12-14-2017 19:49:41]	[Train:train] Iter:341	loss=0.695963
+[12-14-2017 19:49:41]	[Eval:test] Iter:341	ndcg@3=0.529523	map=0.547079	ndcg@5=0.595438
+[12-14-2017 19:49:41]	[Eval:valid] Iter:341	ndcg@3=0.588040	map=0.605337	ndcg@5=0.650323
+[12-14-2017 19:49:41]	[Train:train] Iter:342	loss=0.735861
+[12-14-2017 19:49:41]	[Eval:test] Iter:342	ndcg@3=0.524751	map=0.542391	ndcg@5=0.591001
+[12-14-2017 19:49:42]	[Eval:valid] Iter:342	ndcg@3=0.586088	map=0.607992	ndcg@5=0.659593
+[12-14-2017 19:49:42]	[Train:train] Iter:343	loss=0.649253
+[12-14-2017 19:49:42]	[Eval:test] Iter:343	ndcg@3=0.526861	map=0.545642	ndcg@5=0.592081
+[12-14-2017 19:49:42]	[Eval:valid] Iter:343	ndcg@3=0.598383	map=0.604462	ndcg@5=0.662050
+[12-14-2017 19:49:42]	[Train:train] Iter:344	loss=0.755749
+[12-14-2017 19:49:42]	[Eval:test] Iter:344	ndcg@3=0.524458	map=0.539256	ndcg@5=0.590774
+[12-14-2017 19:49:42]	[Eval:valid] Iter:344	ndcg@3=0.588235	map=0.611683	ndcg@5=0.656714
+[12-14-2017 19:49:42]	[Train:train] Iter:345	loss=0.703252
+[12-14-2017 19:49:42]	[Eval:test] Iter:345	ndcg@3=0.518681	map=0.539312	ndcg@5=0.586246
+[12-14-2017 19:49:42]	[Eval:valid] Iter:345	ndcg@3=0.580038	map=0.604838	ndcg@5=0.658656
+[12-14-2017 19:49:42]	[Train:train] Iter:346	loss=0.716398
+[12-14-2017 19:49:42]	[Eval:test] Iter:346	ndcg@3=0.530268	map=0.547922	ndcg@5=0.593361
+[12-14-2017 19:49:43]	[Eval:test] Now the val map is 0.547922.
+[12-14-2017 19:49:43]	[Eval:valid] Iter:346	ndcg@3=0.588040	map=0.606694	ndcg@5=0.654213
+[12-14-2017 19:49:43]	[Train:train] Iter:347	loss=0.662691
+[12-14-2017 19:49:43]	[Eval:test] Iter:347	ndcg@3=0.533757	map=0.541834	ndcg@5=0.596080
+[12-14-2017 19:49:43]	[Eval:valid] Iter:347	ndcg@3=0.592138	map=0.603552	ndcg@5=0.657952
+[12-14-2017 19:49:43]	[Train:train] Iter:348	loss=0.677265
+[12-14-2017 19:49:43]	[Eval:test] Iter:348	ndcg@3=0.530821	map=0.546206	ndcg@5=0.596811
+[12-14-2017 19:49:43]	[Eval:valid] Iter:348	ndcg@3=0.585209	map=0.597254	ndcg@5=0.657073
+[12-14-2017 19:49:43]	[Train:train] Iter:349	loss=0.737279
+[12-14-2017 19:49:43]	[Eval:test] Iter:349	ndcg@3=0.524280	map=0.542776	ndcg@5=0.586561
+[12-14-2017 19:49:43]	[Eval:valid] Iter:349	ndcg@3=0.586283	map=0.598773	ndcg@5=0.658506
+[12-14-2017 19:49:43]	[Train:train] Iter:350	loss=0.724794
+[12-14-2017 19:49:44]	[Eval:test] Iter:350	ndcg@3=0.532931	map=0.542818	ndcg@5=0.594409
+[12-14-2017 19:49:44]	[Eval:valid] Iter:350	ndcg@3=0.589113	map=0.607068	ndcg@5=0.666508
+[12-14-2017 19:49:44]	[Train:train] Iter:351	loss=0.693695
+[12-14-2017 19:49:44]	[Eval:test] Iter:351	ndcg@3=0.535040	map=0.544048	ndcg@5=0.592299
+[12-14-2017 19:49:44]	[Eval:valid] Iter:351	ndcg@3=0.590186	map=0.605601	ndcg@5=0.664197
+[12-14-2017 19:49:44]	[Train:train] Iter:352	loss=0.703207
+[12-14-2017 19:49:44]	[Eval:test] Iter:352	ndcg@3=0.533935	map=0.543408	ndcg@5=0.592474
+[12-14-2017 19:49:44]	[Eval:valid] Iter:352	ndcg@3=0.581990	map=0.593631	ndcg@5=0.651693
+[12-14-2017 19:49:44]	[Train:train] Iter:353	loss=0.699308
+[12-14-2017 19:49:44]	[Eval:test] Iter:353	ndcg@3=0.528159	map=0.545508	ndcg@5=0.595069
+[12-14-2017 19:49:44]	[Eval:valid] Iter:353	ndcg@3=0.586088	map=0.603792	ndcg@5=0.655286
+[12-14-2017 19:49:45]	[Train:train] Iter:354	loss=0.735466
+[12-14-2017 19:49:45]	[Eval:test] Iter:354	ndcg@3=0.530787	map=0.545709	ndcg@5=0.591436
+[12-14-2017 19:49:45]	[Eval:valid] Iter:354	ndcg@3=0.589308	map=0.602339	ndcg@5=0.658001
+[12-14-2017 19:49:45]	[Train:train] Iter:355	loss=0.697397
+[12-14-2017 19:49:45]	[Eval:test] Iter:355	ndcg@3=0.534488	map=0.543563	ndcg@5=0.591672
+[12-14-2017 19:49:45]	[Eval:valid] Iter:355	ndcg@3=0.588040	map=0.607049	ndcg@5=0.654213
+[12-14-2017 19:49:45]	[Train:train] Iter:356	loss=0.663418
+[12-14-2017 19:49:45]	[Eval:test] Iter:356	ndcg@3=0.532378	map=0.544984	ndcg@5=0.594919
+[12-14-2017 19:49:45]	[Eval:valid] Iter:356	ndcg@3=0.589113	map=0.603825	ndcg@5=0.661482
+[12-14-2017 19:49:45]	[Train:train] Iter:357	loss=0.699099
+[12-14-2017 19:49:45]	[Eval:test] Iter:357	ndcg@3=0.530268	map=0.543061	ndcg@5=0.592039
+[12-14-2017 19:49:45]	[Eval:valid] Iter:357	ndcg@3=0.591260	map=0.605874	ndcg@5=0.666294
+[12-14-2017 19:49:46]	[Train:train] Iter:358	loss=0.705167
+[12-14-2017 19:49:46]	[Eval:test] Iter:358	ndcg@3=0.534488	map=0.545503	ndcg@5=0.592624
+[12-14-2017 19:49:46]	[Eval:valid] Iter:358	ndcg@3=0.585015	map=0.598087	ndcg@5=0.659530
+[12-14-2017 19:49:46]	[Train:train] Iter:359	loss=0.742641
+[12-14-2017 19:49:46]	[Eval:test] Iter:359	ndcg@3=0.530090	map=0.546226	ndcg@5=0.592783
+[12-14-2017 19:49:46]	[Eval:valid] Iter:359	ndcg@3=0.594285	map=0.611163	ndcg@5=0.660098
+[12-14-2017 19:49:46]	[Train:train] Iter:360	loss=0.711337
+[12-14-2017 19:49:46]	[Eval:test] Iter:360	ndcg@3=0.529538	map=0.545686	ndcg@5=0.593786
+[12-14-2017 19:49:46]	[Eval:valid] Iter:360	ndcg@3=0.586088	map=0.607650	ndcg@5=0.669679
+[12-14-2017 19:49:46]	[Train:train] Iter:361	loss=0.708126
+[12-14-2017 19:49:46]	[Eval:test] Iter:361	ndcg@3=0.530821	map=0.547568	ndcg@5=0.591619
+[12-14-2017 19:49:47]	[Eval:valid] Iter:361	ndcg@3=0.594285	map=0.609484	ndcg@5=0.664653
+[12-14-2017 19:49:47]	[Train:train] Iter:362	loss=0.676092
+[12-14-2017 19:49:47]	[Eval:test] Iter:362	ndcg@3=0.534488	map=0.545854	ndcg@5=0.594441
+[12-14-2017 19:49:47]	[Eval:valid] Iter:362	ndcg@3=0.589113	map=0.603825	ndcg@5=0.661482
+[12-14-2017 19:49:47]	[Train:train] Iter:363	loss=0.694353
+[12-14-2017 19:49:47]	[Eval:test] Iter:363	ndcg@3=0.539260	map=0.547328	ndcg@5=0.595764
+[12-14-2017 19:49:47]	[Eval:valid] Iter:363	ndcg@3=0.588040	map=0.604918	ndcg@5=0.657384
+[12-14-2017 19:49:47]	[Train:train] Iter:364	loss=0.694700
+[12-14-2017 19:49:47]	[Eval:test] Iter:364	ndcg@3=0.538707	map=0.544057	ndcg@5=0.591854
+[12-14-2017 19:49:47]	[Eval:valid] Iter:364	ndcg@3=0.589113	map=0.610577	ndcg@5=0.661987
+[12-14-2017 19:49:47]	[Train:train] Iter:365	loss=0.668559
+[12-14-2017 19:49:48]	[Eval:test] Iter:365	ndcg@3=0.532931	map=0.545983	ndcg@5=0.595069
+[12-14-2017 19:49:48]	[Eval:valid] Iter:365	ndcg@3=0.585015	map=0.604918	ndcg@5=0.660555
+[12-14-2017 19:49:48]	[Train:train] Iter:366	loss=0.668204
+[12-14-2017 19:49:48]	[Eval:test] Iter:366	ndcg@3=0.532931	map=0.541919	ndcg@5=0.590222
+[12-14-2017 19:49:48]	[Eval:valid] Iter:366	ndcg@3=0.589113	map=0.603291	ndcg@5=0.658457
+[12-14-2017 19:49:48]	[Train:train] Iter:367	loss=0.706413
+[12-14-2017 19:49:48]	[Eval:test] Iter:367	ndcg@3=0.524751	map=0.542796	ndcg@5=0.590465
+[12-14-2017 19:49:48]	[Eval:valid] Iter:367	ndcg@3=0.591260	map=0.605116	ndcg@5=0.653902
+[12-14-2017 19:49:48]	[Train:train] Iter:368	loss=0.683608
+[12-14-2017 19:49:48]	[Eval:test] Iter:368	ndcg@3=0.534488	map=0.544765	ndcg@5=0.592039
+[12-14-2017 19:49:48]	[Eval:valid] Iter:368	ndcg@3=0.581990	map=0.604918	ndcg@5=0.659530
+[12-14-2017 19:49:48]	[Train:train] Iter:369	loss=0.737392
+[12-14-2017 19:49:49]	[Eval:test] Iter:369	ndcg@3=0.534488	map=0.549007	ndcg@5=0.594331
+[12-14-2017 19:49:49]	[Eval:test] Now the val map is 0.549007.
+[12-14-2017 19:49:49]	[Eval:valid] Iter:369	ndcg@3=0.593212	map=0.605796	ndcg@5=0.657952
+[12-14-2017 19:49:49]	[Train:train] Iter:370	loss=0.677207
+[12-14-2017 19:49:49]	[Eval:test] Iter:370	ndcg@3=0.537683	map=0.544643	ndcg@5=0.595141
+[12-14-2017 19:49:49]	[Eval:valid] Iter:370	ndcg@3=0.594285	map=0.604918	ndcg@5=0.663692
+[12-14-2017 19:49:49]	[Train:train] Iter:371	loss=0.722498
+[12-14-2017 19:49:49]	[Eval:test] Iter:371	ndcg@3=0.534016	map=0.548162	ndcg@5=0.594296
+[12-14-2017 19:49:49]	[Eval:valid] Iter:371	ndcg@3=0.591260	map=0.605328	ndcg@5=0.665124
+[12-14-2017 19:49:49]	[Train:train] Iter:372	loss=0.698366
+[12-14-2017 19:49:49]	[Eval:test] Iter:372	ndcg@3=0.532085	map=0.547330	ndcg@5=0.593210
+[12-14-2017 19:49:49]	[Eval:valid] Iter:372	ndcg@3=0.595358	map=0.600888	ndcg@5=0.659953
+[12-14-2017 19:49:50]	[Train:train] Iter:373	loss=0.687576
+[12-14-2017 19:49:50]	[Eval:test] Iter:373	ndcg@3=0.539534	map=0.547635	ndcg@5=0.594608
+[12-14-2017 19:49:50]	[Eval:valid] Iter:373	ndcg@3=0.586088	map=0.609894	ndcg@5=0.654927
+[12-14-2017 19:49:50]	[Train:train] Iter:374	loss=0.723681
+[12-14-2017 19:49:50]	[Eval:test] Iter:374	ndcg@3=0.532652	map=0.548965	ndcg@5=0.594715
+[12-14-2017 19:49:50]	[Eval:valid] Iter:374	ndcg@3=0.585015	map=0.597258	ndcg@5=0.656879
+[12-14-2017 19:49:50]	[Train:train] Iter:375	loss=0.707537
+[12-14-2017 19:49:50]	[Eval:test] Iter:375	ndcg@3=0.523646	map=0.538332	ndcg@5=0.586251
+[12-14-2017 19:49:50]	[Eval:valid] Iter:375	ndcg@3=0.588235	map=0.597157	ndcg@5=0.654198
+[12-14-2017 19:49:50]	[Train:train] Iter:376	loss=0.732662
+[12-14-2017 19:49:50]	[Eval:test] Iter:376	ndcg@3=0.537424	map=0.546619	ndcg@5=0.593235
+[12-14-2017 19:49:51]	[Eval:valid] Iter:376	ndcg@3=0.602482	map=0.608915	ndcg@5=0.664765
+[12-14-2017 19:49:51]	[Train:train] Iter:377	loss=0.683057
+[12-14-2017 19:49:51]	[Eval:test] Iter:377	ndcg@3=0.529797	map=0.541537	ndcg@5=0.588337
+[12-14-2017 19:49:51]	[Eval:valid] Iter:377	ndcg@3=0.593406	map=0.599652	ndcg@5=0.659074
+[12-14-2017 19:49:51]	[Train:train] Iter:378	loss=0.731813
+[12-14-2017 19:49:51]	[Eval:test] Iter:378	ndcg@3=0.537424	map=0.546052	ndcg@5=0.596717
+[12-14-2017 19:49:51]	[Eval:valid] Iter:378	ndcg@3=0.594285	map=0.607845	ndcg@5=0.659593
+[12-14-2017 19:49:51]	[Train:train] Iter:379	loss=0.748203
+[12-14-2017 19:49:51]	[Eval:test] Iter:379	ndcg@3=0.537683	map=0.545200	ndcg@5=0.590371
+[12-14-2017 19:49:51]	[Eval:valid] Iter:379	ndcg@3=0.595358	map=0.603864	ndcg@5=0.658001
+[12-14-2017 19:49:51]	[Train:train] Iter:380	loss=0.676730
+[12-14-2017 19:49:52]	[Eval:test] Iter:380	ndcg@3=0.528418	map=0.542394	ndcg@5=0.588405
+[12-14-2017 19:49:52]	[Eval:valid] Iter:380	ndcg@3=0.592333	map=0.602176	ndcg@5=0.651805
+[12-14-2017 19:49:52]	[Train:train] Iter:381	loss=0.735091
+[12-14-2017 19:49:52]	[Eval:test] Iter:381	ndcg@3=0.536872	map=0.546389	ndcg@5=0.594530
+[12-14-2017 19:49:52]	[Eval:valid] Iter:381	ndcg@3=0.595358	map=0.611260	ndcg@5=0.656000
+[12-14-2017 19:49:52]	[Train:train] Iter:382	loss=0.705159
+[12-14-2017 19:49:52]	[Eval:test] Iter:382	ndcg@3=0.537424	map=0.547014	ndcg@5=0.596608
+[12-14-2017 19:49:52]	[Eval:valid] Iter:382	ndcg@3=0.597310	map=0.604475	ndcg@5=0.655495
+[12-14-2017 19:49:52]	[Train:train] Iter:383	loss=0.700578
+[12-14-2017 19:49:52]	[Eval:test] Iter:383	ndcg@3=0.530528	map=0.548508	ndcg@5=0.592435
+[12-14-2017 19:49:52]	[Eval:valid] Iter:383	ndcg@3=0.581111	map=0.601075	ndcg@5=0.654052
+[12-14-2017 19:49:52]	[Train:train] Iter:384	loss=0.722596
+[12-14-2017 19:49:53]	[Eval:test] Iter:384	ndcg@3=0.531095	map=0.546392	ndcg@5=0.596298
+[12-14-2017 19:49:53]	[Eval:valid] Iter:384	ndcg@3=0.601408	map=0.604280	ndcg@5=0.663692
+[12-14-2017 19:49:53]	[Train:train] Iter:385	loss=0.706332
+[12-14-2017 19:49:53]	[Eval:test] Iter:385	ndcg@3=0.530886	map=0.542138	ndcg@5=0.590052
+[12-14-2017 19:49:53]	[Eval:valid] Iter:385	ndcg@3=0.575939	map=0.599648	ndcg@5=0.654864
+[12-14-2017 19:49:53]	[Train:train] Iter:386	loss=0.688003
+[12-14-2017 19:49:53]	[Eval:test] Iter:386	ndcg@3=0.531647	map=0.545138	ndcg@5=0.589491
+[12-14-2017 19:49:53]	[Eval:valid] Iter:386	ndcg@3=0.589113	map=0.599284	ndcg@5=0.658098
+[12-14-2017 19:49:53]	[Train:train] Iter:387	loss=0.729214
+[12-14-2017 19:49:53]	[Eval:test] Iter:387	ndcg@3=0.532802	map=0.542739	ndcg@5=0.590278
+[12-14-2017 19:49:53]	[Eval:valid] Iter:387	ndcg@3=0.580038	map=0.599453	ndcg@5=0.655432
+[12-14-2017 19:49:54]	[Train:train] Iter:388	loss=0.678178
+[12-14-2017 19:49:54]	[Eval:test] Iter:388	ndcg@3=0.529244	map=0.548167	ndcg@5=0.591031
+[12-14-2017 19:49:54]	[Eval:valid] Iter:388	ndcg@3=0.601603	map=0.609524	ndcg@5=0.667271
+[12-14-2017 19:49:54]	[Train:train] Iter:389	loss=0.703834
+[12-14-2017 19:49:54]	[Eval:test] Iter:389	ndcg@3=0.531907	map=0.544360	ndcg@5=0.589107
+[12-14-2017 19:49:54]	[Eval:valid] Iter:389	ndcg@3=0.600530	map=0.602156	ndcg@5=0.654975
+[12-14-2017 19:49:54]	[Train:train] Iter:390	loss=0.688935
+[12-14-2017 19:49:54]	[Eval:test] Iter:390	ndcg@3=0.528418	map=0.542410	ndcg@5=0.589545
+[12-14-2017 19:49:54]	[Eval:valid] Iter:390	ndcg@3=0.588235	map=0.601359	ndcg@5=0.659074
+[12-14-2017 19:49:54]	[Train:train] Iter:391	loss=0.716175
+[12-14-2017 19:49:54]	[Eval:test] Iter:391	ndcg@3=0.536678	map=0.547580	ndcg@5=0.590479
+[12-14-2017 19:49:54]	[Eval:valid] Iter:391	ndcg@3=0.591260	map=0.606108	ndcg@5=0.665124
+[12-14-2017 19:49:55]	[Train:train] Iter:392	loss=0.680151
+[12-14-2017 19:49:55]	[Eval:test] Iter:392	ndcg@3=0.535314	map=0.544207	ndcg@5=0.593343
+[12-14-2017 19:49:55]	[Eval:valid] Iter:392	ndcg@3=0.593212	map=0.603961	ndcg@5=0.661026
+[12-14-2017 19:49:55]	[Train:train] Iter:393	loss=0.678148
+[12-14-2017 19:49:55]	[Eval:test] Iter:393	ndcg@3=0.529975	map=0.541669	ndcg@5=0.587620
+[12-14-2017 19:49:55]	[Eval:valid] Iter:393	ndcg@3=0.581111	map=0.608086	ndcg@5=0.651027
+[12-14-2017 19:49:55]	[Train:train] Iter:394	loss=0.732941
+[12-14-2017 19:49:55]	[Eval:test] Iter:394	ndcg@3=0.534016	map=0.544565	ndcg@5=0.592004
+[12-14-2017 19:49:55]	[Eval:valid] Iter:394	ndcg@3=0.594285	map=0.608060	ndcg@5=0.659953
+[12-14-2017 19:49:55]	[Train:train] Iter:395	loss=0.698438
+[12-14-2017 19:49:55]	[Eval:test] Iter:395	ndcg@3=0.534016	map=0.546076	ndcg@5=0.591894
+[12-14-2017 19:49:56]	[Eval:valid] Iter:395	ndcg@3=0.591260	map=0.599648	ndcg@5=0.657073
+[12-14-2017 19:49:56]	[Train:train] Iter:396	loss=0.736271
+[12-14-2017 19:49:56]	[Eval:test] Iter:396	ndcg@3=0.534195	map=0.546009	ndcg@5=0.592240
+[12-14-2017 19:49:56]	[Eval:valid] Iter:396	ndcg@3=0.594285	map=0.604888	ndcg@5=0.659953
+[12-14-2017 19:49:56]	[Train:train] Iter:397	loss=0.709069
+[12-14-2017 19:49:56]	[Eval:test] Iter:397	ndcg@3=0.538155	map=0.545517	ndcg@5=0.596736
+[12-14-2017 19:49:56]	[Eval:valid] Iter:397	ndcg@3=0.590186	map=0.600331	ndcg@5=0.659530
+[12-14-2017 19:49:56]	[Train:train] Iter:398	loss=0.702689
+[12-14-2017 19:49:56]	[Eval:test] Iter:398	ndcg@3=0.532250	map=0.539938	ndcg@5=0.591416
+[12-14-2017 19:49:56]	[Eval:valid] Iter:398	ndcg@3=0.595358	map=0.599010	ndcg@5=0.652975
+[12-14-2017 19:49:56]	[Train:train] Iter:399	loss=0.731782
+[12-14-2017 19:49:57]	[Eval:test] Iter:399	ndcg@3=0.532378	map=0.545214	ndcg@5=0.594886
+[12-14-2017 19:49:57]	[Eval:valid] Iter:399	ndcg@3=0.585015	map=0.597320	ndcg@5=0.651188
+[12-14-2017 19:49:57]	[Train:train] Iter:400	loss=0.696332
+[12-14-2017 19:49:57]	[Eval:test] Iter:400	ndcg@3=0.535867	map=0.545335	ndcg@5=0.590973
+[12-14-2017 19:49:57]	[Eval:valid] Iter:400	ndcg@3=0.594285	map=0.598965	ndcg@5=0.654927
+[12-14-2017 19:49:57]	[Train:train] Iter:401	loss=0.705273
+[12-14-2017 19:49:57]	[Eval:test] Iter:401	ndcg@3=0.532752	map=0.545042	ndcg@5=0.596373
+[12-14-2017 19:49:57]	[Eval:valid] Iter:401	ndcg@3=0.590186	map=0.603701	ndcg@5=0.658879
+[12-14-2017 19:49:57]	[Train:train] Iter:402	loss=0.721477
+[12-14-2017 19:49:57]	[Eval:test] Iter:402	ndcg@3=0.529975	map=0.541927	ndcg@5=0.587175
+[12-14-2017 19:49:57]	[Eval:valid] Iter:402	ndcg@3=0.585209	map=0.601164	ndcg@5=0.657432
+[12-14-2017 19:49:57]	[Train:train] Iter:403	loss=0.701346
+[12-14-2017 19:49:58]	[Eval:test] Iter:403	ndcg@3=0.533985	map=0.545350	ndcg@5=0.597973
+[12-14-2017 19:49:58]	[Eval:valid] Iter:403	ndcg@3=0.586088	map=0.602413	ndcg@5=0.658457
+[12-14-2017 19:49:58]	[Train:train] Iter:404	loss=0.733462
+[12-14-2017 19:49:58]	[Eval:test] Iter:404	ndcg@3=0.535314	map=0.548339	ndcg@5=0.593711
+[12-14-2017 19:49:58]	[Eval:valid] Iter:404	ndcg@3=0.593212	map=0.599157	ndcg@5=0.666717
+[12-14-2017 19:49:58]	[Train:train] Iter:405	loss=0.751412
+[12-14-2017 19:49:58]	[Eval:test] Iter:405	ndcg@3=0.533757	map=0.544275	ndcg@5=0.597855
+[12-14-2017 19:49:58]	[Eval:valid] Iter:405	ndcg@3=0.593212	map=0.603552	ndcg@5=0.655495
+[12-14-2017 19:49:58]	[Train:train] Iter:406	loss=0.682728
+[12-14-2017 19:49:58]	[Eval:test] Iter:406	ndcg@3=0.532995	map=0.544520	ndcg@5=0.589684
+[12-14-2017 19:49:58]	[Eval:valid] Iter:406	ndcg@3=0.585209	map=0.599693	ndcg@5=0.652407
+[12-14-2017 19:49:59]	[Train:train] Iter:407	loss=0.708721
+[12-14-2017 19:49:59]	[Eval:test] Iter:407	ndcg@3=0.537602	map=0.546812	ndcg@5=0.594181
+[12-14-2017 19:49:59]	[Eval:valid] Iter:407	ndcg@3=0.588040	map=0.597599	ndcg@5=0.665435
+[12-14-2017 19:49:59]	[Train:train] Iter:408	loss=0.676677
+[12-14-2017 19:49:59]	[Eval:test] Iter:408	ndcg@3=0.539534	map=0.547064	ndcg@5=0.595268
+[12-14-2017 19:49:59]	[Eval:valid] Iter:408	ndcg@3=0.597310	map=0.604235	ndcg@5=0.655495
+[12-14-2017 19:49:59]	[Train:train] Iter:409	loss=0.735557
+[12-14-2017 19:49:59]	[Eval:test] Iter:409	ndcg@3=0.531095	map=0.544548	ndcg@5=0.595635
+[12-14-2017 19:49:59]	[Eval:valid] Iter:409	ndcg@3=0.589113	map=0.598770	ndcg@5=0.657952
+[12-14-2017 19:49:59]	[Train:train] Iter:410	loss=0.675854
+[12-14-2017 19:49:59]	[Eval:test] Iter:410	ndcg@3=0.530140	map=0.539617	ndcg@5=0.587724
+[12-14-2017 19:50:00]	[Eval:valid] Iter:410	ndcg@3=0.575939	map=0.594832	ndcg@5=0.654864
+[12-14-2017 19:50:00]	[Train:train] Iter:411	loss=0.717940
+[12-14-2017 19:50:00]	[Eval:test] Iter:411	ndcg@3=0.531826	map=0.548197	ndcg@5=0.596476
+[12-14-2017 19:50:00]	[Eval:valid] Iter:411	ndcg@3=0.590186	map=0.604703	ndcg@5=0.667222
+[12-14-2017 19:50:00]	[Train:train] Iter:412	loss=0.675578
+[12-14-2017 19:50:00]	[Eval:test] Iter:412	ndcg@3=0.539534	map=0.545455	ndcg@5=0.592973
+[12-14-2017 19:50:00]	[Eval:valid] Iter:412	ndcg@3=0.591260	map=0.605341	ndcg@5=0.657073
+[12-14-2017 19:50:00]	[Train:train] Iter:413	loss=0.741375
+[12-14-2017 19:50:00]	[Eval:test] Iter:413	ndcg@3=0.527135	map=0.543981	ndcg@5=0.586970
+[12-14-2017 19:50:00]	[Eval:valid] Iter:413	ndcg@3=0.585209	map=0.604671	ndcg@5=0.656767
+[12-14-2017 19:50:00]	[Train:train] Iter:414	loss=0.725650
+[12-14-2017 19:50:00]	[Eval:test] Iter:414	ndcg@3=0.532459	map=0.542411	ndcg@5=0.592956
+[12-14-2017 19:50:01]	[Eval:valid] Iter:414	ndcg@3=0.596431	map=0.604872	ndcg@5=0.659953
+[12-14-2017 19:50:01]	[Train:train] Iter:415	loss=0.705994
+[12-14-2017 19:50:01]	[Eval:test] Iter:415	ndcg@3=0.538967	map=0.547004	ndcg@5=0.590205
+[12-14-2017 19:50:01]	[Eval:valid] Iter:415	ndcg@3=0.601408	map=0.604274	ndcg@5=0.659239
+[12-14-2017 19:50:01]	[Train:train] Iter:416	loss=0.661842
+[12-14-2017 19:50:01]	[Eval:test] Iter:416	ndcg@3=0.530528	map=0.542336	ndcg@5=0.590992
+[12-14-2017 19:50:01]	[Eval:valid] Iter:416	ndcg@3=0.600530	map=0.609475	ndcg@5=0.658146
+[12-14-2017 19:50:01]	[Train:train] Iter:417	loss=0.731857
+[12-14-2017 19:50:01]	[Eval:test] Iter:417	ndcg@3=0.536419	map=0.545581	ndcg@5=0.589491
+[12-14-2017 19:50:01]	[Eval:valid] Iter:417	ndcg@3=0.594285	map=0.608255	ndcg@5=0.660098
+[12-14-2017 19:50:01]	[Train:train] Iter:418	loss=0.674774
+[12-14-2017 19:50:02]	[Eval:test] Iter:418	ndcg@3=0.531095	map=0.547171	ndcg@5=0.593895
+[12-14-2017 19:50:02]	[Eval:valid] Iter:418	ndcg@3=0.599456	map=0.604963	ndcg@5=0.656568
+[12-14-2017 19:50:02]	[Train:train] Iter:419	loss=0.700811
+[12-14-2017 19:50:02]	[Eval:test] Iter:419	ndcg@3=0.533205	map=0.544978	ndcg@5=0.595083
+[12-14-2017 19:50:02]	[Eval:valid] Iter:419	ndcg@3=0.593212	map=0.598998	ndcg@5=0.655495
+[12-14-2017 19:50:02]	[Train:train] Iter:420	loss=0.665440
+[12-14-2017 19:50:02]	[Eval:test] Iter:420	ndcg@3=0.531826	map=0.546521	ndcg@5=0.593411
+[12-14-2017 19:50:02]	[Eval:valid] Iter:420	ndcg@3=0.597310	map=0.603747	ndcg@5=0.661123
+[12-14-2017 19:50:02]	[Train:train] Iter:421	loss=0.701055
+[12-14-2017 19:50:02]	[Eval:test] Iter:421	ndcg@3=0.533255	map=0.541046	ndcg@5=0.589281
+[12-14-2017 19:50:02]	[Eval:valid] Iter:421	ndcg@3=0.578965	map=0.594376	ndcg@5=0.660035
+[12-14-2017 19:50:03]	[Train:train] Iter:422	loss=0.690329
+[12-14-2017 19:50:03]	[Eval:test] Iter:422	ndcg@3=0.536126	map=0.545289	ndcg@5=0.593926
+[12-14-2017 19:50:03]	[Eval:valid] Iter:422	ndcg@3=0.590186	map=0.602186	ndcg@5=0.658666
+[12-14-2017 19:50:03]	[Train:train] Iter:423	loss=0.731091
+[12-14-2017 19:50:03]	[Eval:test] Iter:423	ndcg@3=0.536872	map=0.547451	ndcg@5=0.595870
+[12-14-2017 19:50:03]	[Eval:valid] Iter:423	ndcg@3=0.588040	map=0.601161	ndcg@5=0.656879
+[12-14-2017 19:50:03]	[Train:train] Iter:424	loss=0.711208
+[12-14-2017 19:50:03]	[Eval:test] Iter:424	ndcg@3=0.533255	map=0.544859	ndcg@5=0.591576
+[12-14-2017 19:50:03]	[Eval:valid] Iter:424	ndcg@3=0.586088	map=0.594523	ndcg@5=0.654927
+[12-14-2017 19:50:03]	[Train:train] Iter:425	loss=0.731501
+[12-14-2017 19:50:03]	[Eval:test] Iter:425	ndcg@3=0.534747	map=0.543157	ndcg@5=0.588990
+[12-14-2017 19:50:03]	[Eval:valid] Iter:425	ndcg@3=0.591260	map=0.601883	ndcg@5=0.653756
+[12-14-2017 19:50:04]	[Train:train] Iter:426	loss=0.737997
+[12-14-2017 19:50:04]	[Eval:test] Iter:426	ndcg@3=0.537424	map=0.546268	ndcg@5=0.597193
+[12-14-2017 19:50:04]	[Eval:valid] Iter:426	ndcg@3=0.590186	map=0.599648	ndcg@5=0.662619
+[12-14-2017 19:50:04]	[Train:train] Iter:427	loss=0.719321
+[12-14-2017 19:50:04]	[Eval:test] Iter:427	ndcg@3=0.534016	map=0.543913	ndcg@5=0.589259
+[12-14-2017 19:50:04]	[Eval:valid] Iter:427	ndcg@3=0.592333	map=0.603737	ndcg@5=0.654830
+[12-14-2017 19:50:04]	[Train:train] Iter:428	loss=0.747068
+[12-14-2017 19:50:04]	[Eval:test] Iter:428	ndcg@3=0.537424	map=0.548420	ndcg@5=0.595685
+[12-14-2017 19:50:04]	[Eval:valid] Iter:428	ndcg@3=0.580917	map=0.597872	ndcg@5=0.656815
+[12-14-2017 19:50:04]	[Train:train] Iter:429	loss=0.697146
+[12-14-2017 19:50:04]	[Eval:test] Iter:429	ndcg@3=0.536419	map=0.545223	ndcg@5=0.593895
+[12-14-2017 19:50:05]	[Eval:valid] Iter:429	ndcg@3=0.598383	map=0.605181	ndcg@5=0.660458
+[12-14-2017 19:50:05]	[Train:train] Iter:430	loss=0.715831
+[12-14-2017 19:50:05]	[Eval:test] Iter:430	ndcg@3=0.534488	map=0.545006	ndcg@5=0.595044
+[12-14-2017 19:50:05]	[Eval:valid] Iter:430	ndcg@3=0.598383	map=0.604430	ndcg@5=0.667222
+[12-14-2017 19:50:05]	[Train:train] Iter:431	loss=0.694784
+[12-14-2017 19:50:05]	[Eval:test] Iter:431	ndcg@3=0.528418	map=0.544064	ndcg@5=0.589175
+[12-14-2017 19:50:05]	[Eval:valid] Iter:431	ndcg@3=0.588235	map=0.603376	ndcg@5=0.657432
+[12-14-2017 19:50:05]	[Train:train] Iter:432	loss=0.689804
+[12-14-2017 19:50:05]	[Eval:test] Iter:432	ndcg@3=0.537474	map=0.541966	ndcg@5=0.586569
+[12-14-2017 19:50:05]	[Eval:valid] Iter:432	ndcg@3=0.589308	map=0.595741	ndcg@5=0.661172
+[12-14-2017 19:50:05]	[Train:train] Iter:433	loss=0.702957
+[12-14-2017 19:50:05]	[Eval:test] Iter:433	ndcg@3=0.531647	map=0.544752	ndcg@5=0.593418
+[12-14-2017 19:50:06]	[Eval:valid] Iter:433	ndcg@3=0.601408	map=0.608915	ndcg@5=0.662619
+[12-14-2017 19:50:06]	[Train:train] Iter:434	loss=0.728529
+[12-14-2017 19:50:06]	[Eval:test] Iter:434	ndcg@3=0.539793	map=0.545724	ndcg@5=0.594589
+[12-14-2017 19:50:06]	[Eval:valid] Iter:434	ndcg@3=0.590186	map=0.602595	ndcg@5=0.659953
+[12-14-2017 19:50:06]	[Train:train] Iter:435	loss=0.714055
+[12-14-2017 19:50:06]	[Eval:test] Iter:435	ndcg@3=0.537602	map=0.547084	ndcg@5=0.593336
+[12-14-2017 19:50:06]	[Eval:valid] Iter:435	ndcg@3=0.585015	map=0.602654	ndcg@5=0.659530
+[12-14-2017 19:50:06]	[Train:train] Iter:436	loss=0.744249
+[12-14-2017 19:50:06]	[Eval:test] Iter:436	ndcg@3=0.532085	map=0.544616	ndcg@5=0.593612
+[12-14-2017 19:50:06]	[Eval:valid] Iter:436	ndcg@3=0.591260	map=0.605477	ndcg@5=0.659433
+[12-14-2017 19:50:06]	[Train:train] Iter:437	loss=0.702118
+[12-14-2017 19:50:07]	[Eval:test] Iter:437	ndcg@3=0.534538	map=0.542704	ndcg@5=0.591117
+[12-14-2017 19:50:07]	[Eval:valid] Iter:437	ndcg@3=0.580038	map=0.592997	ndcg@5=0.654295
+[12-14-2017 19:50:07]	[Train:train] Iter:438	loss=0.730145
+[12-14-2017 19:50:07]	[Eval:test] Iter:438	ndcg@3=0.536126	map=0.544107	ndcg@5=0.594036
+[12-14-2017 19:50:07]	[Eval:valid] Iter:438	ndcg@3=0.599456	map=0.601229	ndcg@5=0.656927
+[12-14-2017 19:50:07]	[Train:train] Iter:439	loss=0.687080
+[12-14-2017 19:50:07]	[Eval:test] Iter:439	ndcg@3=0.538414	map=0.545625	ndcg@5=0.593504
+[12-14-2017 19:50:07]	[Eval:valid] Iter:439	ndcg@3=0.594479	map=0.598956	ndcg@5=0.654975
+[12-14-2017 19:50:07]	[Train:train] Iter:440	loss=0.693617
+[12-14-2017 19:50:07]	[Eval:test] Iter:440	ndcg@3=0.527135	map=0.543863	ndcg@5=0.589894
+[12-14-2017 19:50:07]	[Eval:valid] Iter:440	ndcg@3=0.589308	map=0.599639	ndcg@5=0.655903
+[12-14-2017 19:50:07]	[Train:train] Iter:441	loss=0.698118
+[12-14-2017 19:50:08]	[Eval:test] Iter:441	ndcg@3=0.535314	map=0.544943	ndcg@5=0.595083
+[12-14-2017 19:50:08]	[Eval:valid] Iter:441	ndcg@3=0.586088	map=0.601547	ndcg@5=0.654927
+[12-14-2017 19:50:08]	[Train:train] Iter:442	loss=0.721383
+[12-14-2017 19:50:08]	[Eval:test] Iter:442	ndcg@3=0.529716	map=0.549115	ndcg@5=0.591857
+[12-14-2017 19:50:08]	[Eval:test] Now the val map is 0.549115.
+[12-14-2017 19:50:08]	[Eval:valid] Iter:442	ndcg@3=0.587161	map=0.600136	ndcg@5=0.656359
+[12-14-2017 19:50:08]	[Train:train] Iter:443	loss=0.680246
+[12-14-2017 19:50:08]	[Eval:test] Iter:443	ndcg@3=0.535314	map=0.546738	ndcg@5=0.595453
+[12-14-2017 19:50:08]	[Eval:valid] Iter:443	ndcg@3=0.587161	map=0.603961	ndcg@5=0.655854
+[12-14-2017 19:50:08]	[Train:train] Iter:444	loss=0.745129
+[12-14-2017 19:50:08]	[Eval:test] Iter:444	ndcg@3=0.529975	map=0.545584	ndcg@5=0.589470
+[12-14-2017 19:50:09]	[Eval:valid] Iter:444	ndcg@3=0.585209	map=0.601961	ndcg@5=0.651236
+[12-14-2017 19:50:09]	[Train:train] Iter:445	loss=0.729058
+[12-14-2017 19:50:09]	[Eval:test] Iter:445	ndcg@3=0.532652	map=0.546035	ndcg@5=0.597855
+[12-14-2017 19:50:09]	[Eval:valid] Iter:445	ndcg@3=0.595358	map=0.607162	ndcg@5=0.667222
+[12-14-2017 19:50:09]	[Train:train] Iter:446	loss=0.707083
+[12-14-2017 19:50:09]	[Eval:test] Iter:446	ndcg@3=0.534195	map=0.547826	ndcg@5=0.591765
+[12-14-2017 19:50:09]	[Eval:valid] Iter:446	ndcg@3=0.585209	map=0.597589	ndcg@5=0.656408
+[12-14-2017 19:50:09]	[Train:train] Iter:447	loss=0.697729
+[12-14-2017 19:50:09]	[Eval:test] Iter:447	ndcg@3=0.531095	map=0.547169	ndcg@5=0.595268
+[12-14-2017 19:50:09]	[Eval:valid] Iter:447	ndcg@3=0.589113	map=0.599635	ndcg@5=0.658734
+[12-14-2017 19:50:09]	[Train:train] Iter:448	loss=0.698965
+[12-14-2017 19:50:09]	[Eval:test] Iter:448	ndcg@3=0.535090	map=0.546083	ndcg@5=0.590699
+[12-14-2017 19:50:10]	[Eval:valid] Iter:448	ndcg@3=0.581990	map=0.598556	ndcg@5=0.659530
+[12-14-2017 19:50:10]	[Train:train] Iter:449	loss=0.709177
+[12-14-2017 19:50:10]	[Eval:test] Iter:449	ndcg@3=0.535658	map=0.544114	ndcg@5=0.592714
+[12-14-2017 19:50:10]	[Eval:valid] Iter:449	ndcg@3=0.578965	map=0.596916	ndcg@5=0.655432
+[12-14-2017 19:50:10]	[Train:train] Iter:450	loss=0.694090
+[12-14-2017 19:50:10]	[Eval:test] Iter:450	ndcg@3=0.536598	map=0.544932	ndcg@5=0.593596
+[12-14-2017 19:50:10]	[Eval:valid] Iter:450	ndcg@3=0.593212	map=0.602566	ndcg@5=0.657287
+[12-14-2017 19:50:10]	[Train:train] Iter:451	loss=0.705530
+[12-14-2017 19:50:10]	[Eval:test] Iter:451	ndcg@3=0.535867	map=0.547249	ndcg@5=0.596113
+[12-14-2017 19:50:10]	[Eval:valid] Iter:451	ndcg@3=0.589113	map=0.598429	ndcg@5=0.661482
+[12-14-2017 19:50:10]	[Train:train] Iter:452	loss=0.718148
+[12-14-2017 19:50:11]	[Eval:test] Iter:452	ndcg@3=0.535040	map=0.549213	ndcg@5=0.594441
+[12-14-2017 19:50:11]	[Eval:test] Now the val map is 0.549213.
+[12-14-2017 19:50:11]	[Eval:valid] Iter:452	ndcg@3=0.589113	map=0.604006	ndcg@5=0.658311
+[12-14-2017 19:50:11]	[Train:train] Iter:453	loss=0.730004
+[12-14-2017 19:50:11]	[Eval:test] Iter:453	ndcg@3=0.534279	map=0.545299	ndcg@5=0.590415
+[12-14-2017 19:50:11]	[Eval:valid] Iter:453	ndcg@3=0.581990	map=0.599693	ndcg@5=0.659530
+[12-14-2017 19:50:11]	[Train:train] Iter:454	loss=0.692449
+[12-14-2017 19:50:11]	[Eval:test] Iter:454	ndcg@3=0.531991	map=0.545824	ndcg@5=0.592129
+[12-14-2017 19:50:11]	[Eval:valid] Iter:454	ndcg@3=0.589113	map=0.599420	ndcg@5=0.658457
+[12-14-2017 19:50:11]	[Train:train] Iter:455	loss=0.677942
+[12-14-2017 19:50:11]	[Eval:test] Iter:455	ndcg@3=0.532995	map=0.544488	ndcg@5=0.588310
+[12-14-2017 19:50:11]	[Eval:valid] Iter:455	ndcg@3=0.577891	map=0.593934	ndcg@5=0.656961
+[12-14-2017 19:50:12]	[Train:train] Iter:456	loss=0.680961
+[12-14-2017 19:50:12]	[Eval:test] Iter:456	ndcg@3=0.536126	map=0.545807	ndcg@5=0.589509
+[12-14-2017 19:50:12]	[Eval:valid] Iter:456	ndcg@3=0.588235	map=0.600676	ndcg@5=0.656927
+[12-14-2017 19:50:12]	[Train:train] Iter:457	loss=0.699265
+[12-14-2017 19:50:12]	[Eval:test] Iter:457	ndcg@3=0.533205	map=0.544331	ndcg@5=0.592263
+[12-14-2017 19:50:12]	[Eval:valid] Iter:457	ndcg@3=0.601408	map=0.603815	ndcg@5=0.661905
+[12-14-2017 19:50:12]	[Train:train] Iter:458	loss=0.694655
+[12-14-2017 19:50:12]	[Eval:test] Iter:458	ndcg@3=0.539275	map=0.547371	ndcg@5=0.597011
+[12-14-2017 19:50:12]	[Eval:valid] Iter:458	ndcg@3=0.593212	map=0.606889	ndcg@5=0.655854
+[12-14-2017 19:50:12]	[Train:train] Iter:459	loss=0.719751
+[12-14-2017 19:50:12]	[Eval:test] Iter:459	ndcg@3=0.535055	map=0.544066	ndcg@5=0.592004
+[12-14-2017 19:50:13]	[Eval:valid] Iter:459	ndcg@3=0.593212	map=0.600377	ndcg@5=0.662410
+[12-14-2017 19:50:13]	[Train:train] Iter:460	loss=0.742402
+[12-14-2017 19:50:13]	[Eval:test] Iter:460	ndcg@3=0.537862	map=0.548445	ndcg@5=0.596509
+[12-14-2017 19:50:13]	[Eval:valid] Iter:460	ndcg@3=0.601408	map=0.599310	ndcg@5=0.664051
+[12-14-2017 19:50:13]	[Train:train] Iter:461	loss=0.692658
+[12-14-2017 19:50:13]	[Eval:test] Iter:461	ndcg@3=0.538967	map=0.548640	ndcg@5=0.592290
+[12-14-2017 19:50:13]	[Eval:valid] Iter:461	ndcg@3=0.597310	map=0.604957	ndcg@5=0.659953
+[12-14-2017 19:50:13]	[Train:train] Iter:462	loss=0.743956
+[12-14-2017 19:50:13]	[Eval:test] Iter:462	ndcg@3=0.536210	map=0.551157	ndcg@5=0.595318
+[12-14-2017 19:50:13]	[Eval:test] Now the val map is 0.551157.
+[12-14-2017 19:50:13]	[Eval:valid] Iter:462	ndcg@3=0.585015	map=0.602836	ndcg@5=0.659889
+[12-14-2017 19:50:13]	[Train:train] Iter:463	loss=0.694971
+[12-14-2017 19:50:14]	[Eval:test] Iter:463	ndcg@3=0.538170	map=0.555647	ndcg@5=0.593488
+[12-14-2017 19:50:14]	[Eval:test] Now the val map is 0.555647.
+[12-14-2017 19:50:14]	[Eval:valid] Iter:463	ndcg@3=0.590186	map=0.599668	ndcg@5=0.661026
+[12-14-2017 19:50:14]	[Train:train] Iter:464	loss=0.698222
+[12-14-2017 19:50:14]	[Eval:test] Iter:464	ndcg@3=0.533464	map=0.548863	ndcg@5=0.590539
+[12-14-2017 19:50:14]	[Eval:valid] Iter:464	ndcg@3=0.597504	map=0.601460	ndcg@5=0.655398
+[12-14-2017 19:50:14]	[Train:train] Iter:465	loss=0.715227
+[12-14-2017 19:50:14]	[Eval:test] Iter:465	ndcg@3=0.537215	map=0.552081	ndcg@5=0.592459
+[12-14-2017 19:50:14]	[Eval:valid] Iter:465	ndcg@3=0.586088	map=0.603291	ndcg@5=0.655286
+[12-14-2017 19:50:14]	[Train:train] Iter:466	loss=0.743008
+[12-14-2017 19:50:14]	[Eval:test] Iter:466	ndcg@3=0.535917	map=0.549320	ndcg@5=0.593594
+[12-14-2017 19:50:14]	[Eval:valid] Iter:466	ndcg@3=0.589113	map=0.600468	ndcg@5=0.655140
+[12-14-2017 19:50:15]	[Train:train] Iter:467	loss=0.681515
+[12-14-2017 19:50:15]	[Eval:test] Iter:467	ndcg@3=0.541434	map=0.552190	ndcg@5=0.598753
+[12-14-2017 19:50:15]	[Eval:valid] Iter:467	ndcg@3=0.589113	map=0.599079	ndcg@5=0.659384
+[12-14-2017 19:50:15]	[Train:train] Iter:468	loss=0.711709
+[12-14-2017 19:50:15]	[Eval:test] Iter:468	ndcg@3=0.534503	map=0.552339	ndcg@5=0.593379
+[12-14-2017 19:50:15]	[Eval:valid] Iter:468	ndcg@3=0.591260	map=0.610304	ndcg@5=0.660458
+[12-14-2017 19:50:15]	[Train:train] Iter:469	loss=0.711264
+[12-14-2017 19:50:15]	[Eval:test] Iter:469	ndcg@3=0.537683	map=0.547644	ndcg@5=0.590061
+[12-14-2017 19:50:15]	[Eval:valid] Iter:469	ndcg@3=0.595358	map=0.599684	ndcg@5=0.655854
+[12-14-2017 19:50:15]	[Train:train] Iter:470	loss=0.705278
+[12-14-2017 19:50:15]	[Eval:test] Iter:470	ndcg@3=0.533807	map=0.548418	ndcg@5=0.594934
+[12-14-2017 19:50:16]	[Eval:valid] Iter:470	ndcg@3=0.586088	map=0.603490	ndcg@5=0.661841
+[12-14-2017 19:50:16]	[Train:train] Iter:471	loss=0.703779
+[12-14-2017 19:50:16]	[Eval:test] Iter:471	ndcg@3=0.534195	map=0.546558	ndcg@5=0.589608
+[12-14-2017 19:50:16]	[Eval:valid] Iter:471	ndcg@3=0.587161	map=0.596610	ndcg@5=0.653188
+[12-14-2017 19:50:16]	[Train:train] Iter:472	loss=0.717627
+[12-14-2017 19:50:16]	[Eval:test] Iter:472	ndcg@3=0.536126	map=0.544879	ndcg@5=0.586843
+[12-14-2017 19:50:16]	[Eval:valid] Iter:472	ndcg@3=0.589308	map=0.600972	ndcg@5=0.655335
+[12-14-2017 19:50:16]	[Train:train] Iter:473	loss=0.717922
+[12-14-2017 19:50:16]	[Eval:test] Iter:473	ndcg@3=0.534553	map=0.551299	ndcg@5=0.594901
+[12-14-2017 19:50:16]	[Eval:valid] Iter:473	ndcg@3=0.587161	map=0.609666	ndcg@5=0.660914
+[12-14-2017 19:50:16]	[Train:train] Iter:474	loss=0.688135
+[12-14-2017 19:50:16]	[Eval:test] Iter:474	ndcg@3=0.531064	map=0.544150	ndcg@5=0.591520
+[12-14-2017 19:50:17]	[Eval:valid] Iter:474	ndcg@3=0.578965	map=0.594399	ndcg@5=0.654718
+[12-14-2017 19:50:17]	[Train:train] Iter:475	loss=0.718045
+[12-14-2017 19:50:17]	[Eval:test] Iter:475	ndcg@3=0.537131	map=0.551168	ndcg@5=0.593176
+[12-14-2017 19:50:17]	[Eval:valid] Iter:475	ndcg@3=0.597310	map=0.606632	ndcg@5=0.656213
+[12-14-2017 19:50:17]	[Train:train] Iter:476	loss=0.673631
+[12-14-2017 19:50:17]	[Eval:test] Iter:476	ndcg@3=0.542374	map=0.547859	ndcg@5=0.592090
+[12-14-2017 19:50:17]	[Eval:valid] Iter:476	ndcg@3=0.593212	map=0.599687	ndcg@5=0.660880
+[12-14-2017 19:50:17]	[Train:train] Iter:477	loss=0.689066
+[12-14-2017 19:50:17]	[Eval:test] Iter:477	ndcg@3=0.536126	map=0.547995	ndcg@5=0.591141
+[12-14-2017 19:50:17]	[Eval:valid] Iter:477	ndcg@3=0.597310	map=0.599879	ndcg@5=0.664051
+[12-14-2017 19:50:17]	[Train:train] Iter:478	loss=0.687880
+[12-14-2017 19:50:18]	[Eval:test] Iter:478	ndcg@3=0.538772	map=0.551226	ndcg@5=0.598988
+[12-14-2017 19:50:18]	[Eval:valid] Iter:478	ndcg@3=0.597310	map=0.603519	ndcg@5=0.658816
+[12-14-2017 19:50:18]	[Train:train] Iter:479	loss=0.730702
+[12-14-2017 19:50:18]	[Eval:test] Iter:479	ndcg@3=0.539324	map=0.553951	ndcg@5=0.595196
+[12-14-2017 19:50:18]	[Eval:valid] Iter:479	ndcg@3=0.585015	map=0.602254	ndcg@5=0.665940
+[12-14-2017 19:50:18]	[Train:train] Iter:480	loss=0.683534
+[12-14-2017 19:50:18]	[Eval:test] Iter:480	ndcg@3=0.536388	map=0.554671	ndcg@5=0.594442
+[12-14-2017 19:50:18]	[Eval:valid] Iter:480	ndcg@3=0.597310	map=0.600103	ndcg@5=0.660458
+[12-14-2017 19:50:18]	[Train:train] Iter:481	loss=0.661992
+[12-14-2017 19:50:18]	[Eval:test] Iter:481	ndcg@3=0.537683	map=0.545709	ndcg@5=0.589694
+[12-14-2017 19:50:18]	[Eval:valid] Iter:481	ndcg@3=0.595358	map=0.602976	ndcg@5=0.650226
+[12-14-2017 19:50:19]	[Train:train] Iter:482	loss=0.738633
+[12-14-2017 19:50:19]	[Eval:test] Iter:482	ndcg@3=0.532169	map=0.547935	ndcg@5=0.592040
+[12-14-2017 19:50:19]	[Eval:valid] Iter:482	ndcg@3=0.577891	map=0.598282	ndcg@5=0.657175
+[12-14-2017 19:50:19]	[Train:train] Iter:483	loss=0.718405
+[12-14-2017 19:50:19]	[Eval:test] Iter:483	ndcg@3=0.536319	map=0.552916	ndcg@5=0.599028
+[12-14-2017 19:50:19]	[Eval:valid] Iter:483	ndcg@3=0.586088	map=0.600075	ndcg@5=0.666508
+[12-14-2017 19:50:19]	[Train:train] Iter:484	loss=0.703877
+[12-14-2017 19:50:19]	[Eval:test] Iter:484	ndcg@3=0.534553	map=0.551296	ndcg@5=0.598125
+[12-14-2017 19:50:19]	[Eval:valid] Iter:484	ndcg@3=0.594285	map=0.610349	ndcg@5=0.663483
+[12-14-2017 19:50:19]	[Train:train] Iter:485	loss=0.720689
+[12-14-2017 19:50:19]	[Eval:test] Iter:485	ndcg@3=0.536892	map=0.544609	ndcg@5=0.586689
+[12-14-2017 19:50:19]	[Eval:valid] Iter:485	ndcg@3=0.591260	map=0.596874	ndcg@5=0.653756
+[12-14-2017 19:50:20]	[Train:train] Iter:486	loss=0.757231
+[12-14-2017 19:50:20]	[Eval:test] Iter:486	ndcg@3=0.536578	map=0.550160	ndcg@5=0.589619
+[12-14-2017 19:50:20]	[Eval:valid] Iter:486	ndcg@3=0.598383	map=0.599538	ndcg@5=0.658879
+[12-14-2017 19:50:20]	[Train:train] Iter:487	loss=0.706483
+[12-14-2017 19:50:20]	[Eval:test] Iter:487	ndcg@3=0.538414	map=0.553043	ndcg@5=0.595029
+[12-14-2017 19:50:20]	[Eval:valid] Iter:487	ndcg@3=0.587161	map=0.602156	ndcg@5=0.662914
+[12-14-2017 19:50:20]	[Train:train] Iter:488	loss=0.707233
+[12-14-2017 19:50:20]	[Eval:test] Iter:488	ndcg@3=0.536762	map=0.548920	ndcg@5=0.598191
+[12-14-2017 19:50:20]	[Eval:valid] Iter:488	ndcg@3=0.581990	map=0.598542	ndcg@5=0.654718
+[12-14-2017 19:50:20]	[Train:train] Iter:489	loss=0.669769
+[12-14-2017 19:50:20]	[Eval:test] Iter:489	ndcg@3=0.533548	map=0.547924	ndcg@5=0.596006
+[12-14-2017 19:50:21]	[Eval:valid] Iter:489	ndcg@3=0.590186	map=0.606206	ndcg@5=0.655286
+[12-14-2017 19:50:21]	[Train:train] Iter:490	loss=0.716697
+[12-14-2017 19:50:21]	[Eval:test] Iter:490	ndcg@3=0.537215	map=0.554097	ndcg@5=0.598041
+[12-14-2017 19:50:21]	[Eval:valid] Iter:490	ndcg@3=0.585015	map=0.598497	ndcg@5=0.665940
+[12-14-2017 19:50:21]	[Train:train] Iter:491	loss=0.681452
+[12-14-2017 19:50:21]	[Eval:test] Iter:491	ndcg@3=0.532995	map=0.544627	ndcg@5=0.592899
+[12-14-2017 19:50:21]	[Eval:valid] Iter:491	ndcg@3=0.578965	map=0.594252	ndcg@5=0.655791
+[12-14-2017 19:50:21]	[Train:train] Iter:492	loss=0.659926
+[12-14-2017 19:50:21]	[Eval:test] Iter:492	ndcg@3=0.530612	map=0.543825	ndcg@5=0.591437
+[12-14-2017 19:50:21]	[Eval:valid] Iter:492	ndcg@3=0.577891	map=0.596789	ndcg@5=0.656752
+[12-14-2017 19:50:21]	[Train:train] Iter:493	loss=0.715388
+[12-14-2017 19:50:21]	[Eval:test] Iter:493	ndcg@3=0.541434	map=0.553773	ndcg@5=0.595983
+[12-14-2017 19:50:22]	[Eval:valid] Iter:493	ndcg@3=0.591260	map=0.600058	ndcg@5=0.662410
+[12-14-2017 19:50:22]	[Train:train] Iter:494	loss=0.684858
+[12-14-2017 19:50:22]	[Eval:test] Iter:494	ndcg@3=0.537767	map=0.549913	ndcg@5=0.596861
+[12-14-2017 19:50:22]	[Eval:valid] Iter:494	ndcg@3=0.586088	map=0.599079	ndcg@5=0.663483
+[12-14-2017 19:50:22]	[Train:train] Iter:495	loss=0.717813
+[12-14-2017 19:50:22]	[Eval:test] Iter:495	ndcg@3=0.541434	map=0.550119	ndcg@5=0.596091
+[12-14-2017 19:50:22]	[Eval:valid] Iter:495	ndcg@3=0.594285	map=0.600058	ndcg@5=0.661482
+[12-14-2017 19:50:22]	[Train:train] Iter:496	loss=0.708286
+[12-14-2017 19:50:22]	[Eval:test] Iter:496	ndcg@3=0.533678	map=0.548336	ndcg@5=0.586907
+[12-14-2017 19:50:22]	[Eval:valid] Iter:496	ndcg@3=0.588235	map=0.600761	ndcg@5=0.651596
+[12-14-2017 19:50:22]	[Train:train] Iter:497	loss=0.673634
+[12-14-2017 19:50:23]	[Eval:test] Iter:497	ndcg@3=0.531438	map=0.547080	ndcg@5=0.590154
+[12-14-2017 19:50:23]	[Eval:valid] Iter:497	ndcg@3=0.586088	map=0.598920	ndcg@5=0.658311
+[12-14-2017 19:50:23]	[Train:train] Iter:498	loss=0.672096
+[12-14-2017 19:50:23]	[Eval:test] Iter:498	ndcg@3=0.536210	map=0.551745	ndcg@5=0.597823
+[12-14-2017 19:50:23]	[Eval:valid] Iter:498	ndcg@3=0.589113	map=0.606206	ndcg@5=0.666508
+[12-14-2017 19:50:23]	[Train:train] Iter:499	loss=0.714514
+[12-14-2017 19:50:23]	[Eval:test] Iter:499	ndcg@3=0.538981	map=0.549500	ndcg@5=0.592624
+[12-14-2017 19:50:23]	[Eval:valid] Iter:499	ndcg@3=0.593212	map=0.606596	ndcg@5=0.659953

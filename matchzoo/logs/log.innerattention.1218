@@ -1,0 +1,176 @@
+Using TensorFlow backend.
+2017-12-19 16:57:08.105534: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-19 16:57:08.105567: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-19 16:57:08.105576: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-19 16:57:08.209422: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:893] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2017-12-19 16:57:08.209719: I tensorflow/core/common_runtime/gpu/gpu_device.cc:940] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB
+major: 6 minor: 1 memoryClockRate (GHz) 1.7715
+pciBusID 0000:01:00.0
+Total memory: 5.93GiB
+Free memory: 5.58GiB
+2017-12-19 16:57:08.209737: I tensorflow/core/common_runtime/gpu/gpu_device.cc:961] DMA: 0 
+2017-12-19 16:57:08.209745: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   Y 
+2017-12-19 16:57:08.209759: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0)
+{
+  "inputs": {
+    "test": {
+      "phase": "EVAL", 
+      "input_type": "ListGenerator", 
+      "relation_file": "../data/WikiQA/relation_test.txt", 
+      "batch_list": 10
+    }, 
+    "predict": {
+      "phase": "PREDICT", 
+      "input_type": "ListGenerator", 
+      "relation_file": "../data/WikiQA/relation_test.txt", 
+      "batch_list": 10
+    }, 
+    "train": {
+      "relation_file": "../data/WikiQA/relation_train.txt", 
+      "input_type": "PairGenerator", 
+      "batch_size": 100, 
+      "batch_per_iter": 5, 
+      "phase": "TRAIN", 
+      "query_per_iter": 50, 
+      "use_iter": false
+    }, 
+    "share": {
+      "vocab_size": 18678, 
+      "use_dpool": false, 
+      "embed_size": 50, 
+      "target_mode": "ranking", 
+      "text1_corpus": "../data/WikiQA/corpus_preprocessed.txt", 
+      "text2_corpus": "../data/WikiQA/corpus_preprocessed.txt", 
+      "embed_path": "../data/WikiQA/embed_glove_d50", 
+      "text1_maxlen": 10, 
+      "train_embed": false, 
+      "text2_maxlen": 40
+    }, 
+    "valid": {
+      "phase": "EVAL", 
+      "input_type": "ListGenerator", 
+      "relation_file": "../data/WikiQA/relation_valid.txt", 
+      "batch_list": 10
+    }
+  }, 
+  "global": {
+    "optimizer": "adadelta", 
+    "num_iters": 1000, 
+    "save_weights_iters": 10, 
+    "learning_rate": 0.0001, 
+    "test_weights_iters": 1000, 
+    "weights_file": "./models/weights/innerattention.wikiqa.weights", 
+    "model_type": "PY", 
+    "display_interval": 10
+  }, 
+  "outputs": {
+    "predict": {
+      "save_format": "TREC", 
+      "save_path": "predict.test.wikiqa.txt"
+    }
+  }, 
+  "losses": [
+    {
+      "object_name": "rank_hinge_loss", 
+      "object_params": {
+        "margin": 1.0
+      }
+    }
+  ], 
+  "metrics": [
+    "precision@1", 
+    "ndcg@3", 
+    "ndcg@5", 
+    "map"
+  ], 
+  "net_name": "InnerAttention", 
+  "model": {
+    "model_py": "innerattention.InnerAttention", 
+    "setting": {
+      "dropout_rate": 0.5, 
+      "hidden_size": 50, 
+      "topk": 100
+    }, 
+    "model_path": "./models/"
+  }
+}
+[../data/WikiQA/embed_glove_d50]
+	Embedding size: 18677
+Generate numpy embed: %s (18678, 50)
+[Embedding] Embedding Load Done.
+[Input] Process Input Tags. [u'train'] in TRAIN, [u'test', u'valid'] in EVAL.
+[../data/WikiQA/corpus_preprocessed.txt]
+	Data size: 24106
+[Dataset] 1 Dataset Load Done.
+{u'relation_file': u'../data/WikiQA/relation_train.txt', u'vocab_size': 18678, u'query_per_iter': 50, u'use_dpool': False, u'embed_size': 50, u'target_mode': u'ranking', u'input_type': u'PairGenerator', u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'batch_size': 100, u'batch_per_iter': 5, u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'embed_path': u'../data/WikiQA/embed_glove_d50', u'text1_maxlen': 10, u'phase': u'TRAIN', 'embed': array([[ 0.53201002,  0.010601  ,  0.14717001, ...,  1.32260001,
+         0.1169    ,  0.062825  ],
+       [-1.03859997,  0.52319998, -0.73141003, ...,  0.18791001,
+        -0.024801  ,  0.42411   ],
+       [-0.95642   , -1.00209999, -0.37779   , ...,  0.17704   ,
+         0.41834   ,  0.97698998],
+       ..., 
+       [-0.18604501, -0.211307  , -0.27707499, ..., -0.167962  ,
+        -0.136977  ,  0.292707  ],
+       [-1.58360004,  0.47435001, -0.15471999, ...,  1.5266    ,
+         0.83880001, -0.37613001],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40, u'use_iter': False}
+[../data/WikiQA/relation_train.txt]
+	Instance size: 20360
+Pair Instance Count: 8995
+[PairGenerator] init done
+{u'relation_file': u'../data/WikiQA/relation_test.txt', u'vocab_size': 18678, u'use_dpool': False, u'embed_size': 50, u'target_mode': u'ranking', u'input_type': u'ListGenerator', u'batch_list': 10, u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'embed_path': u'../data/WikiQA/embed_glove_d50', u'text1_maxlen': 10, u'phase': u'EVAL', 'embed': array([[ 0.53201002,  0.010601  ,  0.14717001, ...,  1.32260001,
+         0.1169    ,  0.062825  ],
+       [-1.03859997,  0.52319998, -0.73141003, ...,  0.18791001,
+        -0.024801  ,  0.42411   ],
+       [-0.95642   , -1.00209999, -0.37779   , ...,  0.17704   ,
+         0.41834   ,  0.97698998],
+       ..., 
+       [-0.18604501, -0.211307  , -0.27707499, ..., -0.167962  ,
+        -0.136977  ,  0.292707  ],
+       [-1.58360004,  0.47435001, -0.15471999, ...,  1.5266    ,
+         0.83880001, -0.37613001],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40}
+[../data/WikiQA/relation_test.txt]
+	Instance size: 2341
+List Instance Count: 237
+[ListGenerator] init done
+{u'relation_file': u'../data/WikiQA/relation_valid.txt', u'vocab_size': 18678, u'use_dpool': False, u'embed_size': 50, u'target_mode': u'ranking', u'input_type': u'ListGenerator', u'batch_list': 10, u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'embed_path': u'../data/WikiQA/embed_glove_d50', u'text1_maxlen': 10, u'phase': u'EVAL', 'embed': array([[ 0.53201002,  0.010601  ,  0.14717001, ...,  1.32260001,
+         0.1169    ,  0.062825  ],
+       [-1.03859997,  0.52319998, -0.73141003, ...,  0.18791001,
+        -0.024801  ,  0.42411   ],
+       [-0.95642   , -1.00209999, -0.37779   , ...,  0.17704   ,
+         0.41834   ,  0.97698998],
+       ..., 
+       [-0.18604501, -0.211307  , -0.27707499, ..., -0.167962  ,
+        -0.136977  ,  0.292707  ],
+       [-1.58360004,  0.47435001, -0.15471999, ...,  1.5266    ,
+         0.83880001, -0.37613001],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40}
+[../data/WikiQA/relation_valid.txt]
+	Instance size: 1126
+List Instance Count: 122
+[ListGenerator] init done
+Traceback (most recent call last):
+  File "main.py", line 357, in <module>
+    main(sys.argv)
+  File "main.py", line 349, in main
+    train(config)
+  File "main.py", line 132, in train
+    model = load_model(config)
+  File "main.py", line 48, in load_model
+    model = import_object(config['model']['model_py'], model_config)
+  File "/home/irlab0/Research/MatchZoo/matchzoo/utils/utility.py", line 34, in import_object
+    return import_class(import_str)(*args, **kwargs)
+  File "/home/irlab0/Research/MatchZoo/matchzoo/utils/utility.py", line 26, in import_class
+    __import__(mod_str)
+  File "./models/innerattention.py", line 22, in <module>
+    from innergru import BIGRU_ATT
+  File "./models/innergru.py", line 35, in <module>
+    from matchzoo.utils.utility import ortho_weight, uniform_weight
+  File "build/bdist.linux-x86_64/egg/matchzoo/__init__.py", line 7, in <module>
+    from .models import *
+ImportError: No module named models

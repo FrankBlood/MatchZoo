@@ -1,0 +1,204 @@
+Using TensorFlow backend.
+2017-12-21 15:19:38.886280: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-21 15:19:38.886318: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-21 15:19:38.886328: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-21 15:19:39.052584: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:893] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2017-12-21 15:19:39.053144: I tensorflow/core/common_runtime/gpu/gpu_device.cc:940] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB
+major: 6 minor: 1 memoryClockRate (GHz) 1.7715
+pciBusID 0000:01:00.0
+Total memory: 5.93GiB
+Free memory: 5.58GiB
+2017-12-21 15:19:39.053193: I tensorflow/core/common_runtime/gpu/gpu_device.cc:961] DMA: 0 
+2017-12-21 15:19:39.053205: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   Y 
+2017-12-21 15:19:39.053242: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0)
+{
+  "inputs": {
+    "test": {
+      "phase": "EVAL", 
+      "input_type": "ListGenerator", 
+      "relation_file": "../data/WikiQA/relation_test.txt", 
+      "batch_list": 10
+    }, 
+    "predict": {
+      "phase": "PREDICT", 
+      "input_type": "ListGenerator", 
+      "relation_file": "../data/WikiQA/relation_test.txt", 
+      "batch_list": 10
+    }, 
+    "train": {
+      "relation_file": "../data/WikiQA/relation_train.txt", 
+      "input_type": "PairGenerator", 
+      "batch_size": 100, 
+      "batch_per_iter": 5, 
+      "phase": "TRAIN", 
+      "query_per_iter": 50, 
+      "use_iter": false
+    }, 
+    "share": {
+      "vocab_size": 18678, 
+      "use_dpool": false, 
+      "embed_size": 100, 
+      "target_mode": "ranking", 
+      "text1_corpus": "../data/WikiQA/corpus_preprocessed.txt", 
+      "text2_corpus": "../data/WikiQA/corpus_preprocessed.txt", 
+      "embed_path": "../data/WikiQA/embed_glove_d100", 
+      "text1_maxlen": 10, 
+      "train_embed": false, 
+      "text2_maxlen": 40
+    }, 
+    "valid": {
+      "phase": "EVAL", 
+      "input_type": "ListGenerator", 
+      "relation_file": "../data/WikiQA/relation_valid.txt", 
+      "batch_list": 10
+    }
+  }, 
+  "global": {
+    "optimizer": "adadelta", 
+    "num_iters": 1000, 
+    "save_weights_iters": 10, 
+    "learning_rate": 0.0001, 
+    "test_weights_iters": 1000, 
+    "weights_file": "./models/weights/innerattention.wikiqa.weights", 
+    "model_type": "PY", 
+    "display_interval": 10
+  }, 
+  "outputs": {
+    "predict": {
+      "save_format": "TREC", 
+      "save_path": "predict.test.wikiqa.txt"
+    }
+  }, 
+  "losses": [
+    {
+      "object_name": "rank_hinge_loss", 
+      "object_params": {
+        "margin": 1.0
+      }
+    }
+  ], 
+  "metrics": [
+    "precision@1", 
+    "ndcg@3", 
+    "ndcg@5", 
+    "map"
+  ], 
+  "net_name": "InnerAttention", 
+  "model": {
+    "model_py": "innerattention.InnerAttention", 
+    "setting": {
+      "dropout_rate": 0.5, 
+      "hidden_size": 50, 
+      "topk": 100
+    }, 
+    "model_path": "./models/"
+  }
+}
+[../data/WikiQA/embed_glove_d100]
+	Embedding size: 18677
+Generate numpy embed: %s (18678, 100)
+[Embedding] Embedding Load Done.
+[Input] Process Input Tags. [u'train'] in TRAIN, [u'test', u'valid'] in EVAL.
+[../data/WikiQA/corpus_preprocessed.txt]
+	Data size: 24106
+[Dataset] 1 Dataset Load Done.
+{u'relation_file': u'../data/WikiQA/relation_train.txt', u'vocab_size': 18678, u'query_per_iter': 50, u'use_dpool': False, u'embed_size': 100, u'target_mode': u'ranking', u'input_type': u'PairGenerator', u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'batch_size': 100, u'batch_per_iter': 5, u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'embed_path': u'../data/WikiQA/embed_glove_d100', u'text1_maxlen': 10, u'phase': u'TRAIN', 'embed': array([[-0.32947001, -0.050287  ,  0.53785998, ..., -0.22714999,
+         0.98035002,  0.21032   ],
+       [-0.11922   , -0.22701   ,  0.72856998, ...,  1.17550004,
+         0.59136999, -0.15081   ],
+       [-0.85211998, -0.094507  ,  0.68305999, ..., -0.1126    ,
+        -0.51581001,  0.29019001],
+       ..., 
+       [ 0.104181  , -0.151362  , -0.24441899, ...,  0.179061  ,
+         0.20631801,  0.183185  ],
+       [-0.53095001,  0.20823   ,  0.73723   , ...,  0.16531   ,
+         0.77192003,  0.74188   ],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40, u'use_iter': False}
+[../data/WikiQA/relation_train.txt]
+	Instance size: 20360
+Pair Instance Count: 8995
+[PairGenerator] init done
+{u'relation_file': u'../data/WikiQA/relation_test.txt', u'vocab_size': 18678, u'use_dpool': False, u'embed_size': 100, u'target_mode': u'ranking', u'input_type': u'ListGenerator', u'batch_list': 10, u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'embed_path': u'../data/WikiQA/embed_glove_d100', u'text1_maxlen': 10, u'phase': u'EVAL', 'embed': array([[-0.32947001, -0.050287  ,  0.53785998, ..., -0.22714999,
+         02017-12-21 15:19:40.082196: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0)
+.98035002,  0.21032   ],
+       [-0.11922   , -0.22701   ,  0.72856998, ...,  1.17550004,
+         0.59136999, -0.15081   ],
+       [-0.85211998, -0.094507  ,  0.68305999, ..., -0.1126    ,
+        -0.51581001,  0.29019001],
+       ..., 
+       [ 0.104181  , -0.151362  , -0.24441899, ...,  0.179061  ,
+         0.20631801,  0.183185  ],
+       [-0.53095001,  0.20823   ,  0.73723   , ...,  0.16531   ,
+         0.77192003,  0.74188   ],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40}
+[../data/WikiQA/relation_test.txt]
+	Instance size: 2341
+List Instance Count: 237
+[ListGenerator] init done
+{u'relation_file': u'../data/WikiQA/relation_valid.txt', u'vocab_size': 18678, u'use_dpool': False, u'embed_size': 100, u'target_mode': u'ranking', u'input_type': u'ListGenerator', u'batch_list': 10, u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'embed_path': u'../data/WikiQA/embed_glove_d100', u'text1_maxlen': 10, u'phase': u'EVAL', 'embed': array([[-0.32947001, -0.050287  ,  0.53785998, ..., -0.22714999,
+         0.98035002,  0.21032   ],
+       [-0.11922   , -0.22701   ,  0.72856998, ...,  1.17550004,
+         0.59136999, -0.15081   ],
+       [-0.85211998, -0.094507  ,  0.68305999, ..., -0.1126    ,
+        -0.51581001,  0.29019001],
+       ..., 
+       [ 0.104181  , -0.151362  , -0.24441899, ...,  0.179061  ,
+         0.20631801,  0.183185  ],
+       [-0.53095001,  0.20823   ,  0.73723   , ...,  0.16531   ,
+         0.77192003,  0.74188   ],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40}
+[../data/WikiQA/relation_valid.txt]
+	Instance size: 1126
+List Instance Count: 122
+[ListGenerator] init done
+[InnerAttention] init done
+[layer]: Input	[shape]: [None, 10] 
+[33m [Memory] Total Memory Use: 333.1914 MB 	 Resident: 341188 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Input	[shape]: [None, 40] 
+[33m [Memory] Total Memory Use: 333.1914 MB 	 Resident: 341188 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Embedding	[shape]: [None, 10, 100] 
+[33m [Memory] Total Memory Use: 533.8750 MB 	 Resident: 546688 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Embedding	[shape]: [None, 40, 100] 
+[33m [Memory] Total Memory Use: 533.8750 MB 	 Resident: 546688 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+Tensor("lambda_1/FW/FW/Add:0", shape=(100, 100), dtype=float32)
+(100, 100)
+Traceback (most recent call last):
+  File "main.py", line 357, in <module>
+    main(sys.argv)
+  File "main.py", line 349, in main
+    train(config)
+  File "main.py", line 132, in train
+    model = load_model(config)
+  File "main.py", line 49, in load_model
+    mo = model.build()
+  File "./models/innerattention.py", line 215, in build
+    ori_q_feat = Lambda(lambda x: run_bigru_att(x))(q_embed)
+  File "/usr/local/lib/python2.7/dist-packages/keras/engine/topology.py", line 603, in __call__
+    output = self.call(inputs, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/keras/layers/core.py", line 651, in call
+    return self.function(inputs, **arguments)
+  File "./models/innerattention.py", line 215, in <lambda>
+    ori_q_feat = Lambda(lambda x: run_bigru_att(x))(q_embed)
+  File "./models/innerattention.py", line 211, in run_bigru_att
+    ori_q = BIGRU_ATT(x, self.config['hidden_size'], 100, summary_state=summary_state)
+  File "./models/innerattention.py", line 161, in BIGRU_ATT
+    h_encoder = GRU_ATT(input_x, rnn_size, batch_size, fw_scope, summary_state, is_att)
+  File "./models/innerattention.py", line 143, in GRU_ATT
+    r = tf.nn.sigmoid(slice(preact, 0, rnn_size))
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/math_ops.py", line 2024, in sigmoid
+    x = ops.convert_to_tensor(x, name="x")
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/framework/ops.py", line 676, in convert_to_tensor
+    as_ref=False)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/framework/ops.py", line 741, in internal_convert_to_tensor
+    ret = conversion_func(value, dtype=dtype, name=name, as_ref=as_ref)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/framework/constant_op.py", line 113, in _constant_tensor_conversion_function
+    return constant(v, dtype=dtype, name=name)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/framework/constant_op.py", line 102, in constant
+    tensor_util.make_tensor_proto(value, dtype=dtype, shape=shape, verify_shape=verify_shape))
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/framework/tensor_util.py", line 364, in make_tensor_proto
+    raise ValueError("None values not supported.")
+ValueError: None values not supported.

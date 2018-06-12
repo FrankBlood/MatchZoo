@@ -1,0 +1,20 @@
+Using TensorFlow backend.
+2018-03-27 00:01:05.175519: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2018-03-27 00:01:05.175550: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-03-27 00:01:05.175559: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2018-03-27 00:01:05.767217: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:893] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2018-03-27 00:01:05.818431: I tensorflow/core/common_runtime/gpu/gpu_device.cc:940] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB
+major: 6 minor: 1 memoryClockRate (GHz) 1.7715
+pciBusID 0000:01:00.0
+Total memory: 5.93GiB
+Free memory: 5.58GiB
+2018-03-27 00:01:05.818483: I tensorflow/core/common_runtime/gpu/gpu_device.cc:961] DMA: 0 
+2018-03-27 00:01:05.818494: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   Y 
+2018-03-27 00:01:05.818512: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0)
+Traceback (most recent call last):
+  File "main.py", line 360, in <module>
+    main(sys.argv)
+  File "main.py", line 348, in main
+    with open(model_file, 'r') as f:
+IOError: [Errno 2] No such file or directory: 'models/wikiqa_config/ecautiousattention4_wikiqa.config'

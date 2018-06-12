@@ -1,0 +1,571 @@
+Using TensorFlow backend.
+2017-12-14 13:53:06.880656: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-14 13:53:06.880688: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-14 13:53:06.880697: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-12-14 13:53:07.012711: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:893] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2017-12-14 13:53:07.013074: I tensorflow/core/common_runtime/gpu/gpu_device.cc:940] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB
+major: 6 minor: 1 memoryClockRate (GHz) 1.7715
+pciBusID 0000:01:00.0
+Total memory: 5.93GiB
+Free memory: 5.58GiB
+2017-12-14 13:53:07.013100: I tensorflow/core/common_runtime/gpu/gpu_device.cc:961] DMA: 0 
+2017-12-14 13:53:07.013110: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   Y 
+2017-12-14 13:53:07.013128: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0)
+{
+  "inputs": {
+    "test": {
+      "phase": "EVAL", 
+      "input_type": "ListGenerator", 
+      "relation_file": "../data/WikiQA/relation_test.txt", 
+      "batch_list": 10
+    }, 
+    "predict": {
+      "phase": "PREDICT", 
+      "input_type": "ListGenerator", 
+      "relation_file": "../data/WikiQA/relation_test.txt", 
+      "batch_list": 10
+    }, 
+    "train": {
+      "relation_file": "../data/WikiQA/relation_train.txt", 
+      "input_type": "PairGenerator", 
+      "batch_size": 100, 
+      "batch_per_iter": 5, 
+      "phase": "TRAIN", 
+      "query_per_iter": 50, 
+      "use_iter": false
+    }, 
+    "share": {
+      "vocab_size": 18678, 
+      "use_dpool": false, 
+      "embed_size": 50, 
+      "target_mode": "ranking", 
+      "text1_corpus": "../data/WikiQA/corpus_preprocessed.txt", 
+      "text2_corpus": "../data/WikiQA/corpus_preprocessed.txt", 
+      "embed_path": "../data/WikiQA/embed_glove_d50", 
+      "text1_maxlen": 10, 
+      "train_embed": false, 
+      "text2_maxlen": 40
+    }, 
+    "valid": {
+      "phase": "EVAL", 
+      "input_type": "ListGenerator", 
+      "relation_file": "../data/WikiQA/relation_valid.txt", 
+      "batch_list": 10
+    }
+  }, 
+  "global": {
+    "optimizer": "adadelta", 
+    "num_iters": 100, 
+    "save_weights_iters": 200, 
+    "learning_rate": 0.0001, 
+    "test_weights_iters": 100, 
+    "weights_file": "./models/weights/bimpm.wikiqa.weights", 
+    "model_type": "PY", 
+    "display_interval": 10
+  }, 
+  "outputs": {
+    "predict": {
+      "save_format": "TREC", 
+      "save_path": "predict.test.wikiqa.txt"
+    }
+  }, 
+  "losses": [
+    {
+      "object_name": "rank_hinge_loss", 
+      "object_params": {
+        "margin": 1.0
+      }
+    }
+  ], 
+  "metrics": [
+    "ndcg@3", 
+    "ndcg@5", 
+    "map"
+  ], 
+  "net_name": "BiMPM", 
+  "model": {
+    "model_py": "bimpm.BiMPM", 
+    "setting": {
+      "dropout_rate": 0.5, 
+      "hidden_size": 100, 
+      "topk": 100
+    }, 
+    "model_path": "./models/"
+  }
+}
+[../data/WikiQA/embed_glove_d50]
+	Embedding size: 18677
+Generate numpy embed: %s (18678, 50)
+[Embedding] Embedding Load Done.
+[Input] Process Input Tags. [u'train'] in TRAIN, [u'test', u'valid'] in EVAL.
+[../data/WikiQA/corpus_preprocessed.txt]
+	Data size: 24106
+[Dataset] 1 Dataset Load Done.
+{u'relation_file': u'../data/WikiQA/relation_train.txt', u'vocab_size': 18678, u'query_per_iter': 50, u'use_dpool': False, u'embed_size': 50, u'target_mode': u'ranking', u'input_type': u'PairGenerator', u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'batch_size': 100, u'batch_per_iter': 5, u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'embed_path': u'../data/WikiQA/embed_glove_d50', u'text1_maxlen': 10, u'phase': u'TRAIN', 'embed': array([[ 0.53201002,  0.010601  ,  0.14717001, ...,  1.32260001,
+         0.1169    ,  0.062825  ],
+       [-1.03859997,  0.52319998, -0.73141003, ...,  0.18791001,
+        -0.024801  ,  0.42411   ],
+       [-0.95642   , -1.00209999, -0.37779   , ...,  0.17704   ,
+         0.41834   ,  0.97698998],
+       ..., 
+       [-0.18604501, -0.211307  , -0.27707499, ..., -0.167962  ,
+        -0.136977  ,  0.292707  ],
+       [-1.58360004,  0.47435001, -0.15471999, ...,  1.5266    ,
+         0.83880001, -0.37613001],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40, u'use_iter': False}
+[../data/WikiQA/relation_train.txt]
+	Instance size: 20360
+Pair Instance Count: 8995
+[PairGenerator] init done
+{u'relation_file': u'../data/WikiQA/relation_test.txt', u'vocab_size': 18678, u'use_dpool': False, u'embed_size': 50, u'target_mode': u'ranking', u'input_type': u'ListGenerator', u'batch_list': 10, u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'embed_path': u'../data/WikiQA/embed_glove_d50', u'text1_maxlen': 10, u'phase': u'EVAL', 'embed': array([[ 0.53201002,  0.010601  ,  0.14717001, ...,  1.32260001,
+         0.1169    ,  0.062825  ],
+       [-1.03859997,  0.52319998, -0.732017-12-14 13:53:07.631604: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0)
+141003, ...,  0.18791001,
+        -0.024801  ,  0.42411   ],
+       [-0.95642   , -1.00209999, -0.37779   , ...,  0.17704   ,
+         0.41834   ,  0.97698998],
+       ..., 
+       [-0.18604501, -0.211307  , -0.27707499, ..., -0.167962  ,
+        -0.136977  ,  0.292707  ],
+       [-1.58360004,  0.47435001, -0.15471999, ...,  1.5266    ,
+         0.83880001, -0.37613001],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40}
+[../data/WikiQA/relation_test.txt]
+	Instance size: 2341
+List Instance Count: 237
+[ListGenerator] init done
+{u'relation_file': u'../data/WikiQA/relation_valid.txt', u'vocab_size': 18678, u'use_dpool': False, u'embed_size': 50, u'target_mode': u'ranking', u'input_type': u'ListGenerator', u'batch_list': 10, u'text1_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'text2_corpus': u'../data/WikiQA/corpus_preprocessed.txt', u'embed_path': u'../data/WikiQA/embed_glove_d50', u'text1_maxlen': 10, u'phase': u'EVAL', 'embed': array([[ 0.53201002,  0.010601  ,  0.14717001, ...,  1.32260001,
+         0.1169    ,  0.062825  ],
+       [-1.03859997,  0.52319998, -0.73141003, ...,  0.18791001,
+        -0.024801  ,  0.42411   ],
+       [-0.95642   , -1.00209999, -0.37779   , ...,  0.17704   ,
+         0.41834   ,  0.97698998],
+       ..., 
+       [-0.18604501, -0.211307  , -0.27707499, ..., -0.167962  ,
+        -0.136977  ,  0.292707  ],
+       [-1.58360004,  0.47435001, -0.15471999, ...,  1.5266    ,
+         0.83880001, -0.37613001],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ]], dtype=float32), u'train_embed': False, u'text2_maxlen': 40}
+[../data/WikiQA/relation_valid.txt]
+	Instance size: 1126
+List Instance Count: 122
+[ListGenerator] init done
+[BiMPM] init done
+[layer]: Input	[shape]: [None, 10] 
+[33m [Memory] Total Memory Use: 301.8828 MB 	 Resident: 309128 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Input	[shape]: [None, 40] 
+[33m [Memory] Total Memory Use: 301.8828 MB 	 Resident: 309128 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Embedding	[shape]: [None, 10, 50] 
+[33m [Memory] Total Memory Use: 494.3945 MB 	 Resident: 506260 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Embedding	[shape]: [None, 40, 50] 
+[33m [Memory] Total Memory Use: 494.3945 MB 	 Resident: 506260 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Context of query	[shape]: [None, None, 200] 
+[33m [Memory] Total Memory Use: 512.8828 MB 	 Resident: 525192 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Context of doc	[shape]: [None, None, 200] 
+[33m [Memory] Total Memory Use: 520.0234 MB 	 Resident: 532504 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Matching of query	[shape]: [None, None, 20] 
+[33m [Memory] Total Memory Use: 520.8516 MB 	 Resident: 533352 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Matching of doc	[shape]: [None, None, 20] 
+[33m [Memory] Total Memory Use: 521.9102 MB 	 Resident: 534436 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Aggregation of query	[shape]: [None, 40] 
+[33m [Memory] Total Memory Use: 529.6055 MB 	 Resident: 542316 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Aggregation of doc	[shape]: [None, 40] 
+[33m [Memory] Total Memory Use: 536.4766 MB 	 Resident: 549352 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Merged 1	[shape]: [None, 40] 
+[33m [Memory] Total Memory Use: 537.5078 MB 	 Resident: 550408 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Merged 2	[shape]: [None, 20] 
+[33m [Memory] Total Memory Use: 538.5508 MB 	 Resident: 551476 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+[layer]: Dense	[shape]: [None, 1] 
+[33m [Memory] Total Memory Use: 538.8086 MB 	 Resident: 551740 Shared: 0 UnshareData: 0 UnshareStack: 0 [0m
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+=======================2017-12-14 13:53:16.174516: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 11205 get requests, put_count=5100 evicted_count=1000 eviction_rate=0.196078 and unsatisfied allocation rate=0.643017
+2017-12-14 13:53:16.174562: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 100 to 110
+2017-12-14 13:53:16.505542: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1178 get requests, put_count=3191 evicted_count=2000 eviction_rate=0.626763 and unsatisfied allocation rate=0.000848896
+2017-12-14 13:53:16.951212: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 13528 get requests, put_count=12679 evicted_count=6000 eviction_rate=0.473223 and unsatisfied allocation rate=0.50754
+2017-12-14 13:53:16.951266: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 193 to 212
+2017-12-14 13:53:17.278411: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 984 get requests, put_count=3008 evicted_count=2000 eviction_rate=0.664894 and unsatisfied allocation rate=0.00101626
+2017-12-14 13:53:17.614018: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 3498 get requests, put_count=9524 evicted_count=6000 eviction_rate=0.629987 and unsatisfied allocation rate=0.000571755
+2017-12-14 13:53:18.079170: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1014 get requests, put_count=3047 evicted_count=2000 eviction_rate=0.656383 and unsatisfied allocation rate=0
+2017-12-14 13:53:18.419558: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 3604 get requests, put_count=9640 evicted_count=6000 eviction_rate=0.622407 and unsatisfied allocation rate=0.000277469
+2017-12-14 13:53:19.041953: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 986 get requests, put_count=3030 evicted_count=2000 eviction_rate=0.660066 and unsatisfied allocation rate=0
+2017-12-14 13:53:19.377164: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 3358 get requests, put_count=9406 evicted_count=6000 eviction_rate=0.637891 and unsatisfied allocation rate=0.000297796
+2017-12-14 13:53:19.854853: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1795 get requests, put_count=4853 evicted_count=3000 eviction_rate=0.618174 and unsatisfied allocation rate=0.000557103
+2017-12-14 13:53:20.329012: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 14256 get requests, put_count=13979 evicted_count=6000 eviction_rate=0.429215 and unsatisfied allocation rate=0.444865
+2017-12-14 13:53:20.329058: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 720 to 792
+2017-12-14 13:53:20.681130: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 2480 get requests, put_count=6558 evicted_count=4000 eviction_rate=0.609942 and unsatisfied allocation rate=0.000403226
+2017-12-14 13:53:21.161703: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1100 get requests, put_count=3195 evicted_count=2000 eviction_rate=0.625978 and unsatisfied allocation rate=0
+2017-12-14 13:53:21.682995: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 14575 get requests, put_count=14774 evicted_count=6000 eviction_rate=0.406119 and unsatisfied allocation rate=0.405214
+2017-12-14 13:53:21.683046: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 1158 to 1273
+2017-12-14 13:53:22.046468: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 2440 get requests, put_count=6566 evicted_count=4000 eviction_rate=0.609199 and unsatisfied allocation rate=0.000409836
+2017-12-14 13:53:22.565598: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1928 get requests, put_count=5081 evicted_count=3000 eviction_rate=0.590435 and unsatisfied allocation rate=0.000518672
+2017-12-14 13:53:23.091708: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1438 get requests, put_count=3623 evicted_count=2000 eviction_rate=0.552029 and unsatisfied allocation rate=0.00069541
+2017-12-14 13:53:23.643828: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1518 get requests, put_count=3743 evicted_count=2000 eviction_rate=0.534331 and unsatisfied allocation rate=0
+2017-12-14 13:53:24.211386: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1948 get requests, put_count=5220 evicted_count=3000 eviction_rate=0.574713 and unsatisfied allocation rate=0
+2017-12-14 13:53:25.032600: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1350 get requests, put_count=3712 evicted_count=2000 eviction_rate=0.538793 and unsatisfied allocation rate=0
+2017-12-14 13:53:26.900457: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 28926 get requests, put_count=29214 evicted_count=1000 eviction_rate=0.0342302 and unsatisfied allocation rate=0.0447694
+2017-12-14 13:53:26.900500: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 6418 to 7059
+===========================================================================
+query (InputLayer)              (None, 10)           0                                            
+__________________________________________________________________________________________________
+doc (InputLayer)                (None, 40)           0                                            
+__________________________________________________________________________________________________
+embedding_1 (Embedding)         multiple             933900      query[0][0]                      
+                                                                 doc[0][0]                        
+__________________________________________________________________________________________________
+bidirectional_1 (Bidirectional) multiple             90600       embedding_1[0][0]                
+                                                                 embedding_1[1][0]                
+__________________________________________________________________________________________________
+lambda_1 (Lambda)               (None, 10, 20)       0           bidirectional_1[0][0]            
+                                                                 bidirectional_1[1][0]            
+__________________________________________________________________________________________________
+lambda_2 (Lambda)               (None, 40, 20)       0           bidirectional_1[0][0]            
+                                                                 bidirectional_1[1][0]            
+__________________________________________________________________________________________________
+bidirectional_2 (Bidirectional) (None, 40)           4920        lambda_1[0][0]                   
+                                                                 lambda_2[0][0]                   
+__________________________________________________________________________________________________
+concatenate_5 (Concatenate)     (None, 80)           0           bidirectional_2[0][0]            
+                                                                 bidirectional_2[1][0]            
+__________________________________________________________________________________________________
+dense_1 (Dense)                 (None, 40)           3240        concatenate_5[0][0]              
+__________________________________________________________________________________________________
+dropout_1 (Dropout)             (None, 40)           0           dense_1[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_1 (BatchNor (None, 40)           160         dropout_1[0][0]                  
+__________________________________________________________________________________________________
+dense_2 (Dense)                 (None, 20)           820         batch_normalization_1[0][0]      
+__________________________________________________________________________________________________
+dropout_2 (Dropout)             (None, 20)           0           dense_2[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_2 (BatchNor (None, 20)           80          dropout_2[0][0]                  
+__________________________________________________________________________________________________
+dense_3 (Dense)                 (None, 1)            21          batch_normalization_2[0][0]      
+==================================================================================================
+Total params: 1,033,741
+Trainable params: 99,721
+Non-trainable params: 934,020
+__________________________________________________________________________________________________
+[Model] Model Compile Done.
+[12-14-2017 13:53:09]	[Train:train] Iter:0	loss=1.364529
+[12-14-2017 13:53:43]	[Eval:test] Iter:0	ndcg@3=0.361620	map=0.411003	ndcg@5=0.462928
+[12-14-2017 13:53:45]	[Eval:valid] Iter:0	ndcg@3=0.507034	map=0.504100	ndcg@5=0.564762
+[12-14-2017 13:53:46]	[Train:train] Iter:1	loss=1.204693
+[12-14-2017 13:54:13]	[Eval:test] Iter:1	ndcg@3=0.431355	map=0.468363	ndcg@5=0.518965
+[12-14-2017 13:54:14]	[Eval:valid] Iter:1	ndcg@3=0.483106	map=0.498274	ndcg@5=0.547582
+[12-14-2017 13:54:15]	[Train:train] Iter:2	loss=1.160269
+[12-14-2017 13:54:42]	[Eval:test] Iter:2	ndcg@3=0.435863	map=0.469308	ndcg@5=0.522039
+[12-14-2017 13:54:44]	[Eval:valid] Iter:2	ndcg@3=0.477290	map=0.495277	ndcg@5=0.541060
+[12-14-2017 13:54:45]	[Train:train] Iter:3	loss=1.142922
+[12-14-2017 13:55:13]	[Eval:test] Iter:3	ndcg@3=0.416968	map=0.463316	ndcg@5=0.522329
+[12-14-2017 13:55:15]	[Eval:valid] Iter:3	ndcg@3=0.500594	map=0.519184	ndcg@5=0.566242
+[12-14-2017 13:55:16]	[Train:train] Iter:4	loss=1.149206
+[12-14-2017 13:55:43]	[Eval:test] Iter:4	ndcg@3=0.458129	map=0.473386	ndcg@5=0.529877
+[12-14-2017 13:55:45]	[Eval:valid] Iter:4	ndcg@3=0.510002	map=0.519258	ndcg@5=0.570811
+[12-14-2017 13:55:46]	[Train:train] Iter:5	loss=1.100550
+[12-14-2017 13:56:13]	[Eval:test] Iter:5	ndcg@3=0.487020	map=0.517205	ndcg@5=0.555372
+[12-14-2017 13:56:14]	[Eval:valid] Iter:5	ndcg@3=0.571000	map=0.598331	ndcg@5=0.651026
+2017-12-14 13:56:37.935068: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 9524015 get requests, put_count=9524315 evicted_count=10000 eviction_rate=0.00104994 and unsatisfied allocation rate=0.00108578
+[12-14-2017 13:56:15]	[Train:train] Iter:6	loss=1.088357
+[12-14-2017 13:56:42]	[Eval:test] Iter:6	ndcg@3=0.521419	map=0.552789	ndcg@5=0.595890
+[12-14-2017 13:56:44]	[Eval:valid] Iter:6	ndcg@3=0.610031	map=0.621329	ndcg@5=0.678101
+[12-14-2017 13:56:45]	[Train:train] Iter:7	loss=1.063321
+[12-14-2017 13:57:12]	[Eval:test] Iter:7	ndcg@3=0.545218	map=0.570571	ndcg@5=0.612645
+[12-14-2017 13:57:14]	[Eval:valid] Iter:7	ndcg@3=0.662351	map=0.669476	ndcg@5=0.724920
+[12-14-2017 13:57:15]	[Train:train] Iter:8	loss=1.013532
+[12-14-2017 13:57:42]	[Eval:test] Iter:8	ndcg@3=0.529683	map=0.559345	ndcg@5=0.609906
+[12-14-2017 13:57:43]	[Eval:valid] Iter:8	ndcg@3=0.631579	map=0.641969	ndcg@5=0.697758
+[12-14-2017 13:57:44]	[Train:train] Iter:9	loss=1.033536
+[12-14-2017 13:58:11]	[Eval:test] Iter:9	ndcg@3=0.562918	map=0.573983	ndcg@5=0.618091
+[12-14-2017 13:58:13]	[Eval:valid] Iter:9	ndcg@3=0.627509	map=0.637163	ndcg@5=0.694256
+[12-14-2017 13:58:14]	[Train:train] Iter:10	loss=0.921328
+[12-14-2017 13:58:41]	[Eval:test] Iter:10	ndcg@3=0.574330	map=0.584646	ndcg@5=0.630769
+[12-14-2017 13:58:42]	[Eval:valid] Iter:10	ndcg@3=0.624444	map=0.634931	ndcg@5=0.696199
+[12-14-2017 13:58:43]	[Train:train] Iter:11	loss=0.945919
+[12-14-2017 13:59:10]	[Eval:test] Iter:11	ndcg@3=0.570136	map=0.583737	ndcg@5=0.628099
+[12-14-2017 13:59:12]	[Eval:valid] Iter:11	ndcg@3=0.639844	map=0.640242	ndcg@5=0.694620
+2017-12-14 13:59:26.850347: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 17979845 get requests, put_count=17980135 evicted_count=20000 eviction_rate=0.00111234 and unsatisfied allocation rate=0.00113188
+[12-14-2017 13:59:13]	[Train:train] Iter:12	loss=0.909819
+[12-14-2017 13:59:40]	[Eval:test] Iter:12	ndcg@3=0.567915	map=0.582867	ndcg@5=0.626729
+[12-14-2017 13:59:42]	[Eval:valid] Iter:12	ndcg@3=0.640471	map=0.630938	ndcg@5=0.687187
+[12-14-2017 13:59:42]	[Train:train] Iter:13	loss=0.888424
+[12-14-2017 14:00:10]	[Eval:test] Iter:13	ndcg@3=0.560951	map=0.576534	ndcg@5=0.625259
+[12-14-2017 14:00:11]	[Eval:valid] Iter:13	ndcg@3=0.644541	map=0.631171	ndcg@5=0.687219
+[12-14-2017 14:00:12]	[Train:train] Iter:14	loss=0.836941
+[12-14-2017 14:00:39]	[Eval:test] Iter:14	ndcg@3=0.558842	map=0.575546	ndcg@5=0.624606
+[12-14-2017 14:00:41]	[Eval:valid] Iter:14	ndcg@3=0.656138	map=0.647039	ndcg@5=0.698419
+[12-14-2017 14:00:42]	[Train:train] Iter:15	loss=0.871688
+[12-14-2017 14:01:09]	[Eval:test] Iter:15	ndcg@3=0.569604	map=0.575865	ndcg@5=0.628638
+[12-14-2017 14:01:10]	[Eval:valid] Iter:15	ndcg@3=0.649326	map=0.637716	ndcg@5=0.685337
+[12-14-2017 14:01:11]	[Train:train] Iter:16	loss=0.831249
+[12-14-2017 14:01:38]	[Eval:test] Iter:16	ndcg@3=0.568092	map=0.580676	ndcg@5=0.629832
+[12-14-2017 14:01:40]	[Eval:valid] Iter:16	ndcg@3=0.655937	map=0.639389	ndcg@5=0.689436
+[12-14-2017 14:01:41]	[Train:train] Iter:17	loss=0.837927
+[12-14-2017 14:02:08]	[Eval:test] Iter:17	ndcg@3=0.565694	map=0.580080	ndcg@5=0.629018
+[12-14-2017 14:02:10]	[Eval:valid] Iter:17	ndcg@3=0.659377	map=0.644981	ndcg@5=0.692876
+2017-12-14 14:02:11.784734: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 26219139 get requests, put_count=26219437 evicted_count=30000 eviction_rate=0.00114419 and unsatisfied allocation rate=0.00115728
+[12-14-2017 14:02:10]	[Train:train] Iter:18	loss=0.802327
+[12-14-2017 14:02:38]	[Eval:test] Iter:18	ndcg@3=0.578048	map=0.585776	ndcg@5=0.630411
+[12-14-2017 14:02:39]	[Eval:valid] Iter:18	ndcg@3=0.645227	map=0.635919	ndcg@5=0.682354
+[12-14-2017 14:02:40]	[Train:train] Iter:19	loss=0.777977
+[12-14-2017 14:03:07]	[Eval:test] Iter:19	ndcg@3=0.572550	map=0.582646	ndcg@5=0.632236
+[12-14-2017 14:03:09]	[Eval:valid] Iter:19	ndcg@3=0.658596	map=0.649370	ndcg@5=0.693777
+[12-14-2017 14:03:10]	[Train:train] Iter:20	loss=0.822859
+[12-14-2017 14:03:37]	[Eval:test] Iter:20	ndcg@3=0.581506	map=0.586484	ndcg@5=0.626207
+[12-14-2017 14:03:38]	[Eval:valid] Iter:20	ndcg@3=0.656962	map=0.651585	ndcg@5=0.697039
+[12-14-2017 14:03:39]	[Train:train] Iter:21	loss=0.775202
+[12-14-2017 14:04:06]	[Eval:test] Iter:21	ndcg@3=0.572038	map=0.586745	ndcg@5=0.635260
+[12-14-2017 14:04:08]	[Eval:valid] Iter:21	ndcg@3=0.668232	map=0.657030	ndcg@5=0.698725
+[12-14-2017 14:04:09]	[Train:train] Iter:22	loss=0.688256
+[12-14-2017 14:04:36]	[Eval:test] Iter:22	ndcg@3=0.576581	map=0.589557	ndcg@5=0.642215
+[12-14-2017 14:04:38]	[Eval:valid] Iter:22	ndcg@3=0.671257	map=0.662211	ndcg@5=0.702828
+2017-12-14 14:04:52.301154: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 34314625 get requests, put_count=34314902 evicted_count=40000 eviction_rate=0.00116567 and unsatisfied allocation rate=0.00117629
+[12-14-2017 14:04:39]	[Train:train] Iter:23	loss=0.771683
+[12-14-2017 14:05:06]	[Eval:test] Iter:23	ndcg@3=0.587871	map=0.595227	ndcg@5=0.644938
+[12-14-2017 14:05:07]	[Eval:valid] Iter:23	ndcg@3=0.662016	map=0.656582	ndcg@5=0.697440
+[12-14-2017 14:05:08]	[Train:train] Iter:24	loss=0.718403
+[12-14-2017 14:05:35]	[Eval:test] Iter:24	ndcg@3=0.591309	map=0.601722	ndcg@5=0.648871
+[12-14-2017 14:05:37]	[Eval:valid] Iter:24	ndcg@3=0.666114	map=0.657161	ndcg@5=0.697870
+[12-14-2017 14:05:38]	[Train:train] Iter:25	loss=0.699196
+[12-14-2017 14:06:05]	[Eval:test] Iter:25	ndcg@3=0.597634	map=0.604700	ndcg@5=0.650588
+[12-14-2017 14:06:07]	[Eval:valid] Iter:25	ndcg@3=0.671003	map=0.664612	ndcg@5=0.702843
+[12-14-2017 14:06:07]	[Train:train] Iter:26	loss=0.709064
+[12-14-2017 14:06:35]	[Eval:test] Iter:26	ndcg@3=0.595722	map=0.611237	ndcg@5=0.658833
+[12-14-2017 14:06:36]	[Eval:valid] Iter:26	ndcg@3=0.672222	map=0.672695	ndcg@5=0.708599
+[12-14-2017 14:06:37]	[Train:train] Iter:27	loss=0.746588
+[12-14-2017 14:07:04]	[Eval:test] Iter:27	ndcg@3=0.598882	map=0.612155	ndcg@5=0.657886
+[12-14-2017 14:07:06]	[Eval:valid] Iter:27	ndcg@3=0.669563	map=0.675691	ndcg@5=0.715743
+2017-12-14 14:07:25.798967: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 42034812 get requests, put_count=42035094 evicted_count=50000 eviction_rate=0.00118948 and unsatisfied allocation rate=0.00119803
+[12-14-2017 14:07:07]	[Train:train] Iter:28	loss=0.731865
+[12-14-2017 14:07:34]	[Eval:test] Iter:28	ndcg@3=0.599962	map=0.612158	ndcg@5=0.657772
+[12-14-2017 14:07:35]	[Eval:valid] Iter:28	ndcg@3=0.670637	map=0.676004	ndcg@5=0.710983
+[12-14-2017 14:07:36]	[Train:train] Iter:29	loss=0.675053
+[12-14-2017 14:08:03]	[Eval:test] Iter:29	ndcg@3=0.601812	map=0.610467	ndcg@5=0.658025
+[12-14-2017 14:08:05]	[Eval:valid] Iter:29	ndcg@3=0.676117	map=0.678729	ndcg@5=0.713208
+[12-14-2017 14:08:06]	[Train:train] Iter:30	loss=0.682600
+[12-14-2017 14:08:33]	[Eval:test] Iter:30	ndcg@3=0.607250	map=0.616060	ndcg@5=0.662901
+[12-14-2017 14:08:34]	[Eval:valid] Iter:30	ndcg@3=0.670414	map=0.675278	ndcg@5=0.707984
+[12-14-2017 14:08:35]	[Train:train] Iter:31	loss=0.694042
+[12-14-2017 14:09:02]	[Eval:test] Iter:31	ndcg@3=0.606345	map=0.620277	ndcg@5=0.668634
+[12-14-2017 14:09:04]	[Eval:valid] Iter:31	ndcg@3=0.675362	map=0.678769	ndcg@5=0.710513
+[12-14-2017 14:09:05]	[Train:train] Iter:32	loss=0.676131
+[12-14-2017 14:09:32]	[Eval:test] Iter:32	ndcg@3=0.611151	map=0.619558	ndcg@5=0.668667
+[12-14-2017 14:09:34]	[Eval:valid] Iter:32	ndcg@3=0.674512	map=0.680467	ndcg@5=0.712082
+[12-14-2017 14:09:35]	[Train:train] Iter:33	loss=0.696549
+[12-14-2017 14:10:02]	[Eval:test] Iter:33	ndcg@3=0.605564	map=0.616928	ndcg@5=0.668775
+[12-14-2017 14:10:03]	[Eval:valid] Iter:33	ndcg@3=0.677778	map=0.683016	ndcg@5=0.713935
+2017-12-14 14:10:06.075915: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 50028723 get requests, put_count=50029027 evicted_count=60000 eviction_rate=0.0011993 and unsatisfied allocation rate=0.00120605
+[12-14-2017 14:10:04]	[Train:train] Iter:34	loss=0.623555
+[12-14-2017 14:10:31]	[Eval:test] Iter:34	ndcg@3=0.614584	map=0.620757	ndcg@5=0.670959
+[12-14-2017 14:10:33]	[Eval:valid] Iter:34	ndcg@3=0.688430	map=0.698076	ndcg@5=0.724862
+[12-14-2017 14:10:34]	[Train:train] Iter:35	loss=0.676618
+[12-14-2017 14:11:01]	[Eval:test] Iter:35	ndcg@3=0.612281	map=0.619609	ndcg@5=0.670713
+[12-14-2017 14:11:03]	[Eval:valid] Iter:35	ndcg@3=0.677806	map=0.686793	ndcg@5=0.719554
+[12-14-2017 14:11:03]	[Train:train] Iter:36	loss=0.685605
+[12-14-2017 14:11:30]	[Eval:test] Iter:36	ndcg@3=0.614843	map=0.621795	ndcg@5=0.672901
+[12-14-2017 14:11:32]	[Eval:valid] Iter:36	ndcg@3=0.667658	map=0.677627	ndcg@5=0.712936
+[12-14-2017 14:11:33]	[Train:train] Iter:37	loss=0.670480
+[12-14-2017 14:12:00]	[Eval:test] Iter:37	ndcg@3=0.610444	map=0.620849	ndcg@5=0.673180
+[12-14-2017 14:12:02]	[Eval:valid] Iter:37	ndcg@3=0.673679	map=0.687835	ndcg@5=0.714444
+[12-14-2017 14:12:03]	[Train:train] Iter:38	loss=0.634212
+[12-14-2017 14:12:30]	[Eval:test] Iter:38	ndcg@3=0.620033	map=0.626803	ndcg@5=0.679971
+[12-14-2017 14:12:31]	[Eval:valid] Iter:38	ndcg@3=0.681905	map=0.696990	ndcg@5=0.729486
+2017-12-14 14:12:47.868596: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 58196374 get requests, put_count=58196678 evicted_count=70000 eviction_rate=0.00120282 and unsatisfied allocation rate=0.00120861
+[12-14-2017 14:12:32]	[Train:train] Iter:39	loss=0.613855
+[12-14-2017 14:12:59]	[Eval:test] Iter:39	ndcg@3=0.618958	map=0.627261	ndcg@5=0.679237
+[12-14-2017 14:13:01]	[Eval:valid] Iter:39	ndcg@3=0.663193	map=0.679298	ndcg@5=0.713298
+[12-14-2017 14:13:02]	[Train:train] Iter:40	loss=0.609906
+[12-14-2017 14:13:29]	[Eval:test] Iter:40	ndcg@3=0.623700	map=0.635790	ndcg@5=0.684275
+[12-14-2017 14:13:31]	[Eval:valid] Iter:40	ndcg@3=0.682892	map=0.689404	ndcg@5=0.727830
+[12-14-2017 14:13:31]	[Train:train] Iter:41	loss=0.627452
+[12-14-2017 14:13:58]	[Eval:test] Iter:41	ndcg@3=0.625655	map=0.632138	ndcg@5=0.685752
+[12-14-2017 14:14:00]	[Eval:valid] Iter:41	ndcg@3=0.687076	map=0.700646	ndcg@5=0.737829
+[12-14-2017 14:14:01]	[Train:train] Iter:42	loss=0.624607
+[12-14-2017 14:14:28]	[Eval:test] Iter:42	ndcg@3=0.627735	map=0.635215	ndcg@5=0.686787
+[12-14-2017 14:14:30]	[Eval:valid] Iter:42	ndcg@3=0.684893	map=0.690748	ndcg@5=0.725861
+[12-14-2017 14:14:31]	[Train:train] Iter:43	loss=0.605302
+[12-14-2017 14:14:58]	[Eval:test] Iter:43	ndcg@3=0.626532	map=0.634625	ndcg@5=0.682987
+[12-14-2017 14:14:59]	[Eval:valid] Iter:43	ndcg@3=0.684111	map=0.689856	ndcg@5=0.724720
+2017-12-14 14:15:27.238301: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 66234117 get requests, put_count=66234406 evicted_count=80000 eviction_rate=0.00120783 and unsatisfied allocation rate=0.00121315
+[12-14-2017 14:15:00]	[Train:train] Iter:44	loss=0.631681
+[12-14-2017 14:15:27]	[Eval:test] Iter:44	ndcg@3=0.626795	map=0.637019	ndcg@5=0.682398
+[12-14-2017 14:15:29]	[Eval:valid] Iter:44	ndcg@3=0.680021	map=0.687855	ndcg@5=0.726409
+[12-14-2017 14:15:30]	[Train:train] Iter:45	loss=0.625479
+[12-14-2017 14:15:57]	[Eval:test] Iter:45	ndcg@3=0.628597	map=0.638097	ndcg@5=0.691756
+[12-14-2017 14:15:58]	[Eval:valid] Iter:45	ndcg@3=0.684709	map=0.689275	ndcg@5=0.724652
+[12-14-2017 14:15:59]	[Train:train] Iter:46	loss=0.565839
+[12-14-2017 14:16:26]	[Eval:test] Iter:46	ndcg@3=0.631243	map=0.635430	ndcg@5=0.683490
+[12-14-2017 14:16:28]	[Eval:valid] Iter:46	ndcg@3=0.679392	map=0.692078	ndcg@5=0.727194
+[12-14-2017 14:16:29]	[Train:train] Iter:47	loss=0.588817
+[12-14-2017 14:16:56]	[Eval:test] Iter:47	ndcg@3=0.629686	map=0.639474	ndcg@5=0.685778
+[12-14-2017 14:16:58]	[Eval:valid] Iter:47	ndcg@3=0.681037	map=0.691844	ndcg@5=0.726693
+[12-14-2017 14:16:59]	[Train:train] Iter:48	loss=0.610854
+[12-14-2017 14:17:26]	[Eval:test] Iter:48	ndcg@3=0.633413	map=0.638817	ndcg@5=0.687830
+[12-14-2017 14:17:27]	[Eval:valid] Iter:48	ndcg@3=0.683559	map=0.689765	ndcg@5=0.722239
+[12-14-2017 14:17:28]	[Train:train] Iter:49	loss=0.592995
+[12-14-2017 14:17:55]	[Eval:test] Iter:49	ndcg@3=0.630149	map=0.637001	ndcg@5=0.691414
+[12-14-2017 14:17:57]	[Eval:valid] Iter:49	ndcg@3=0.669312	map=0.685345	ndcg@5=0.718942
+2017-12-14 14:18:14.752708: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 74617773 get requests, put_count=74618071 evicted_count=90000 eviction_rate=0.00120614 and unsatisfied allocation rate=0.00121074
+[12-14-2017 14:17:58]	[Train:train] Iter:50	loss=0.574664
+[12-14-2017 14:18:25]	[Eval:test] Iter:50	ndcg@3=0.623696	map=0.634170	ndcg@5=0.689590
+[12-14-2017 14:18:26]	[Eval:valid] Iter:50	ndcg@3=0.666790	map=0.682590	ndcg@5=0.716695
+[12-14-2017 14:18:27]	[Train:train] Iter:51	loss=0.620398
+[12-14-2017 14:18:54]	[Eval:test] Iter:51	ndcg@3=0.634443	map=0.639419	ndcg@5=0.689753
+[12-14-2017 14:18:56]	[Eval:valid] Iter:51	ndcg@3=0.681037	map=0.692177	ndcg@5=0.727053
+[12-14-2017 14:18:57]	[Train:train] Iter:52	loss=0.576062
+[12-14-2017 14:19:24]	[Eval:test] Iter:52	ndcg@3=0.636314	map=0.641995	ndcg@5=0.693806
+[12-14-2017 14:19:26]	[Eval:valid] Iter:52	ndcg@3=0.683550	map=0.694619	ndcg@5=0.727968
+[12-14-2017 14:19:27]	[Train:train] Iter:53	loss=0.643232
+[12-14-2017 14:19:54]	[Eval:test] Iter:53	ndcg@3=0.638263	map=0.639236	ndcg@5=0.692702
+[12-14-2017 14:19:55]	[Eval:valid] Iter:53	ndcg@3=0.688015	map=0.698125	ndcg@5=0.731507
+[12-14-2017 14:19:56]	[Train:train] Iter:54	loss=0.557545
+[12-14-2017 14:20:24]	[Eval:test] Iter:54	ndcg@3=0.635398	map=0.642193	ndcg@5=0.693819
+[12-14-2017 14:20:26]	[Eval:valid] Iter:54	ndcg@3=0.681192	map=0.692196	ndcg@5=0.723762
+[12-14-2017 14:20:27]	[Train:train] Iter:55	loss=0.538063
+[12-14-2017 14:20:54]	[Eval:test] Iter:55	ndcg@3=0.631118	map=0.640438	ndcg@5=0.695054
+[12-14-2017 14:20:56]	[Eval:valid] Iter:55	ndcg@3=0.690016	map=0.703802	ndcg@5=0.736390
+2017-12-14 14:20:58.528408: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 82741593 get requests, put_count=82741875 evicted_count=100000 eviction_rate=0.00120858 and unsatisfied allocation rate=0.00121292
+[12-14-2017 14:20:56]	[Train:train] Iter:56	loss=0.605066
+[12-14-2017 14:21:23]	[Eval:test] Iter:56	ndcg@3=0.630113	map=0.636167	ndcg@5=0.687385
+[12-14-2017 14:21:25]	[Eval:valid] Iter:56	ndcg@3=0.679460	map=0.695501	ndcg@5=0.729450
+[12-14-2017 14:21:26]	[Train:train] Iter:57	loss=0.547554
+[12-14-2017 14:21:53]	[Eval:test] Iter:57	ndcg@3=0.632412	map=0.638107	ndcg@5=0.690202
+[12-14-2017 14:21:55]	[Eval:valid] Iter:57	ndcg@3=0.676338	map=0.685968	ndcg@5=0.722797
+[12-14-2017 14:21:56]	[Train:train] Iter:58	loss=0.498966
+[12-14-2017 14:22:23]	[Eval:test] Iter:58	ndcg@3=0.635025	map=0.638142	ndcg@5=0.693271
+[12-14-2017 14:22:24]	[Eval:valid] Iter:58	ndcg@3=0.674695	map=0.693388	ndcg@5=0.728130
+[12-14-2017 14:22:25]	[Train:train] Iter:59	loss=0.541613
+[12-14-2017 14:22:54]	[Eval:test] Iter:59	ndcg@3=0.635980	map=0.634481	ndcg@5=0.691228
+[12-14-2017 14:22:56]	[Eval:valid] Iter:59	ndcg@3=0.666218	map=0.683670	ndcg@5=0.720201
+[12-14-2017 14:22:57]	[Train:train] Iter:60	loss=0.552914
+[12-14-2017 14:23:26]	[Eval:test] Iter:60	ndcg@3=0.624720	map=0.629345	ndcg@5=0.687208
+[12-14-2017 14:23:28]	[Eval:valid] Iter:60	ndcg@3=0.671756	map=0.689236	ndcg@5=0.727105
+2017-12-14 14:23:42.064176: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 90663855 get requests, put_count=90664140 evicted_count=110000 eviction_rate=0.00121327 and unsatisfied allocation rate=0.0012172
+[12-14-2017 14:23:29]	[Train:train] Iter:61	loss=0.532120
+[12-14-2017 14:23:59]	[Eval:test] Iter:61	ndcg@3=0.621803	map=0.637503	ndcg@5=0.691482
+[12-14-2017 14:24:01]	[Eval:valid] Iter:61	ndcg@3=0.679509	map=0.688124	ndcg@5=0.727334
+[12-14-2017 14:24:02]	[Train:train] Iter:62	loss=0.509292
+[12-14-2017 14:24:29]	[Eval:test] Iter:62	ndcg@3=0.634585	map=0.638391	ndcg@5=0.690281
+[12-14-2017 14:24:31]	[Eval:valid] Iter:62	ndcg@3=0.672829	map=0.680034	ndcg@5=0.717229
+[12-14-2017 14:24:32]	[Train:train] Iter:63	loss=0.516048
+[12-14-2017 14:25:01]	[Eval:test] Iter:63	ndcg@3=0.636721	map=0.638846	ndcg@5=0.690459
+[12-14-2017 14:25:02]	[Eval:valid] Iter:63	ndcg@3=0.668287	map=0.677348	ndcg@5=0.719283
+[12-14-2017 14:25:03]	[Train:train] Iter:64	loss=0.494353
+[12-14-2017 14:25:32]	[Eval:test] Iter:64	ndcg@3=0.634791	map=0.636578	ndcg@5=0.689952
+[12-14-2017 14:25:34]	[Eval:valid] Iter:64	ndcg@3=0.679924	map=0.682269	ndcg@5=0.723280
+[12-14-2017 14:25:35]	[Train:train] Iter:65	loss=0.544455
+[12-14-2017 14:26:02]	[Eval:test] Iter:65	ndcg@3=0.636342	map=0.642249	ndcg@5=0.696439
+[12-14-2017 14:26:04]	[Eval:valid] Iter:65	ndcg@3=0.672434	map=0.674309	ndcg@5=0.717596
+2017-12-14 14:26:19.599568: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 98282974 get requests, put_count=98283261 evicted_count=120000 eviction_rate=0.00122096 and unsatisfied allocation rate=0.00122457
+[12-14-2017 14:26:05]	[Train:train] Iter:66	loss=0.525461
+[12-14-2017 14:26:34]	[Eval:test] Iter:66	ndcg@3=0.629272	map=0.637915	ndcg@5=0.691958
+[12-14-2017 14:26:35]	[Eval:valid] Iter:66	ndcg@3=0.664604	map=0.675311	ndcg@5=0.716953
+[12-14-2017 14:26:36]	[Train:train] Iter:67	loss=0.483572
+[12-14-2017 14:27:05]	[Eval:test] Iter:67	ndcg@3=0.634759	map=0.638475	ndcg@5=0.690156
+[12-14-2017 14:27:07]	[Eval:valid] Iter:67	ndcg@3=0.685974	map=0.690234	ndcg@5=0.727954
+[12-14-2017 14:27:08]	[Train:train] Iter:68	loss=0.493202
+[12-14-2017 14:27:35]	[Eval:test] Iter:68	ndcg@3=0.629406	map=0.633185	ndcg@5=0.687080
+[12-14-2017 14:27:36]	[Eval:valid] Iter:68	ndcg@3=0.666750	map=0.674730	ndcg@5=0.714355
+[12-14-2017 14:27:37]	[Train:train] Iter:69	loss=0.500903
+[12-14-2017 14:28:04]	[Eval:test] Iter:69	ndcg@3=0.627669	map=0.635690	ndcg@5=0.694116
+[12-14-2017 14:28:06]	[Eval:valid] Iter:69	ndcg@3=0.665766	map=0.674116	ndcg@5=0.716817
+[12-14-2017 14:28:07]	[Train:train] Iter:70	loss=0.554850
+[12-14-2017 14:28:35]	[Eval:test] Iter:70	ndcg@3=0.633461	map=0.638524	ndcg@5=0.696807
+[12-14-2017 14:28:36]	[Eval:valid] Iter:70	ndcg@3=0.675228	map=0.674284	ndcg@5=0.717297
+2017-12-14 14:28:56.754770: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 105974264 get requests, put_count=105974556 evicted_count=130000 eviction_rate=0.00122671 and unsatisfied allocation rate=0.00123001
+[12-14-2017 14:28:37]	[Train:train] Iter:71	loss=0.505031
+[12-14-2017 14:29:04]	[Eval:test] Iter:71	ndcg@3=0.631560	map=0.635970	ndcg@5=0.688742
+[12-14-2017 14:29:06]	[Eval:valid] Iter:71	ndcg@3=0.669206	map=0.672653	ndcg@5=0.716148
+[12-14-2017 14:29:07]	[Train:train] Iter:72	loss=0.467222
+[12-14-2017 14:29:35]	[Eval:test] Iter:72	ndcg@3=0.634297	map=0.637971	ndcg@5=0.690418
+[12-14-2017 14:29:36]	[Eval:valid] Iter:72	ndcg@3=0.675228	map=0.679107	ndcg@5=0.720827
+[12-14-2017 14:29:38]	[Train:train] Iter:73	loss=0.534688
+[12-14-2017 14:30:05]	[Eval:test] Iter:73	ndcg@3=0.631635	map=0.639834	ndcg@5=0.694813
+[12-14-2017 14:30:06]	[Eval:valid] Iter:73	ndcg@3=0.670347	map=0.672253	ndcg@5=0.715588
+[12-14-2017 14:30:07]	[Train:train] Iter:74	loss=0.460956
+[12-14-2017 14:30:36]	[Eval:test] Iter:74	ndcg@3=0.627516	map=0.631901	ndcg@5=0.690566
+[12-14-2017 14:30:37]	[Eval:valid] Iter:74	ndcg@3=0.669689	map=0.674348	ndcg@5=0.717813
+[12-14-2017 14:30:38]	[Train:train] Iter:75	loss=0.454439
+[12-14-2017 14:31:06]	[Eval:test] Iter:75	ndcg@3=0.626411	map=0.635743	ndcg@5=0.689809
+[12-14-2017 14:31:08]	[Eval:valid] Iter:75	ndcg@3=0.679326	map=0.680197	ndcg@5=0.718943
+2017-12-14 14:31:25.932620: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 113275814 get requests, put_count=113276112 evicted_count=140000 eviction_rate=0.00123592 and unsatisfied allocation rate=0.00123895
+[12-14-2017 14:31:08]	[Train:train] Iter:76	loss=0.513137
+[12-14-2017 14:31:36]	[Eval:test] Iter:76	ndcg@3=0.628052	map=0.634537	ndcg@5=0.696074
+[12-14-2017 14:31:38]	[Eval:valid] Iter:76	ndcg@3=0.674154	map=0.677587	ndcg@5=0.719615
+[12-14-2017 14:31:39]	[Train:train] Iter:77	loss=0.479868
+[12-14-2017 14:32:07]	[Eval:test] Iter:77	ndcg@3=0.630295	map=0.638140	ndcg@5=0.694446
+[12-14-2017 14:32:08]	[Eval:valid] Iter:77	ndcg@3=0.676764	map=0.681501	ndcg@5=0.718834
+[12-14-2017 14:32:09]	[Train:train] Iter:78	loss=0.503687
+[12-14-2017 14:32:37]	[Eval:test] Iter:78	ndcg@3=0.627857	map=0.639308	ndcg@5=0.695043
+[12-14-2017 14:32:38]	[Eval:valid] Iter:78	ndcg@3=0.687107	map=0.689860	ndcg@5=0.725647
+[12-14-2017 14:32:39]	[Train:train] Iter:79	loss=0.521534
+[12-14-2017 14:33:07]	[Eval:test] Iter:79	ndcg@3=0.623503	map=0.641224	ndcg@5=0.695015
+[12-14-2017 14:33:09]	[Eval:valid] Iter:79	ndcg@3=0.673593	map=0.683933	ndcg@5=0.721717
+[12-14-2017 14:33:10]	[Train:train] Iter:80	loss=0.450373
+[12-14-2017 14:33:37]	[Eval:test] Iter:80	ndcg@3=0.626528	map=0.638023	ndcg@5=0.693150
+[12-14-2017 14:33:39]	[Eval:valid] Iter:80	ndcg@3=0.674667	map=0.680739	ndcg@5=0.719619
+2017-12-14 14:33:59.494538: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 120779462 get requests, put_count=120779763 evicted_count=150000 eviction_rate=0.00124193 and unsatisfied allocation rate=0.00124475
+[12-14-2017 14:33:40]	[Train:train] Iter:81	loss=0.433928
+[12-14-2017 14:34:09]	[Eval:test] Iter:81	ndcg@3=0.624081	map=0.633909	ndcg@5=0.694343
+[12-14-2017 14:34:10]	[Eval:valid] Iter:81	ndcg@3=0.672240	map=0.679138	ndcg@5=0.721431
+[12-14-2017 14:34:11]	[Train:train] Iter:82	loss=0.463801
+[12-14-2017 14:34:39]	[Eval:test] Iter:82	ndcg@3=0.629250	map=0.637127	ndcg@5=0.693686
+[12-14-2017 14:34:40]	[Eval:valid] Iter:82	ndcg@3=0.674667	map=0.680884	ndcg@5=0.722431
+[12-14-2017 14:34:41]	[Train:train] Iter:83	loss=0.448855
+[12-14-2017 14:35:11]	[Eval:test] Iter:83	ndcg@3=0.624081	map=0.637432	ndcg@5=0.698740
+[12-14-2017 14:35:13]	[Eval:valid] Iter:83	ndcg@3=0.677875	map=0.693754	ndcg@5=0.735973
+[12-14-2017 14:35:13]	[Train:train] Iter:84	loss=0.469533
+[12-14-2017 14:35:41]	[Eval:test] Iter:84	ndcg@3=0.629966	map=0.639469	ndcg@5=0.697271
+[12-14-2017 14:35:43]	[Eval:valid] Iter:84	ndcg@3=0.682863	map=0.687191	ndcg@5=0.727097
+[12-14-2017 14:35:44]	[Train:train] Iter:85	loss=0.460566
+[12-14-2017 14:36:12]	[Eval:test] Iter:85	ndcg@3=0.630410	map=0.640874	ndcg@5=0.698909
+[12-14-2017 14:36:14]	[Eval:valid] Iter:85	ndcg@3=0.682388	map=0.688014	ndcg@5=0.725097
+2017-12-14 14:36:26.108830: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 127806735 get requests, put_count=127807029 evicted_count=160000 eviction_rate=0.00125189 and unsatisfied allocation rate=0.00125461
+[12-14-2017 14:36:15]	[Train:train] Iter:86	loss=0.490248
+[12-14-2017 14:36:42]	[Eval:test] Iter:86	ndcg@3=0.630573	map=0.641210	ndcg@5=0.693345
+[12-14-2017 14:36:44]	[Eval:valid] Iter:86	ndcg@3=0.673971	map=0.678433	ndcg@5=0.722057
+[12-14-2017 14:36:45]	[Train:train] Iter:87	loss=0.454979
+[12-14-2017 14:37:14]	[Eval:test] Iter:87	ndcg@3=0.627530	map=0.634707	ndcg@5=0.694248
+[12-14-2017 14:37:16]	[Eval:valid] Iter:87	ndcg@3=0.680496	map=0.680857	ndcg@5=0.726577
+[12-14-2017 14:37:17]	[Train:train] Iter:88	loss=0.445642
+[12-14-2017 14:37:45]	[Eval:test] Iter:88	ndcg@3=0.632166	map=0.636546	ndcg@5=0.693009
+[12-14-2017 14:37:47]	[Eval:valid] Iter:88	ndcg@3=0.673971	map=0.678193	ndcg@5=0.721698
+[12-14-2017 14:37:48]	[Train:train] Iter:89	loss=0.440604
+[12-14-2017 14:38:17]	[Eval:test] Iter:89	ndcg@3=0.632330	map=0.641366	ndcg@5=0.694171
+[12-14-2017 14:38:18]	[Eval:valid] Iter:89	ndcg@3=0.685696	map=0.693790	ndcg@5=0.733339
+[12-14-2017 14:38:19]	[Train:train] Iter:90	loss=0.459379
+[12-14-2017 14:38:47]	[Eval:test] Iter:90	ndcg@3=0.634514	map=0.643888	ndcg@5=0.700783
+[12-14-2017 14:38:49]	[Eval:valid] Iter:90	ndcg@3=0.684148	map=0.694382	ndcg@5=0.735510
+2017-12-14 14:38:58.361945: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 135093835 get requests, put_count=135094128 evicted_count=170000 eviction_rate=0.00125838 and unsatisfied allocation rate=0.00126096
+[12-14-2017 14:38:49]	[Train:train] Iter:91	loss=0.465079
+[12-14-2017 14:39:17]	[Eval:test] Iter:91	ndcg@3=0.635301	map=0.643716	ndcg@5=0.696497
+[12-14-2017 14:39:19]	[Eval:valid] Iter:91	ndcg@3=0.679268	map=0.688257	ndcg@5=0.727847
+[12-14-2017 14:39:20]	[Train:train] Iter:92	loss=0.450894
+[12-14-2017 14:39:50]	[Eval:test] Iter:92	ndcg@3=0.628225	map=0.643381	ndcg@5=0.700615
+[12-14-2017 14:39:52]	[Eval:valid] Iter:92	ndcg@3=0.677025	map=0.689568	ndcg@5=0.729984
+[12-14-2017 14:39:53]	[Train:train] Iter:93	loss=0.472580
+[12-14-2017 14:40:21]	[Eval:test] Iter:93	ndcg@3=0.624857	map=0.638489	ndcg@5=0.694982
+[12-14-2017 14:40:22]	[Eval:valid] Iter:93	ndcg@3=0.674580	map=0.687991	ndcg@5=0.725770
+[12-14-2017 14:40:23]	[Train:train] Iter:94	loss=0.436063
+[12-14-2017 14:40:50]	[Eval:test] Iter:94	ndcg@3=0.636306	map=0.646576	ndcg@5=0.704957
+[12-14-2017 14:40:51]	[Eval:valid] Iter:94	ndcg@3=0.679935	map=0.690215	ndcg@5=0.730074
+[12-14-2017 14:40:52]	[Train:train] Iter:95	loss=0.426751
+[12-14-2017 14:41:20]	[Eval:test] Iter:95	ndcg@3=0.629116	map=0.635500	ndcg@5=0.694725
+[12-14-2017 14:41:21]	[Eval:valid] Iter:95	ndcg@3=0.675645	map=0.687318	ndcg@5=0.731016
+2017-12-14 14:41:29.062945: I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 142453100 get requests, put_count=142453381 evicted_count=180000 eviction_rate=0.00126357 and unsatisfied allocation rate=0.0012661
+[12-14-2017 14:41:22]	[Train:train] Iter:96	loss=0.491636
+[12-14-2017 14:41:50]	[Eval:test] Iter:96	ndcg@3=0.627886	map=0.640205	ndcg@5=0.703660
+[12-14-2017 14:41:52]	[Eval:valid] Iter:96	ndcg@3=0.683607	map=0.693767	ndcg@5=0.730416
+[12-14-2017 14:41:53]	[Train:train] Iter:97	loss=0.430490
+[12-14-2017 14:42:22]	[Eval:test] Iter:97	ndcg@3=0.624568	map=0.637431	ndcg@5=0.700151
+[12-14-2017 14:42:23]	[Eval:valid] Iter:97	ndcg@3=0.679520	map=0.688716	ndcg@5=0.729132
+[12-14-2017 14:42:24]	[Train:train] Iter:98	loss=0.420021
+[12-14-2017 14:42:53]	[Eval:test] Iter:98	ndcg@3=0.629246	map=0.639425	ndcg@5=0.695478
+[12-14-2017 14:42:54]	[Eval:valid] Iter:98	ndcg@3=0.671739	map=0.677917	ndcg@5=0.717820
+[12-14-2017 14:42:55]	[Train:train] Iter:99	loss=0.429789
+[12-14-2017 14:43:23]	[Eval:test] Iter:99	ndcg@3=0.626778	map=0.637024	ndcg@5=0.698672
+[12-14-2017 14:43:25]	[Eval:valid] Iter:99	ndcg@3=0.672840	map=0.681066	ndcg@5=0.720292
